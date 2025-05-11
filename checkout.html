@@ -290,18 +290,18 @@
           <div class="space-y-4">
             <label class="flex items-center justify-between p-4 border border-secondary-dark rounded-md cursor-pointer hover:border-primary transition-all">
               <div class="flex items-center">
-                <input type="radio" name="shipping" class="mr-3 text-primary focus:ring-primary" checked>
+                <input type="radio" name="shipping" value="standard" class="mr-3 text-primary focus:ring-primary" checked>
                 <div>
                   <p class="font-medium">Standard Shipping</p>
                   <p class="text-sm text-text-light">Delivery in 3-5 business days</p>
                 </div>
               </div>
-              <span class="font-medium">Free</span>
+              <span class="font-medium">$5.00</span>
             </label>
             
             <label class="flex items-center justify-between p-4 border border-secondary-dark rounded-md cursor-pointer hover:border-primary transition-all">
               <div class="flex items-center">
-                <input type="radio" name="shipping" class="mr-3 text-primary focus:ring-primary">
+                <input type="radio" name="shipping" value="express" class="mr-3 text-primary focus:ring-primary">
                 <div>
                   <p class="font-medium">Express Shipping</p>
                   <p class="text-sm text-text-light">Delivery in 1-2 business days</p>
@@ -374,69 +374,29 @@
           <h2 class="playfair text-xl font-semibold text-text-dark mb-6">Order Summary</h2>
           
           <!-- Order Items -->
-          <div class="space-y-4 mb-6">
-            <div class="flex items-center justify-between pb-4 border-b border-secondary-dark">
-              <div class="flex items-center">
-                <div class="w-16 h-16 flex-shrink-0 bg-secondary rounded-md overflow-hidden mr-4">
-                  <img src="images/product1.jpg" alt="Gold Pendant Necklace" class="w-full h-full object-cover">
-                </div>
-                <div>
-                  <h3 class="font-medium text-text-dark">Gold Pendant Necklace</h3>
-                  <p class="text-xs text-text-light">18K Gold</p>
-                  <p class="text-xs text-text-light">Qty: 1</p>
-                </div>
-              </div>
-              <span class="font-medium">$249.00</span>
-            </div>
-            
-            <div class="flex items-center justify-between pb-4 border-b border-secondary-dark">
-              <div class="flex items-center">
-                <div class="w-16 h-16 flex-shrink-0 bg-secondary rounded-md overflow-hidden mr-4">
-                  <img src="images/product2.jpg" alt="Diamond Stud Earrings" class="w-full h-full object-cover">
-                </div>
-                <div>
-                  <h3 class="font-medium text-text-dark">Diamond Stud Earrings</h3>
-                  <p class="text-xs text-text-light">White Gold, 0.5ct</p>
-                  <p class="text-xs text-text-light">Qty: 1</p>
-                </div>
-              </div>
-              <span class="font-medium">$399.00</span>
-            </div>
-            
-            <div class="flex items-center justify-between pb-4 border-b border-secondary-dark">
-              <div class="flex items-center">
-                <div class="w-16 h-16 flex-shrink-0 bg-secondary rounded-md overflow-hidden mr-4">
-                  <img src="images/product3.jpg" alt="Silver Bangle Bracelet" class="w-full h-full object-cover">
-                </div>
-                <div>
-                  <h3 class="font-medium text-text-dark">Silver Bangle Bracelet</h3>
-                  <p class="text-xs text-text-light">Sterling Silver</p>
-                  <p class="text-xs text-text-light">Qty: 1</p>
-                </div>
-              </div>
-              <span class="font-medium">$129.00</span>
-            </div>
+          <div id="order-items" class="space-y-4 mb-6">
+            <!-- Cart items will be dynamically loaded here -->
           </div>
           
           <!-- Summary Items -->
           <div class="space-y-4 mb-6">
             <div class="flex justify-between">
               <span class="text-text-light">Subtotal</span>
-              <span class="font-medium">$777.00</span>
+              <span id="order-subtotal" class="font-medium">$0.00</span>
             </div>
+            
             <div class="flex justify-between">
               <span class="text-text-light">Shipping</span>
-              <span class="font-medium">Free</span>
+              <span id="order-shipping" class="font-medium">$5.00</span>
             </div>
+            
             <div class="flex justify-between">
               <span class="text-text-light">Tax</span>
-              <span class="font-medium">$77.70</span>
+              <span id="order-tax" class="font-medium">$0.00</span>
             </div>
-          </div>
-          
-          <!-- Promo Code -->
-          <div class="mb-6">
-            <div class="relative">
+            
+            <!-- Promo Code -->
+            <div class="relative mt-4">
               <input type="text" placeholder="Promo code" class="w-full border border-secondary-dark rounded-md pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
               <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary-dark text-white text-xs font-medium px-3 py-1.5 rounded transition-all">
                 Apply
@@ -447,13 +407,13 @@
           <!-- Total -->
           <div class="flex justify-between items-center border-t border-secondary-dark pt-4 mb-6">
             <span class="text-text-dark font-medium">Total</span>
-            <span class="text-xl font-semibold text-primary">$854.70</span>
+            <span id="order-total" class="text-xl font-semibold text-primary">$0.00</span>
           </div>
           
           <!-- Place Order Button -->
-          <a href="confirmation.html" class="block w-full bg-primary hover:bg-primary-dark text-white text-center font-medium py-3 rounded-md transition-all">
+          <button type="submit" form="checkout-form" class="block w-full bg-primary hover:bg-primary-dark text-white text-center font-medium py-3 rounded-md transition-all">
             Place Order
-          </a>
+          </button>
           
           <!-- Payment Methods -->
           <div class="mt-6 text-center">
@@ -590,48 +550,6 @@
   </footer>
 
   <!-- JavaScript -->
-  <script type="module" src="./Javascript/auth-state.js"></script>
-  <script>
-    // Toggle billing address form
-    const billingSameCheckbox = document.getElementById('billing-same');
-    const billingAddressSection = document.getElementById('billing-address');
-    
-    if (billingSameCheckbox && billingAddressSection) {
-      billingSameCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          billingAddressSection.classList.add('hidden');
-        } else {
-          billingAddressSection.classList.remove('hidden');
-        }
-      });
-    }
-    
-    // Payment method toggle
-    const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
-    const creditCardForm = document.querySelector('.pl-7');
-    
-    paymentMethods.forEach(method => {
-      method.addEventListener('change', function() {
-        if (this.id === 'credit-card') {
-          creditCardForm.classList.remove('hidden');
-        } else {
-          creditCardForm.classList.add('hidden');
-        }
-      });
-    });
-    
-    // Form validation
-    const checkoutForm = document.getElementById('checkout-form');
-    
-    if (checkoutForm) {
-      checkoutForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Here you would typically validate the form and process the payment
-        // For this demo, we'll just redirect to the confirmation page
-        window.location.href = 'confirmation.html';
-      });
-    }
-  </script>
+  <script type="module" src="./Javascript/checkout-manager.js"></script>
 </body>
 </html>

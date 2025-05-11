@@ -270,40 +270,30 @@
             <li><a href="#" class="hover:text-[#a39a7e] transition-all">FAQs</a></li>
             <li><a href="#" class="hover:text-[#a39a7e] transition-all">Shipping & Returns</a></li>
             <li><a href="#" class="hover:text-[#a39a7e] transition-all">Care Instructions</a></li>
-            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Size Guide</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="playfair text-lg font-semibold mb-4">Stay Updated</h4>
-          <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter for exclusive offers and updates.</p>
-          <form class="flex">
-            <input type="email" placeholder="Your email" class="bg-[#2a2a2a] text-white text-sm px-4 py-2 rounded-l-md focus:outline-none w-full" />
-            <button type="submit" class="bg-[#a39a7e] px-4 py-2 rounded-r-md hover:bg-[#7a6f4e] transition-all">
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-      
-      <div class="border-t border-gray-800 mt-6 pt-6 text-center text-xs text-gray-500">
-        <p>&copy; 2025 ShilpoKotha. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Firebase SDK and Local Storage -->
-  <script type="module">
-    import { getCurrentUser } from './Javascript/firebase-config.js';
-    import { getWishlist, removeFromWishlist, addToCart } from './Javascript/local-storage.js';
-    import { checkAuthState } from './Javascript/auth-state.js';
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Size Guide</a>  <script type="module">
+    import { getWishlist as getWishlistItems, removeFromWishlist } from './Javascript/wishlist-handler.js';
+    import { getAllProducts } from './Javascript/products-data-additional.js';
     
-    // DOM Elements
+    // DOM elements
     const loadingState = document.getElementById('loading-state');
     const notLoggedIn = document.getElementById('not-logged-in');
     const emptyWishlist = document.getElementById('empty-wishlist');
     const wishlistItems = document.getElementById('wishlist-items');
     const wishlistGrid = document.getElementById('wishlist-grid');
     const wishlistCount = document.getElementById('wishlist-count');
+    
+    // Mock function to get current user (in a real app, this would check authentication)
+    function getCurrentUser() {
+      return Promise.resolve({ id: 'user123', name: 'John Doe' });
+    }
+    
+    // Mock function to add to cart (in a real app, this would add to cart in localStorage or backend)
+    function addToCart(product) {
+      console.log('Adding to cart:', product);
+      return {
+        success: true
+      };
+    }
     
     // Product template function
     function createProductCard(item) {
@@ -342,7 +332,7 @@
         emptyWishlist.classList.add('hidden');
         wishlistItems.classList.add('hidden');
         
-        // Check if user is logged in
+        // Check if user is logged in (in a real app, this would be a proper auth check)
         const user = await getCurrentUser();
         
         if (!user) {
@@ -352,31 +342,30 @@
           return;
         }
         
-        // Get wishlist items
-        const result = getWishlist();
+        // Get wishlist items from localStorage
+        const wishlistIds = getWishlistItems();
         
-        if (!result.success) {
-          console.error('Error getting wishlist:', result.error);
-          loadingState.classList.add('hidden');
-          emptyWishlist.classList.remove('hidden');
-          return;
+        // Update wishlist count in header
+        if (wishlistCount) {
+          wishlistCount.textContent = wishlistIds.length;
         }
         
-        const wishlist = result.data;
-        
-        // Update wishlist count
-        wishlistCount.textContent = wishlist.items.length;
-        
-        if (wishlist.items.length === 0) {
+        if (wishlistIds.length === 0) {
           // Wishlist is empty
           loadingState.classList.add('hidden');
           emptyWishlist.classList.remove('hidden');
           return;
         }
         
+        // Get all products
+        const allProducts = getAllProducts();
+        
+        // Filter products that are in the wishlist
+        const wishlistProducts = allProducts.filter(product => wishlistIds.includes(product.id));
+        
         // Render wishlist items
         wishlistGrid.innerHTML = '';
-        wishlist.items.forEach(item => {
+        wishlistProducts.forEach(item => {
           wishlistGrid.innerHTML += createProductCard(item);
         });
         
@@ -404,47 +393,52 @@
       const productId = e.currentTarget.dataset.productId;
       
       // Remove from wishlist
-      const result = removeFromWishlist(productId);
+      const removed = removeFromWishlist(productId);
       
-      if (result.success) {
+      if (removed) {
         // Update UI
         const productCard = document.querySelector(`[data-product-id="${productId}"]`);
         if (productCard) {
           productCard.remove();
         }
         
+        // Get updated wishlist
+        const wishlistIds = getWishlistItems();
+        
         // Update wishlist count
-        wishlistCount.textContent = result.data.items.length;
+        if (wishlistCount) {
+          wishlistCount.textContent = wishlistIds.length;
+        }
         
         // Show empty wishlist if no items left
-        if (result.data.items.length === 0) {
+        if (wishlistIds.length === 0) {
           wishlistItems.classList.add('hidden');
           emptyWishlist.classList.remove('hidden');
         }
+        
+        // Show toast notification
+        showToast('Product removed from wishlist', 'info');
       } else {
-        console.error('Error removing from wishlist:', result.error);
+        console.error('Error removing from wishlist');
       }
     }
     
     // Handle add to cart
     function handleAddToCart(e) {
       const productId = e.currentTarget.dataset.productId;
-      const wishlistResult = getWishlist();
       
-      if (!wishlistResult.success) {
-        console.error('Error getting wishlist:', wishlistResult.error);
-        return;
-      }
+      // Get all products
+      const allProducts = getAllProducts();
       
-      // Find product in wishlist
-      const product = wishlistResult.data.items.find(item => item.id === productId);
+      // Find product by ID
+      const product = allProducts.find(item => item.id === productId);
       
       if (!product) {
-        console.error('Product not found in wishlist');
+        console.error('Product not found');
         return;
       }
       
-      // Add to cart
+      // Add to cart (mock function for now)
       const result = addToCart(product);
       
       if (result.success) {
@@ -459,9 +453,51 @@
           button.innerHTML = originalText;
           button.disabled = false;
         }, 2000);
+        
+        // Show toast notification
+        showToast('Product added to cart!', 'success');
       } else {
-        console.error('Error adding to cart:', result.error);
+        console.error('Error adding to cart');
       }
+    }
+    
+    // Show toast notification
+    function showToast(message, type = 'info') {
+      // Create toast container if it doesn't exist
+      let toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.className = 'fixed bottom-4 right-4 z-50 flex flex-col space-y-2';
+        document.body.appendChild(toastContainer);
+      }
+      
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `px-4 py-2 rounded-md shadow-lg transform transition-all duration-300 flex items-center space-x-2 ${type === 'success' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}`;
+      
+      // Add icon based on type
+      const icon = type === 'success' ? 'check-circle' : 'info-circle';
+      toast.innerHTML = `
+        <i class="fas fa-${icon}"></i>
+        <span>${message}</span>
+      `;
+      
+      // Add to container
+      toastContainer.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => {
+        toast.classList.add('translate-y-0', 'opacity-100');
+      }, 10);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
     }
     
     // Initialize
@@ -473,9 +509,11 @@
       const mobileSearchButton = document.getElementById('mobile-search-button');
       const mobileSearch = document.getElementById('mobile-search');
       
-      mobileSearchButton.addEventListener('click', () => {
-        mobileSearch.classList.toggle('hidden');
-      });
+      if (mobileSearchButton && mobileSearch) {
+        mobileSearchButton.addEventListener('click', () => {
+          mobileSearch.classList.toggle('hidden');
+        });
+      }
     });
   </script>
 </body>
