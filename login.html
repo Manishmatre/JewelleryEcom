@@ -88,13 +88,13 @@
         
         <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-heart text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 wishlist-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
         </a>
         
         <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
           <i class="fas fa-shopping-bag text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 cart-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
         </a>
         
@@ -385,6 +385,7 @@
     import { loginUser, getCurrentUser, signInWithGoogle } from './Javascript/firebase-config.js';
     import { saveUserProfile } from './Javascript/local-storage.js';
     import { checkAuthState } from './Javascript/auth-state.js';
+    import { initHeaderCounts } from './Javascript/header-manager.js';
     
     // Form validation and Firebase authentication
     const loginForm = document.querySelector('form');
@@ -454,6 +455,9 @@
         }, 5000);
       }
     });
+    
+    // Initialize header counts
+    initHeaderCounts();
     
     // Check if user is already logged in
     document.addEventListener('DOMContentLoaded', async () => {

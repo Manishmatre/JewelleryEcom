@@ -114,13 +114,13 @@
         
         <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-heart text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 wishlist-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
         </a>
         
         <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
           <i class="fas fa-shopping-bag text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 cart-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
         </a>
         
@@ -847,6 +847,8 @@
 
   <!-- JavaScript for interactivity -->
   <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/header-manager.js"></script>
+  <script type="module" src="./Javascript/display-all-products.js"></script>
   <script>
     // Mobile Menu Functionality
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -1000,34 +1002,62 @@
     // Add to Cart functionality
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     
-    addToCartButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const productId = button.getAttribute('data-product-id');
-        const productName = button.getAttribute('data-product-name');
-        const productPrice = button.getAttribute('data-product-price');
+    // Import the required functions from local-storage.js
+    import('./Javascript/local-storage.js')
+      .then(module => {
+        const { addToCart } = module;
         
-        // Here you would typically add the product to the cart in localStorage or send to a server
-        console.log(`Added to cart: ${productName} (ID: ${productId}) - $${productPrice}`);
-        
-        // Update cart count
-        const cartCountBadge = document.querySelector('a[href="cart.html"] span');
-        if (cartCountBadge) {
-          const currentCount = parseInt(cartCountBadge.textContent);
-          cartCountBadge.textContent = currentCount + 1;
-        }
-        
-        // Show confirmation message
-        const confirmationMessage = document.createElement('div');
-        confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
-        confirmationMessage.textContent = `${productName} added to cart!`;
-        document.body.appendChild(confirmationMessage);
-        
-        setTimeout(() => {
-          confirmationMessage.remove();
-        }, 3000);
+        // Import the updateCartCount function from header-manager.js
+        import('./Javascript/header-manager.js')
+          .then(headerModule => {
+            const { updateCartCount } = headerModule;
+            
+            addToCartButtons.forEach(button => {
+              button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = button.getAttribute('data-product-id');
+                const productName = button.getAttribute('data-product-name');
+                const productPrice = parseFloat(button.getAttribute('data-product-price'));
+                const productImage = button.closest('.group').querySelector('img').src;
+                
+                const product = {
+                  id: productId,
+                  name: productName,
+                  price: productPrice,
+                  image: productImage
+                };
+                
+                // Add the product to the cart using the local-storage function
+                const result = addToCart(product, 1);
+                
+                if (result.success) {
+                  // Update cart count
+                  updateCartCount();
+                  
+                  // Show confirmation message
+                  const confirmationMessage = document.createElement('div');
+                  confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+                  confirmationMessage.textContent = `${productName} added to cart!`;
+                  document.body.appendChild(confirmationMessage);
+                  
+                  setTimeout(() => {
+                    confirmationMessage.remove();
+                  }, 3000);
+                } else {
+                  // Show error message
+                  const errorMessage = document.createElement('div');
+                  errorMessage.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-50';
+                  errorMessage.textContent = result.error || 'Failed to add item to cart. Please try again.';
+                  document.body.appendChild(errorMessage);
+                  
+                  setTimeout(() => {
+                    errorMessage.remove();
+                  }, 3000);
+                }
+              });
+            });
+          });
       });
-    });
     
     // Quick view functionality
     const quickViewButtons = document.querySelectorAll('button[aria-label="Quick view"]');

@@ -107,13 +107,13 @@
         
         <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-heart text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 wishlist-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
         </a>
         
         <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-shopping-bag text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 cart-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
         </a>
         
@@ -733,7 +733,7 @@
               $105.00
             </p>
           </div>
-          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+          <button class="add-to-cart-btn w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2" data-product-id="product2" data-product-name="Zirconia Gold Plated Ring" data-product-price="80.75" data-product-image="https://storage.googleapis.com/a1aa/image/344c663d-8fbe-4567-f1b2-f82a558b1a07.jpg">
             Add to Cart
           </button>
         </a>
@@ -756,7 +756,7 @@
               $80.75
             </p>
           </div>
-          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+          <button class="add-to-cart-btn w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2" data-product-id="product2" data-product-name="Zirconia Gold Plated Ring" data-product-price="80.75" data-product-image="https://storage.googleapis.com/a1aa/image/344c663d-8fbe-4567-f1b2-f82a558b1a07.jpg">
             Add to Cart
           </button>
         </a>
@@ -779,7 +779,7 @@
               $90.00
             </p>
           </div>
-          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+          <button class="add-to-cart-btn w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2" data-product-id="product2" data-product-name="Zirconia Gold Plated Ring" data-product-price="80.75" data-product-image="https://storage.googleapis.com/a1aa/image/344c663d-8fbe-4567-f1b2-f82a558b1a07.jpg">
             Add to Cart
           </button>
         </a>
@@ -802,7 +802,7 @@
               $75.00
             </p>
           </div>
-          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+          <button class="add-to-cart-btn w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2" data-product-id="product2" data-product-name="Zirconia Gold Plated Ring" data-product-price="80.75" data-product-image="https://storage.googleapis.com/a1aa/image/344c663d-8fbe-4567-f1b2-f82a558b1a07.jpg">
             Add to Cart
           </button>
         </a>
@@ -1144,5 +1144,44 @@
   
   <!-- Authentication State Management -->
   <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/header-manager.js"></script>
+  <!-- Add to Cart Script -->
+  <script type="module">
+    import { addToCart } from './Javascript/local-storage.js';
+    import { updateCartCount } from './Javascript/header-manager.js';
+    
+    // Add event listeners to all Add to Cart buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+      
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const productId = this.getAttribute('data-product-id');
+          const productName = this.getAttribute('data-product-name');
+          const productPrice = parseFloat(this.getAttribute('data-product-price'));
+          const productImage = this.getAttribute('data-product-image');
+          
+          const product = {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            image: productImage
+          };
+          
+          const result = addToCart(product, 1);
+          
+          if (result.success) {
+            // Show success message
+            alert(`${productName} added to cart!`);
+            // Update cart count
+            updateCartCount();
+          } else {
+            // Show error message
+            alert(result.error || 'Failed to add item to cart. Please try again.');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

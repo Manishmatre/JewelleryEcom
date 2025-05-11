@@ -114,13 +114,13 @@
         
         <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-heart text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 wishlist-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
         </a>
         
         <a href="cart.html" class="relative p-2 text-primary hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
           <i class="fas fa-shopping-bag text-lg"></i>
-          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">3</span>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 cart-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
         </a>
         
@@ -272,7 +272,7 @@
           </a>
           <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-primary text-white rounded-md transition-all">
             <i class="fas fa-shopping-bag mb-1"></i>
-            <span class="text-sm font-medium">Cart (3)</span>
+            <span class="text-sm font-medium mobile-cart-count">Cart (0)</span>
           </a>
         </div>
         
@@ -316,7 +316,7 @@
         </div>
 
         <!-- Cart Items -->
-        <div class="space-y-6">
+        <div id="cart-items-container" class="space-y-6">
           <!-- Item 1 -->
           <div class="flex flex-col md:grid md:grid-cols-12 bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all">
             <div class="md:col-span-6 flex p-4">
@@ -438,7 +438,7 @@
             <i class="fas fa-arrow-left mr-2"></i>
             <span>Continue Shopping</span>
           </a>
-          <button class="text-sm text-primary hover:text-primary-dark transition-all flex items-center">
+          <button id="update-cart-button" class="text-sm text-primary hover:text-primary-dark transition-all flex items-center">
             <i class="fas fa-sync-alt mr-2"></i>
             <span>Update Cart</span>
           </button>
@@ -454,7 +454,7 @@
           <div class="space-y-4 mb-6">
             <div class="flex justify-between">
               <span class="text-text-light">Subtotal</span>
-              <span class="font-medium">$777.00</span>
+              <span id="cart-subtotal" class="font-medium">$0.00</span>
             </div>
             <div class="flex justify-between">
               <span class="text-text-light">Shipping</span>
@@ -462,7 +462,7 @@
             </div>
             <div class="flex justify-between">
               <span class="text-text-light">Tax</span>
-              <span class="font-medium">$77.70</span>
+              <span id="cart-tax" class="font-medium">$0.00</span>
             </div>
           </div>
           
@@ -479,7 +479,7 @@
           <!-- Total -->
           <div class="flex justify-between items-center border-t border-secondary-dark pt-4 mb-6">
             <span class="text-text-dark font-medium">Total</span>
-            <span class="text-xl font-semibold text-primary">$854.70</span>
+            <span id="cart-total" class="text-xl font-semibold text-primary">$0.00</span>
           </div>
           
           <!-- Checkout Button -->
@@ -702,6 +702,7 @@
 
   <!-- JavaScript -->
   <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/cart-manager.js"></script>
   <script>
     // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');
