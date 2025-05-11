@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Shopping Cart - RadEl Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .playfair {
+      font-family: "Playfair Display", serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-[#f6f1e6] text-[#1a1a1a]">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button" aria-label="Search">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-primary hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">3</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all" aria-expanded="false" aria-haspopup="true">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 hidden">
+    <div class="bg-white h-full w-80 max-w-[80%] p-6 transform transition-all duration-500 -translate-x-full shadow-2xl">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-12 w-auto">
+          <span class="playfair font-semibold text-xl text-primary">ShilpoKotha</span>
+        </div>
+        <button id="close-mobile-menu" class="text-text-light hover:text-primary p-2 hover:bg-secondary-dark rounded-full transition-all" aria-label="Close menu">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="mb-6">
+        <div class="relative">
+          <input class="w-full bg-secondary bg-opacity-30 border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-5">
+        <a href="index.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-home text-primary-dark"></i>
+          <span class="font-medium">Home</span>
+        </a>
+        
+        <a href="products.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-store text-primary-dark"></i>
+          <span class="font-medium">Shop All</span>
+        </a>
+        
+        <div>
+          <button class="flex items-center justify-between w-full py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all" id="mobile-collections-button" aria-expanded="false" aria-controls="mobile-collections-menu">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-gem text-primary-dark"></i>
+              <span class="font-medium">Collections</span>
+            </div>
+            <i class="fas fa-chevron-down text-xs mr-4 transition-transform duration-300" id="mobile-collections-icon"></i>
+          </button>
+          
+          <div class="pl-12 mt-2 space-y-3 hidden bg-secondary bg-opacity-20 py-4 rounded-md" id="mobile-collections-menu">
+            <a href="products.html?category=necklaces" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Necklaces</span>
+            </a>
+            <a href="products.html?category=earrings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Earrings</span>
+            </a>
+            <a href="products.html?category=bracelets" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Bracelets</span>
+            </a>
+            <a href="products.html?category=rings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Rings</span>
+            </a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-info-circle text-primary-dark"></i>
+          <span class="font-medium">About Us</span>
+        </a>
+        
+        <a href="contact.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-envelope text-primary-dark"></i>
+          <span class="font-medium">Contact</span>
+        </a>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-secondary-dark">
+        <div class="grid grid-cols-2 gap-4">
+          <a href="login.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-user-circle mb-1"></i>
+            <span class="text-sm font-medium">Account</span>
+          </a>
+          <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-primary text-white rounded-md transition-all">
+            <i class="fas fa-shopping-bag mb-1"></i>
+            <span class="text-sm font-medium">Cart (3)</span>
+          </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-text-light mb-2">Connect with us</p>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Content -->
+  <main class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="playfair text-4xl md:text-5xl font-bold text-text-dark mb-3">Your Shopping Cart</h1>
+      <p class="text-text-light max-w-2xl mx-auto">Review your items below and proceed to checkout when you're ready.</p>
+    </div>
+
+    <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+      <!-- Cart Items (2 columns on large screens) -->
+      <div class="lg:col-span-2 mb-8 lg:mb-0">
+        <!-- Cart Items Header -->
+        <div class="hidden md:grid md:grid-cols-12 text-sm font-medium text-text-light border-b border-secondary-dark pb-4 mb-6">
+          <div class="md:col-span-6">Product</div>
+          <div class="md:col-span-2 text-center">Price</div>
+          <div class="md:col-span-2 text-center">Quantity</div>
+          <div class="md:col-span-2 text-center">Total</div>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="space-y-6">
+          <!-- Item 1 -->
+          <div class="flex flex-col md:grid md:grid-cols-12 bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all">
+            <div class="md:col-span-6 flex p-4">
+              <div class="w-24 h-24 flex-shrink-0 bg-secondary rounded-md overflow-hidden">
+                <img src="images/product1.jpg" alt="Gold Pendant Necklace" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-medium text-text-dark hover:text-primary transition-all">Gold Pendant Necklace</h3>
+                  <p class="text-sm text-text-light">18K Gold</p>
+                </div>
+                <button class="text-xs text-primary hover:text-primary-dark transition-all flex items-center w-max">
+                  <i class="fas fa-trash-alt mr-1"></i> Remove
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Price:</span>
+              <span class="ml-auto md:ml-0 font-medium">$249.00</span>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Quantity:</span>
+              <div class="ml-auto md:ml-0 flex items-center border border-secondary-dark rounded-md">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-minus text-xs"></i>
+                </button>
+                <input type="number" value="1" min="1" class="w-10 h-8 text-center border-x border-secondary-dark focus:outline-none">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Total:</span>
+              <span class="ml-auto md:ml-0 font-medium text-primary">$249.00</span>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="flex flex-col md:grid md:grid-cols-12 bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all">
+            <div class="md:col-span-6 flex p-4">
+              <div class="w-24 h-24 flex-shrink-0 bg-secondary rounded-md overflow-hidden">
+                <img src="images/product2.jpg" alt="Diamond Stud Earrings" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-medium text-text-dark hover:text-primary transition-all">Diamond Stud Earrings</h3>
+                  <p class="text-sm text-text-light">White Gold, 0.5ct</p>
+                </div>
+                <button class="text-xs text-primary hover:text-primary-dark transition-all flex items-center w-max">
+                  <i class="fas fa-trash-alt mr-1"></i> Remove
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Price:</span>
+              <span class="ml-auto md:ml-0 font-medium">$399.00</span>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Quantity:</span>
+              <div class="ml-auto md:ml-0 flex items-center border border-secondary-dark rounded-md">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-minus text-xs"></i>
+                </button>
+                <input type="number" value="1" min="1" class="w-10 h-8 text-center border-x border-secondary-dark focus:outline-none">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Total:</span>
+              <span class="ml-auto md:ml-0 font-medium text-primary">$399.00</span>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="flex flex-col md:grid md:grid-cols-12 bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-all">
+            <div class="md:col-span-6 flex p-4">
+              <div class="w-24 h-24 flex-shrink-0 bg-secondary rounded-md overflow-hidden">
+                <img src="images/product3.jpg" alt="Silver Bangle Bracelet" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-medium text-text-dark hover:text-primary transition-all">Silver Bangle Bracelet</h3>
+                  <p class="text-sm text-text-light">Sterling Silver</p>
+                </div>
+                <button class="text-xs text-primary hover:text-primary-dark transition-all flex items-center w-max">
+                  <i class="fas fa-trash-alt mr-1"></i> Remove
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Price:</span>
+              <span class="ml-auto md:ml-0 font-medium">$129.00</span>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Quantity:</span>
+              <div class="ml-auto md:ml-0 flex items-center border border-secondary-dark rounded-md">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-minus text-xs"></i>
+                </button>
+                <input type="number" value="1" min="1" class="w-10 h-8 text-center border-x border-secondary-dark focus:outline-none">
+                <button class="w-8 h-8 flex items-center justify-center text-text-light hover:text-primary transition-all">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
+              <span class="text-sm text-text-light md:hidden">Total:</span>
+              <span class="ml-auto md:ml-0 font-medium text-primary">$129.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continue Shopping -->
+        <div class="mt-8 flex justify-between items-center">
+          <a href="products.html" class="flex items-center text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-arrow-left mr-2"></i>
+            <span>Continue Shopping</span>
+          </a>
+          <button class="text-sm text-primary hover:text-primary-dark transition-all flex items-center">
+            <i class="fas fa-sync-alt mr-2"></i>
+            <span>Update Cart</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-32">
+          <h2 class="playfair text-xl font-semibold text-text-dark mb-6">Order Summary</h2>
+          
+          <!-- Summary Items -->
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between">
+              <span class="text-text-light">Subtotal</span>
+              <span class="font-medium">$777.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-text-light">Shipping</span>
+              <span class="font-medium">Free</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-text-light">Tax</span>
+              <span class="font-medium">$77.70</span>
+            </div>
+          </div>
+          
+          <!-- Promo Code -->
+          <div class="mb-6">
+            <div class="relative">
+              <input type="text" placeholder="Promo code" class="w-full border border-secondary-dark rounded-md pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+              <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary-dark text-white text-xs font-medium px-3 py-1.5 rounded transition-all">
+                Apply
+              </button>
+            </div>
+          </div>
+          
+          <!-- Total -->
+          <div class="flex justify-between items-center border-t border-secondary-dark pt-4 mb-6">
+            <span class="text-text-dark font-medium">Total</span>
+            <span class="text-xl font-semibold text-primary">$854.70</span>
+          </div>
+          
+          <!-- Checkout Button -->
+          <a href="checkout.html" class="block w-full bg-primary hover:bg-primary-dark text-white text-center font-medium py-3 rounded-md transition-all">
+            Proceed to Checkout
+          </a>
+          
+          <!-- Payment Methods -->
+          <div class="mt-6 text-center">
+            <p class="text-xs text-text-light mb-2">Secure Payment Methods</p>
+            <div class="flex justify-center space-x-2">
+              <i class="fab fa-cc-visa text-text-light text-lg"></i>
+              <i class="fab fa-cc-mastercard text-text-light text-lg"></i>
+              <i class="fab fa-cc-amex text-text-light text-lg"></i>
+              <i class="fab fa-cc-paypal text-text-light text-lg"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Recently Viewed Products -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="playfair text-2xl md:text-3xl font-bold text-text-dark text-center mb-8">Recently Viewed</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- Product 1 -->
+        <div class="group relative bg-secondary bg-opacity-30 rounded-lg overflow-hidden hover:shadow-md transition-all">
+          <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+            <img src="images/product4.jpg" alt="Rose Gold Ring" class="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <button class="bg-white text-primary hover:bg-primary hover:text-white p-2 rounded-full transition-all transform translate-y-4 group-hover:translate-y-0">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Rose Gold Ring</h3>
+            <p class="text-primary font-medium mt-1">$199.00</p>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="group relative bg-secondary bg-opacity-30 rounded-lg overflow-hidden hover:shadow-md transition-all">
+          <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+            <img src="images/product5.jpg" alt="Pearl Necklace" class="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <button class="bg-white text-primary hover:bg-primary hover:text-white p-2 rounded-full transition-all transform translate-y-4 group-hover:translate-y-0">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Pearl Necklace</h3>
+            <p class="text-primary font-medium mt-1">$299.00</p>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="group relative bg-secondary bg-opacity-30 rounded-lg overflow-hidden hover:shadow-md transition-all">
+          <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+            <img src="images/product6.jpg" alt="Gold Hoop Earrings" class="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <button class="bg-white text-primary hover:bg-primary hover:text-white p-2 rounded-full transition-all transform translate-y-4 group-hover:translate-y-0">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Gold Hoop Earrings</h3>
+            <p class="text-primary font-medium mt-1">$149.00</p>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="group relative bg-secondary bg-opacity-30 rounded-lg overflow-hidden hover:shadow-md transition-all">
+          <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+            <img src="images/product7.jpg" alt="Diamond Tennis Bracelet" class="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <button class="bg-white text-primary hover:bg-primary hover:text-white p-2 rounded-full transition-all transform translate-y-4 group-hover:translate-y-0">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Diamond Tennis Bracelet</h3>
+            <p class="text-primary font-medium mt-1">$599.00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-text-dark text-white pt-12 pb-6">
+    <div class="container mx-auto px-4">
+      <!-- Footer Top -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <!-- Company Info -->
+        <div>
+          <div class="flex items-center space-x-3 mb-6">
+            <img src="images/logo-white.png" alt="ShilpoKotha Logo" class="h-10 w-auto">
+            <span class="playfair font-semibold text-xl">ShilpoKotha</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-4">Exquisite handcrafted jewelry for every occasion. Each piece tells a story of artistry and elegance.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-primary transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div>
+          <h3 class="playfair text-lg font-semibold mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <a href="index.html" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="products.html" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Shop</span>
+              </a>
+            </li>
+            <li>
+              <a href="about.html" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>About Us</span>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Blog</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Customer Service -->
+        <div>
+          <h3 class="playfair text-lg font-semibold mb-6">Customer Service</h3>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>My Account</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Track Your Order</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Shipping & Delivery</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>Returns & Exchanges</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-primary transition-all flex items-center">
+                <i class="fas fa-chevron-right text-[8px] mr-2"></i>
+                <span>FAQs</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div>
+          <h3 class="playfair text-lg font-semibold mb-6">Newsletter</h3>
+          <p class="text-sm text-gray-400 mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
+          <form class="mb-4">
+            <div class="relative">
+              <input type="email" placeholder="Your email address" class="w-full bg-gray-800 border border-gray-700 rounded-md pl-4 pr-12 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+              <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary-dark text-white p-1.5 rounded-md transition-all">
+                <i class="fas fa-paper-plane text-xs"></i>
+              </button>
+            </div>
+          </form>
+          <p class="text-xs text-gray-500">By subscribing you agree to our terms and conditions and privacy policy.</p>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom -->
+      <div class="pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
+        <p>&copy; 2025 ShilpoKotha. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script type="module" src="./Javascript/auth-state.js"></script>
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuContent = mobileMenu.querySelector('div');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+      setTimeout(() => {
+        mobileMenuContent.style.transform = 'translateX(0)';
+      }, 10);
+    });
+
+    closeMobileMenuButton.addEventListener('click', () => {
+      mobileMenuContent.style.transform = 'translateX(-100%)';
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+      }, 300);
+    });
+
+    // Mobile collections dropdown
+    const mobileCollectionsButton = document.getElementById('mobile-collections-button');
+    const mobileCollectionsMenu = document.getElementById('mobile-collections-menu');
+    const mobileCollectionsIcon = document.getElementById('mobile-collections-icon');
+
+    mobileCollectionsButton.addEventListener('click', () => {
+      mobileCollectionsMenu.classList.toggle('hidden');
+      mobileCollectionsIcon.classList.toggle('rotate-180');
+    });
+
+    // Mobile search toggle
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const mobileSearch = document.getElementById('mobile-search');
+
+    mobileSearchButton.addEventListener('click', () => {
+      mobileSearch.classList.toggle('hidden');
+    });
+
+    // Quantity input validation
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.value < 1) input.value = 1;
+      });
+    });
+  </script>
+</body>
+</html>

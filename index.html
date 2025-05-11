@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>ShilpoKotha - Handcrafted Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .playfair {
+      font-family: "Playfair Display", serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+ <body class="bg-[#f6f1e6] text-[#1a1a1a]">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 hidden">
+    <div class="bg-white h-full w-80 max-w-[80%] p-6 transform transition-all duration-500 -translate-x-full shadow-2xl">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-12 w-auto">
+          <span class="playfair font-semibold text-xl text-primary">ShilpoKotha</span>
+        </div>
+        <button id="close-mobile-menu" class="text-text-light hover:text-primary p-2 hover:bg-secondary-dark rounded-full transition-all">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="mb-6">
+        <div class="relative">
+          <input class="w-full bg-secondary bg-opacity-30 border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-5">
+        <a href="index.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-home text-primary-dark"></i>
+          <span class="font-medium">Home</span>
+        </a>
+        
+        <a href="products.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-store text-primary-dark"></i>
+          <span class="font-medium">Shop All</span>
+        </a>
+        
+        <div>
+          <button class="flex items-center justify-between w-full py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all" id="mobile-collections-button">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-gem text-primary-dark"></i>
+              <span class="font-medium">Collections</span>
+            </div>
+            <i class="fas fa-chevron-down text-xs mr-4 transition-transform duration-300" id="mobile-collections-icon"></i>
+          </button>
+          
+          <div class="pl-12 mt-2 space-y-3 hidden bg-secondary bg-opacity-20 py-4 rounded-md" id="mobile-collections-menu">
+            <a href="products.html?category=necklaces" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Necklaces</span>
+            </a>
+            <a href="products.html?category=earrings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Earrings</span>
+            </a>
+            <a href="products.html?category=bracelets" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Bracelets</span>
+            </a>
+            <a href="products.html?category=rings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Rings</span>
+            </a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-info-circle text-primary-dark"></i>
+          <span class="font-medium">About Us</span>
+        </a>
+        
+        <a href="contact.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-envelope text-primary-dark"></i>
+          <span class="font-medium">Contact</span>
+        </a>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-secondary-dark">
+        <div class="grid grid-cols-2 gap-4">
+          <a href="login.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-user-circle mb-1"></i>
+            <span class="text-sm font-medium">Account</span>
+          </a>
+          <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-shopping-bag mb-1"></i>
+            <span class="text-sm font-medium">Cart</span>
+          </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-text-light mb-2">Connect with us</p>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-secondary opacity-50 z-0">
+      <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] opacity-10"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-12 py-16">
+      <div class="max-w-md md:max-w-lg space-y-6 mb-10 md:mb-0">
+        <div class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full mb-2">
+          <span class="text-primary text-xs font-medium tracking-wider">HANDCRAFTED WITH LOVE</span>
+        </div>
+        
+        <h1 class="playfair text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-text-dark">
+          Experience the <br/>
+          <span class="text-primary">Brilliance</span> of <br/>
+          Craftsmanship
+        </h1>
+        
+        <p class="text-sm sm:text-base text-text-light max-w-[420px] leading-relaxed">
+          Discover a world where beauty meets craftsmanship, in exquisite jewelry pieces that tell a story and celebrate your unique style.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+          <a href="products.html" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-all flex items-center justify-center space-x-2 shadow-md">
+            <span>Shop Collection</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+          
+          <a href="about.html" class="text-primary hover:text-primary-dark transition-all flex items-center space-x-2 font-medium">
+            <span>Our Story</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </a>
+        </div>
+        
+        <div class="flex items-center space-x-6 pt-6">
+          <div class="flex items-center space-x-2 text-sm text-text-light">
+            <div class="border border-primary rounded-full w-8 h-8 flex items-center justify-center">
+              <i class="fas fa-gem text-primary"></i>
+            </div>
+            <span>Handcrafted</span>
+          </div>
+          
+          <div class="flex items-center space-x-2 text-sm text-text-light">
+            <div class="border border-primary rounded-full w-8 h-8 flex items-center justify-center">
+              <i class="fas fa-certificate text-primary"></i>
+            </div>
+            <span>Premium Quality</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="relative flex space-x-4">
+        <!-- Main Image with Animation -->
+        <div class="relative rounded-tl-[80px] rounded-br-[80px] overflow-hidden w-44 sm:w-56 md:w-72 h-64 sm:h-80 md:h-96 flex-shrink-0 shadow-xl transform transition-all hover:scale-105">
+          <img alt="Elegant gold necklace with pendant" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"/>
+          
+          <!-- Floating Badge -->
+          <div class="absolute top-6 -right-4 bg-white rounded-full shadow-lg py-2 px-4 transform rotate-12">
+            <span class="text-primary text-xs font-semibold">NEW ARRIVAL</span>
+          </div>
+        </div>
+        
+        <div class="flex flex-col space-y-4">
+          <div class="relative rounded-tr-[80px] rounded-bl-[80px] overflow-hidden w-32 sm:w-40 md:w-48 h-32 sm:h-40 md:h-48 flex-shrink-0 shadow-lg transform transition-all hover:scale-105">
+            <img alt="Close-up of a gold ring with gemstone" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"/>
+          </div>
+          
+          <div class="relative rounded-tr-[80px] rounded-bl-[80px] overflow-hidden w-32 sm:w-40 md:w-48 h-28 sm:h-36 md:h-44 flex-shrink-0 shadow-lg transform transition-all hover:scale-105">
+            <img alt="Elegant bracelet on display" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-primary animate-bounce hidden md:flex">
+      <span class="text-xs mb-1">Scroll</span>
+      <i class="fas fa-chevron-down text-xs"></i>
+    </div>
+  </section>
+  <!-- Features Section -->
+  <section class="bg-white py-16 px-4 sm:px-12">
+    <div class="max-w-7xl mx-auto mb-12 text-center">
+      <h2 class="playfair text-3xl font-semibold text-text-dark mb-3">Why Choose ShilpoKotha</h2>
+      <p class="text-text-light max-w-xl mx-auto">We pride ourselves on offering exceptional quality and service with every piece of handcrafted jewelry</p>
+    </div>
+    
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <!-- Quality Feature -->
+      <div class="border border-secondary-dark rounded-lg py-8 px-6 hover:shadow-md transition-all group">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+          <i class="fas fa-gem text-2xl"></i>
+        </div>
+        <h3 class="font-semibold text-text-dark text-lg mb-2">
+          Premium Quality
+        </h3>
+        <p class="text-text-light">
+          Exquisite materials and unparalleled craftsmanship in every piece
+        </p>
+        <a href="about.html#quality" class="inline-block mt-4 text-primary hover:text-primary-dark text-sm font-medium">
+          Learn More
+          <i class="fas fa-arrow-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      
+      <!-- Warranty Feature -->
+      <div class="border border-secondary-dark rounded-lg py-8 px-6 hover:shadow-md transition-all group">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+          <i class="fas fa-shield-alt text-2xl"></i>
+        </div>
+        <h3 class="font-semibold text-text-dark text-lg mb-2">
+          Lifetime Warranty
+        </h3>
+        <p class="text-text-light">
+          We stand behind our craftsmanship with a comprehensive warranty
+        </p>
+        <a href="about.html#warranty" class="inline-block mt-4 text-primary hover:text-primary-dark text-sm font-medium">
+          Learn More
+          <i class="fas fa-arrow-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      
+      <!-- Shipping Feature -->
+      <div class="border border-secondary-dark rounded-lg py-8 px-6 hover:shadow-md transition-all group">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+          <i class="fas fa-truck text-2xl"></i>
+        </div>
+        <h3 class="font-semibold text-text-dark text-lg mb-2">
+          Global Shipping
+        </h3>
+        <p class="text-text-light">
+          Free, fast, and secure delivery to your doorstep worldwide
+        </p>
+        <a href="about.html#shipping" class="inline-block mt-4 text-primary hover:text-primary-dark text-sm font-medium">
+          Learn More
+          <i class="fas fa-arrow-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      
+      <!-- Returns Feature -->
+      <div class="border border-secondary-dark rounded-lg py-8 px-6 hover:shadow-md transition-all group">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+          <i class="fas fa-undo text-2xl"></i>
+        </div>
+        <h3 class="font-semibold text-text-dark text-lg mb-2">
+          Easy Returns
+        </h3>
+        <p class="text-text-light">
+          Hassle-free 30-day return policy for your peace of mind
+        </p>
+        <a href="about.html#returns" class="inline-block mt-4 text-primary hover:text-primary-dark text-sm font-medium">
+          Learn More
+          <i class="fas fa-arrow-right ml-1 text-xs"></i>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Customer Testimonial Preview -->
+    <div class="max-w-4xl mx-auto mt-16 bg-secondary bg-opacity-50 rounded-lg p-8 text-center">
+      <div class="text-primary mb-4">
+        <i class="fas fa-quote-left text-3xl opacity-50"></i>
+      </div>
+      <p class="text-text-dark text-lg italic mb-6">"The craftsmanship of my necklace is absolutely stunning. I receive compliments every time I wear it, and the customer service was exceptional!"</p>
+      <div class="flex items-center justify-center space-x-3">
+        <div class="w-12 h-12 rounded-full overflow-hidden">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-full h-full object-cover">
+        </div>
+        <div class="text-left">
+          <h4 class="font-medium text-text-dark">Sarah Johnson</h4>
+          <div class="text-primary text-sm">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+      <a href="about.html#testimonials" class="inline-block mt-6 text-primary hover:text-primary-dark font-medium">
+        Read More Testimonials
+      </a>
+    </div>
+  </section>
+  <!-- Product Categories Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-16 bg-white">
+    <div class="text-center mb-10">
+      <span class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider mb-2">BROWSE OUR COLLECTIONS</span>
+      <h2 class="playfair text-3xl md:text-4xl font-semibold mb-3 text-text-dark">Exquisite Jewelry Categories</h2>
+      <p class="text-text-light max-w-xl mx-auto">Discover our carefully curated collections of handcrafted jewelry pieces for every occasion</p>
+    </div>
+    
+    <div class="relative px-10">
+      <button id="prev-category" aria-label="Previous" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md text-primary hover:text-primary-dark transition-all z-10 opacity-75 hover:opacity-100">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="overflow-hidden">
+        <div id="categories-container" class="flex space-x-8 transition-transform duration-300 ease-in-out pb-4 px-4">
+          <!-- Necklaces Category -->
+          <div class="category-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2">
+            <a href="products.html?category=necklaces" class="block group">
+              <div class="relative overflow-hidden rounded-lg mb-4 bg-secondary aspect-square">
+                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3" alt="Necklaces Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-search text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-dark group-hover:text-primary transition-all">Necklaces</h3>
+                <p class="text-sm text-text-light mt-1">Elegant pieces for every occasion</p>
+                <div class="mt-3 inline-flex items-center text-primary font-medium text-sm">
+                  <span>View Collection</span>
+                  <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Rings Category -->
+          <div class="category-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2">
+            <a href="products.html?category=rings" class="block group">
+              <div class="relative overflow-hidden rounded-lg mb-4 bg-secondary aspect-square">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3" alt="Rings Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-search text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-dark group-hover:text-primary transition-all">Rings</h3>
+                <p class="text-sm text-text-light mt-1">Symbols of eternal commitment</p>
+                <div class="mt-3 inline-flex items-center text-primary font-medium text-sm">
+                  <span>View Collection</span>
+                  <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Earrings Category -->
+          <div class="category-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2">
+            <a href="products.html?category=earrings" class="block group">
+              <div class="relative overflow-hidden rounded-lg mb-4 bg-secondary aspect-square">
+                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3" alt="Earrings Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-search text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-dark group-hover:text-primary transition-all">Earrings</h3>
+                <p class="text-sm text-text-light mt-1">Frame your face with elegance</p>
+                <div class="mt-3 inline-flex items-center text-primary font-medium text-sm">
+                  <span>View Collection</span>
+                  <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Bracelets Category -->
+          <div class="category-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2">
+            <a href="products.html?category=bracelets" class="block group">
+              <div class="relative overflow-hidden rounded-lg mb-4 bg-secondary aspect-square">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3" alt="Bracelets Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-search text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-dark group-hover:text-primary transition-all">Bracelets</h3>
+                <p class="text-sm text-text-light mt-1">Adorn your wrists with beauty</p>
+                <div class="mt-3 inline-flex items-center text-primary font-medium text-sm">
+                  <span>View Collection</span>
+                  <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Sets Category -->
+          <div class="category-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2">
+            <a href="products.html?category=sets" class="block group">
+              <div class="relative overflow-hidden rounded-lg mb-4 bg-secondary aspect-square">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3" alt="Jewelry Sets Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-search text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-semibold text-text-dark group-hover:text-primary transition-all">Jewelry Sets</h3>
+                <p class="text-sm text-text-light mt-1">Complete your look perfectly</p>
+                <div class="mt-3 inline-flex items-center text-primary font-medium text-sm">
+                  <span>View Collection</span>
+                  <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <button id="next-category" aria-label="Next" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md text-primary hover:text-primary-dark transition-all z-10 opacity-75 hover:opacity-100">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <!-- Category Navigation Dots -->
+    <div class="flex justify-center items-center space-x-2 mt-8" id="category-dots">
+      <button class="w-3 h-3 rounded-full bg-primary" data-index="0" aria-label="Go to slide 1"></button>
+      <button class="w-3 h-3 rounded-full bg-secondary-dark hover:bg-primary transition-all" data-index="1" aria-label="Go to slide 2"></button>
+      <button class="w-3 h-3 rounded-full bg-secondary-dark hover:bg-primary transition-all" data-index="2" aria-label="Go to slide 3"></button>
+    </div>
+    
+    <div class="text-center mt-10">
+      <a href="products.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 px-8 rounded-md transition-all shadow-md">
+        View All Collections
+      </a>
+    </div>
+  </section>
+      <img alt="Gold ring with diamond on white background" class="w-14 h-14 object-contain" height="60" src="https://storage.googleapis.com/a1aa/image/8260f6b9-ab38-42b1-0f6a-ecba554a0157.jpg" width="60"/>
+      <div class="text-[10px] text-[#4a4a4a] font-semibold">
+       Rings
+      </div>
+     </div>
+     <div class="flex flex-col items-center space-y-1">
+      <img alt="Pair of gold chandelier earrings on white background" class="w-14 h-14 object-contain" height="60" src="https://storage.googleapis.com/a1aa/image/febd48ee-850e-402f-49a8-4f2d42dd51b6.jpg" width="60"/>
+      <div class="text-[10px] text-[#4a4a4a]">
+       Explore → Pendants
+      </div>
+     </div>
+     <div class="flex flex-col items-center space-y-1">
+      <img alt="Pair of gold earrings with intricate design on white background" class="w-14 h-14 object-contain" height="60" src="https://storage.googleapis.com/a1aa/image/633ce124-7fbe-4312-3fe2-a29268acbf28.jpg" width="60"/>
+      <div class="text-[10px] text-[#4a4a4a]">
+       Explore →
+      </div>
+     </div>
+    </div>
+    <button aria-label="Next" class="text-[#a39a7e] hover:text-[#7a6f4e] disabled:opacity-30">
+     <i class="fas fa-chevron-right text-lg">
+     </i>
+    </button>
+   </div>
+  </section>
+  <!-- Special Collections Banners -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 py-10">
+    <div class="bg-secondary bg-opacity-30 rounded-lg p-8 flex flex-col justify-between space-y-4 max-w-md mx-auto md:mx-0 shadow-md hover:shadow-lg transition-all group relative overflow-hidden">
+      <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-primary bg-opacity-5 rounded-full"></div>
+      <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary bg-opacity-10 rounded-full"></div>
+      
+      <div class="relative z-10 space-y-4">
+        <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider">
+          SPECIAL OFFER
+        </p>
+        <h3 class="playfair text-2xl font-semibold text-text-dark">
+          Luxe Abundance
+        </h3>
+        <p class="text-sm text-text-light max-w-[280px]">
+          Discover our exclusive collection of luxury pieces with 20% off using code: <span class="text-primary font-semibold">LUXE20</span>
+        </p>
+        <a class="text-primary hover:text-primary-dark font-medium flex items-center space-x-1 text-sm" href="products.html?category=luxury">
+          <span>View Full Collection</span>
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </a>
+      </div>
+      
+      <img alt="Hand wearing a gold bracelet on beige background" class="w-36 h-36 object-contain self-end relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3" src="https://storage.googleapis.com/a1aa/image/4feb3873-2ebe-436b-cf8d-3bf6307fa765.jpg"/>
+    </div>
+    
+    <div class="bg-secondary bg-opacity-30 rounded-lg p-8 flex flex-col justify-between space-y-4 max-w-md mx-auto md:mx-0 shadow-md hover:shadow-lg transition-all group relative overflow-hidden">
+      <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-primary bg-opacity-5 rounded-full"></div>
+      <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary bg-opacity-10 rounded-full"></div>
+      
+      <div class="relative z-10 space-y-4">
+        <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider">
+          NEW COLLECTION
+        </p>
+        <h3 class="playfair text-2xl font-semibold text-text-dark">
+          Sparkle in Love
+        </h3>
+        <p class="text-sm text-text-light max-w-[280px]">
+          Express your love with our stunning collection of engagement and wedding rings, perfect for that special moment.
+        </p>
+        <a class="text-primary hover:text-primary-dark font-medium flex items-center space-x-1 text-sm" href="products.html?category=rings">
+          <span>View Full Collection</span>
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </a>
+      </div>
+      
+      <img alt="Closeup of a gold ring on white background" class="w-36 h-36 object-contain self-end relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3" src="https://storage.googleapis.com/a1aa/image/57bf65e0-48a8-446d-e862-cb0bc62900f4.jpg"/>
+    </div>
+  </section>
+  <!-- Featured Products -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-16 bg-white rounded-lg shadow-sm my-8">
+    <div class="text-center mb-10">
+      <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider mb-2">
+        BESTSELLERS
+      </p>
+      <h3 class="playfair text-2xl md:text-3xl font-semibold text-text-dark mb-3">
+        Featured Products
+      </h3>
+      <p class="text-text-light max-w-xl mx-auto text-sm">
+        Our most popular handcrafted pieces loved by customers worldwide
+      </p>
+    </div>
+    
+    <div class="flex flex-col md:flex-row gap-8">
+      <div class="flex-shrink-0 md:w-1/2 rounded-lg overflow-hidden shadow-md group">
+        <div class="relative overflow-hidden">
+          <img alt="Closeup of a woman wearing gold necklace, earrings, and ring, white shirt" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/a2027d10-c3aa-4ba1-8916-675d3f5754f2.jpg"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-6">
+            <a href="products.html" class="text-white font-medium hover:underline">View Collection</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4 md:w-1/2">
+        <a href="product.html" class="border border-secondary-dark rounded-lg p-4 flex flex-col items-center space-y-3 hover:shadow-md transition-all group">
+          <div class="relative w-24 h-24 mb-2">
+            <img alt="Copper gold plated earrings on white background" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/cd76d727-e5a2-4e34-6252-e6ffab3c23ed.jpg"/>
+            <div class="absolute top-1 right-1 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-medium">
+              -20%
+            </div>
+          </div>
+          <h4 class="text-sm font-semibold text-text-dark text-center group-hover:text-primary transition-all">
+            Copper Gold Plated Earrings
+          </h4>
+          <div class="flex items-center space-x-2">
+            <p class="text-xs text-primary-dark line-through">
+              $130.00
+            </p>
+            <p class="text-sm font-semibold text-primary">
+              $105.00
+            </p>
+          </div>
+          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+            Add to Cart
+          </button>
+        </a>
+        
+        <a href="product.html" class="border border-secondary-dark rounded-lg p-4 flex flex-col items-center space-y-3 hover:shadow-md transition-all group">
+          <div class="relative w-24 h-24 mb-2">
+            <img alt="Zirconia gold plated ring on white background" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/344c663d-8fbe-4567-f1b2-f82a558b1a07.jpg"/>
+            <div class="absolute top-1 right-1 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-medium">
+              -15%
+            </div>
+          </div>
+          <h4 class="text-sm font-semibold text-text-dark text-center group-hover:text-primary transition-all">
+            Zirconia Gold Plated Ring
+          </h4>
+          <div class="flex items-center space-x-2">
+            <p class="text-xs text-primary-dark line-through">
+              $94.00
+            </p>
+            <p class="text-sm font-semibold text-primary">
+              $80.75
+            </p>
+          </div>
+          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+            Add to Cart
+          </button>
+        </a>
+        
+        <a href="product.html" class="border border-secondary-dark rounded-lg p-4 flex flex-col items-center space-y-3 hover:shadow-md transition-all group">
+          <div class="relative w-24 h-24 mb-2">
+            <img alt="Gold chain necklace on white background" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/50bef913-927a-4ca0-8c2b-ca7c00cd8384.jpg"/>
+            <div class="absolute top-1 right-1 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-medium">
+              -25%
+            </div>
+          </div>
+          <h4 class="text-sm font-semibold text-text-dark text-center group-hover:text-primary transition-all">
+            Chain Necklace Gold
+          </h4>
+          <div class="flex items-center space-x-2">
+            <p class="text-xs text-primary-dark line-through">
+              $120.00
+            </p>
+            <p class="text-sm font-semibold text-primary">
+              $90.00
+            </p>
+          </div>
+          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+            Add to Cart
+          </button>
+        </a>
+        
+        <a href="product.html" class="border border-secondary-dark rounded-lg p-4 flex flex-col items-center space-y-3 hover:shadow-md transition-all group">
+          <div class="relative w-24 h-24 mb-2">
+            <img alt="Diamond brooch on white background" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/0b027ee5-a43f-47b2-8cdb-2fa93ab7c766.jpg"/>
+            <div class="absolute top-1 right-1 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-medium">
+              -38%
+            </div>
+          </div>
+          <h4 class="text-sm font-semibold text-text-dark text-center group-hover:text-primary transition-all">
+            Diamond Brooch
+          </h4>
+          <div class="flex items-center space-x-2">
+            <p class="text-xs text-primary-dark line-through">
+              $120.00
+            </p>
+            <p class="text-sm font-semibold text-primary">
+              $75.00
+            </p>
+          </div>
+          <button class="w-full bg-secondary hover:bg-primary hover:text-white text-primary text-xs py-2 rounded-md transition-all mt-2">
+            Add to Cart
+          </button>
+        </a>
+      </div>
+    </div>
+    
+    <div class="text-center mt-10">
+      <a href="products.html" class="inline-block border border-primary text-primary hover:bg-primary hover:text-white font-medium py-2 px-6 rounded-md transition-all">
+        View All Products
+      </a>
+    </div>
+  </section>
+  <!-- Unleash Your Cravings Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-md shadow-sm my-8">
+    <div class="flex flex-col justify-center space-y-5 max-w-md mx-auto md:mx-0 p-4">
+      <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider">
+        GET 20% OFF THIS WEEK
+      </p>
+      <h3 class="playfair text-2xl md:text-3xl font-semibold leading-tight text-text-dark">
+        Unleash Your Cravings, Not Your Wallet!
+      </h3>
+      <p class="text-text-light text-sm leading-relaxed">
+        Discover our exclusive collection of handcrafted jewelry pieces at special prices. Limited time offer.
+      </p>
+      <a href="products.html" class="bg-primary text-white text-sm px-6 py-3 rounded-md hover:bg-primary-dark transition-all flex items-center justify-center space-x-2 shadow-md w-max">
+        <span>Shop Now</span>
+        <i class="fas fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+    <div class="rounded-lg overflow-hidden max-w-md mx-auto md:mx-0 shadow-md transform transition-all hover:scale-105">
+      <img alt="Portrait of a woman wearing black dress and silver jewelry, dark background" class="w-full h-full object-cover" src="https://storage.googleapis.com/a1aa/image/ceda74bd-cfa0-458a-3e72-f4f8cba51030.jpg"/>
+    </div>
+  </section>
+  <!-- Jewelry Unique Styles Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-16 grid grid-cols-1 md:grid-cols-3 gap-8 bg-secondary rounded-lg shadow-sm my-8">
+    <div class="relative max-w-xs mx-auto md:mx-0">
+      <img alt="Closeup of a woman wearing layered gold necklaces on beige background" class="rounded-lg object-cover w-full h-full shadow-md" src="https://storage.googleapis.com/a1aa/image/c60af625-b0a7-43a9-398c-a49cfe45540a.jpg"/>
+      <div class="absolute -bottom-6 -left-6 w-24 h-24 rounded-full border-4 border-secondary overflow-hidden shadow-lg">
+        <img alt="Closeup of a gold necklace pendant on beige background" class="object-cover w-full h-full rounded-full" src="https://storage.googleapis.com/a1aa/image/5913941f-2885-486c-f260-15d245bd6a20.jpg"/>
+      </div>
+    </div>
+    <div class="md:col-span-2 flex flex-col justify-center max-w-lg mx-auto md:mx-0 space-y-6 p-4">
+      <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider">
+        UNIQUE HANDCRAFTED DESIGNS
+      </p>
+      <h3 class="playfair text-2xl md:text-3xl font-semibold text-text-dark">
+        Jewelry Unique Styles
+      </h3>
+      <p class="text-text-light text-sm leading-relaxed max-w-md">
+        Each piece in our collection is meticulously handcrafted by skilled artisans, ensuring that every item is as unique as the person wearing it. Our designs blend traditional craftsmanship with contemporary aesthetics.
+      </p>
+      <a href="products.html" class="bg-primary text-white text-sm px-6 py-3 rounded-md hover:bg-primary-dark transition-all flex items-center justify-center space-x-2 shadow-md w-max">
+        Shop Now
+        <i class="fas fa-arrow-right ml-2 text-xs"></i>
+      </a>
+    </div>
+  </section>
+  <!-- Articles & Resources Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-16 bg-white rounded-lg shadow-sm my-8">
+    <div class="text-center mb-10">
+      <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider mb-2">
+        OUR BLOGS
+      </p>
+      <h3 class="playfair text-2xl md:text-3xl font-semibold text-text-dark mb-3">
+        Articles &amp; Resources
+      </h3>
+      <p class="text-text-light max-w-xl mx-auto text-sm">
+        Discover insights, stories, and tips from the world of handcrafted jewelry
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto text-text-light">
+      <article class="bg-secondary bg-opacity-30 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group">
+        <div class="relative overflow-hidden">
+          <img alt="Closeup of a woman wearing a delicate necklace on beige background" class="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/ba77bfdb-7837-4734-3f69-1a2ce2cb7bba.jpg"/>
+        </div>
+        <div class="p-5 space-y-3">
+          <p class="text-xs text-primary uppercase font-semibold">
+            Latest Publication - May 11, 2025
+          </p>
+          <h4 class="font-semibold text-text-dark text-lg group-hover:text-primary transition-all">
+            Behind the Scenes: Crafting ShilpoKotha Perfection
+          </h4>
+          <p class="text-sm line-clamp-2">
+            Take a journey through our workshop and discover the meticulous process behind each handcrafted piece.
+          </p>
+          <a class="text-primary hover:text-primary-dark font-medium flex items-center space-x-1 text-sm" href="#">
+            <span>Read More</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </a>
+        </div>
+      </article>
+      <article class="bg-secondary bg-opacity-30 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group">
+        <div class="relative overflow-hidden">
+          <img alt="Jewelry store display with many gold rings and necklaces" class="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/93394b84-d1de-4101-1713-f117d08c89f4.jpg"/>
+        </div>
+        <div class="p-5 space-y-3">
+          <p class="text-xs text-primary uppercase font-semibold">
+            Craftsmanship - May 5, 2025
+          </p>
+          <h4 class="font-semibold text-text-dark text-lg group-hover:text-primary transition-all">
+            The Art of Jewelry: Tradition Meets Innovation
+          </h4>
+          <p class="text-sm line-clamp-2">
+            Every piece tells a story of craftsmanship that transcends trends, blending traditional techniques with modern design.
+          </p>
+          <a class="text-primary hover:text-primary-dark font-medium flex items-center space-x-1 text-sm" href="#">
+            <span>Read More</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </a>
+        </div>
+      </article>
+      <article class="bg-secondary bg-opacity-30 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group">
+        <div class="relative overflow-hidden">
+          <img alt="Closeup of a hand wearing a gold ring on beige background" class="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/4472f2f2-1a8f-4a9c-f020-966e56316adb.jpg"/>
+        </div>
+        <div class="p-5 space-y-3">
+          <p class="text-xs text-primary uppercase font-semibold">
+            Lifestyle &amp; Love - April 28, 2025
+          </p>
+          <h4 class="font-semibold text-text-dark text-lg group-hover:text-primary transition-all">
+            Jewelry as Self-Expression: Finding Your Signature Style
+          </h4>
+          <p class="text-sm line-clamp-2">
+            Explore how the right jewelry pieces can enhance your personal style and become an extension of your identity.
+          </p>
+          <a class="text-primary hover:text-primary-dark font-medium flex items-center space-x-1 text-sm" href="#">
+            <span>Read More</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </a>
+        </div>
+      </article>
+    </div>
+    <div class="text-center mt-10">
+      <a href="#" class="inline-block border border-primary text-primary hover:bg-primary hover:text-white font-medium py-2 px-6 rounded-md transition-all">
+        View All Articles
+      </a>
+    </div>
+  </section>
+  <!-- Instagram Wall Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-12 py-16">
+    <div class="text-center mb-10">
+      <p class="inline-block px-3 py-1 bg-primary bg-opacity-10 rounded-full text-primary text-xs font-medium tracking-wider mb-2">
+        @SHILPOKOTHA
+      </p>
+      <h3 class="playfair text-2xl md:text-3xl font-semibold text-text-dark mb-3">
+        Instagram Gallery
+      </h3>
+      <p class="text-text-light max-w-xl mx-auto text-sm">
+        Follow us on Instagram and be part of the ShilpoKotha story
+      </p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 max-w-5xl mx-auto">
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="Portrait of a woman with dark hair wearing multiple gold rings on fingers" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/610f1b43-a4a1-4378-ed20-836f8dd27b84.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="Closeup of an ornate gold ring with blue gemstone on black background" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/69d26ca5-5437-4147-f967-19c6b1b0ecd9.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="Closeup of a pink diamond gemstone on pink background" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/634e1801-abb9-4d0e-7fb2-5e75290d152a.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="White hand sculpture holding a gold ring on white background" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/048279aa-48ff-4b5e-c55d-d09a40c50658.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="Closeup of a diamond necklace on a woman's neck with red dress" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/0e7f5219-0a58-4782-f8fd-392455e63b66.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+      <a href="#" class="block group relative overflow-hidden rounded-lg shadow-md">
+        <img alt="Portrait of a woman with dark hair wearing multiple gold rings on fingers" class="object-cover w-full aspect-square transition-transform duration-500 group-hover:scale-110" src="https://storage.googleapis.com/a1aa/image/610f1b43-a4a1-4378-ed20-836f8dd27b84.jpg"/>
+        <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <i class="fab fa-instagram text-white text-2xl"></i>
+        </div>
+      </a>
+    </div>
+    <div class="text-center mt-8">
+      <a href="#" class="inline-flex items-center space-x-2 text-primary hover:text-primary-dark font-medium">
+        <i class="fab fa-instagram"></i>
+        <span>Follow @ShilpoKotha</span>
+      </a>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-white text-[#4a4a4a] text-xs sm:text-sm px-4 sm:px-12 py-10">
+   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-8 border-b border-[#d9d4c6] pb-8">
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Where about
+     </h4>
+     <address class="not-italic leading-relaxed">
+      4517 Washington Ave. Manchester,
+      <br/>
+      Kentucky 39495
+     </address>
+     <p class="mt-2">
+      Contact
+     </p>
+     <p>
+      (888) 555-0111
+     </p>
+     <p class="mt-2">
+      Mailbox
+     </p>
+     <p>
+      hello@shilpokotha.com
+     </p>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Pages
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        About Us
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Categories
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Shop
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Contact Us
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Resource
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        FAQ
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Reviews
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Blogs
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Return Policy
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Utilities
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        Style Guide
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Email Alerts
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Licensing
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Changelog
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between py-6">
+    <p class="text-[10px] text-[#a39a7e] mb-4 sm:mb-0">
+     © 2024 RadEl Company, Limited. All rights reserved.
+    </p>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <i class="fas fa-gem text-lg">
+     </i>
+     <span class="font-semibold">
+      RadEl
+     </span>
+    </div>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <button aria-label="English" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      En
+     </button>
+     <button aria-label="Spanish" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      Es
+     </button>
+     <button aria-label="Settings" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      <i class="fas fa-cog">
+      </i>
+     </button>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+    <form class="flex w-full max-w-sm space-x-2">
+     <input class="flex-grow border border-[#d9d4c6] rounded-md px-3 py-2 text-xs sm:text-sm placeholder-[#a39a7e] focus:outline-none" placeholder="Enter your email" type="email"/>
+     <button class="bg-[#a39a7e] text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-[#7a6f4e]" type="submit">
+      Submit
+     </button>
+    </form>
+   </div>
+  </footer>
+   <!-- JavaScript for interactivity -->
+  <script src="./Javascript/script.js"></script>
+  
+  <!-- Authentication State Management -->
+  <script type="module" src="./Javascript/auth-state.js"></script>
+</body>
+</html>

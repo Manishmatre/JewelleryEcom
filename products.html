@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Products - RadEl Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .playfair {
+      font-family: "Playfair Display", serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-[#f6f1e6] text-[#1a1a1a]">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button" aria-label="Search">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-primary text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all" aria-expanded="false" aria-haspopup="true">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 hidden">
+    <div class="bg-white h-full w-80 max-w-[80%] p-6 transform transition-all duration-500 -translate-x-full shadow-2xl">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-12 w-auto">
+          <span class="playfair font-semibold text-xl text-primary">ShilpoKotha</span>
+        </div>
+        <button id="close-mobile-menu" class="text-text-light hover:text-primary p-2 hover:bg-secondary-dark rounded-full transition-all" aria-label="Close menu">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="mb-6">
+        <div class="relative">
+          <input class="w-full bg-secondary bg-opacity-30 border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-5">
+        <a href="index.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-home text-primary-dark"></i>
+          <span class="font-medium">Home</span>
+        </a>
+        
+        <a href="products.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-primary text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-store text-primary-dark"></i>
+          <span class="font-medium">Shop All</span>
+        </a>
+        
+        <div>
+          <button class="flex items-center justify-between w-full py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all" id="mobile-collections-button" aria-expanded="false" aria-controls="mobile-collections-menu">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-gem text-primary-dark"></i>
+              <span class="font-medium">Collections</span>
+            </div>
+            <i class="fas fa-chevron-down text-xs mr-4 transition-transform duration-300" id="mobile-collections-icon"></i>
+          </button>
+          
+          <div class="pl-12 mt-2 space-y-3 hidden bg-secondary bg-opacity-20 py-4 rounded-md" id="mobile-collections-menu">
+            <a href="products.html?category=necklaces" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Necklaces</span>
+            </a>
+            <a href="products.html?category=earrings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Earrings</span>
+            </a>
+            <a href="products.html?category=bracelets" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Bracelets</span>
+            </a>
+            <a href="products.html?category=rings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Rings</span>
+            </a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-info-circle text-primary-dark"></i>
+          <span class="font-medium">About Us</span>
+        </a>
+        
+        <a href="contact.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-envelope text-primary-dark"></i>
+          <span class="font-medium">Contact</span>
+        </a>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-secondary-dark">
+        <div class="grid grid-cols-2 gap-4">
+          <a href="login.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-user-circle mb-1"></i>
+            <span class="text-sm font-medium">Account</span>
+          </a>
+          <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-shopping-bag mb-1"></i>
+            <span class="text-sm font-medium">Cart</span>
+          </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-text-light mb-2">Connect with us</p>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Page Title -->
+  <div class="bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="playfair text-3xl font-semibold text-text-dark">Our Collection</h1>
+        <p class="mt-2 text-text-light">Discover our exquisite handcrafted jewelry pieces</p>
+        <div class="mt-4 flex justify-center text-sm">
+          <a href="index.html" class="text-text-light hover:text-primary transition-all">Home</a>
+          <span class="mx-2 text-text-light">/</span>
+          <span class="text-primary font-medium">Shop</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Products Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Filters Sidebar -->
+      <div class="w-full md:w-64 flex-shrink-0">
+        <div class="bg-white p-6 rounded-lg shadow-sm sticky top-24">
+          <h2 class="font-semibold text-lg mb-4">Filters</h2>
+          
+          <!-- Category Filter -->
+          <div class="mb-6">
+            <h3 class="font-medium text-text-dark mb-3">Category</h3>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary" checked>
+                <span class="text-text-light">All Categories</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Necklaces</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Earrings</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Bracelets</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Rings</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Jewelry Sets</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Price Range Filter -->
+          <div class="mb-6">
+            <h3 class="font-medium text-text-dark mb-3">Price Range</h3>
+            <div class="space-y-4">
+              <div>
+                <input type="range" min="0" max="1000" value="500" class="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer">
+                <div class="flex justify-between text-xs text-text-light mt-2">
+                  <span>$0</span>
+                  <span>$1000</span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <div class="relative flex-1">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-light">$</span>
+                  <input type="number" placeholder="Min" class="w-full pl-7 pr-3 py-1 border border-secondary-dark rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+                </div>
+                <div class="relative flex-1">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-light">$</span>
+                  <input type="number" placeholder="Max" class="w-full pl-7 pr-3 py-1 border border-secondary-dark rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Material Filter -->
+          <div class="mb-6">
+            <h3 class="font-medium text-text-dark mb-3">Material</h3>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Gold</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Silver</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Rose Gold</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Platinum</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Gemstone Filter -->
+          <div class="mb-6">
+            <h3 class="font-medium text-text-dark mb-3">Gemstone</h3>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Diamond</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Ruby</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Sapphire</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Emerald</span>
+              </label>
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-secondary-dark focus:ring-primary">
+                <span class="text-text-light">Pearl</span>
+              </label>
+            </div>
+          </div>
+          
+          <button class="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-md transition-all font-medium">Apply Filters</button>
+          <button class="w-full text-text-light hover:text-primary mt-2 text-sm">Clear All Filters</button>
+        </div>
+      </div>
+      
+      <!-- Product Listing -->
+      <div class="flex-1">
+        <!-- Sorting and View Options -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 bg-white p-4 rounded-lg shadow-sm">
+          <div class="mb-4 sm:mb-0">
+            <p class="text-text-light"><span class="font-medium text-text-dark">24</span> products found</p>
+          </div>
+          
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+              <label for="sort-by" class="text-sm text-text-light">Sort by:</label>
+              <select id="sort-by" class="border border-secondary-dark rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-1 focus:ring-primary bg-white">
+                <option>Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Newest First</option>
+                <option>Best Selling</option>
+              </select>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <button class="text-primary hover:text-primary-dark transition-all" aria-label="Grid view">
+                <i class="fas fa-th-large"></i>
+              </button>
+              <button class="text-text-light hover:text-primary transition-all" aria-label="List view">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Product 1 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3" alt="Pearl Pendant Necklace" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <div class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">
+                New Arrival
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-text-light ml-1">(18)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Pearl Pendant Necklace</h3>
+              <p class="text-sm text-text-light mb-2">Elegant pearl pendant with gold chain</p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">$249.99</span>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="1" data-product-name="Pearl Pendant Necklace" data-product-price="249.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 2 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3" alt="Diamond Engagement Ring" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">
+                Best Seller
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span class="text-text-light ml-1">(42)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Diamond Engagement Ring</h3>
+              <p class="text-sm text-text-light mb-2">1.2 carat diamond in 18k gold setting</p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">$899.99</span>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="2" data-product-name="Diamond Engagement Ring" data-product-price="899.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 3 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3" alt="Gold Bracelet" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-text-light ml-1">(24)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Elegant Gold Bracelet</h3>
+              <p class="text-sm text-text-light mb-2">Handcrafted 18k gold chain bracelet</p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">$129.99</span>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="3" data-product-name="Elegant Gold Bracelet" data-product-price="129.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 4 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3" alt="Gold Drop Earrings" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <div class="absolute top-3 left-3 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">
+                Sale
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-text-light ml-1">(31)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Gold Drop Earrings</h3>
+              <p class="text-sm text-text-light mb-2">Elegant gold drop earrings with crystals</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-primary font-semibold">$89.99</span>
+                  <span class="text-text-light line-through text-sm ml-2">$119.99</span>
+                </div>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="4" data-product-name="Gold Drop Earrings" data-product-price="89.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 5 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3" alt="Silver Necklace Set" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-text-light ml-1">(16)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Silver Necklace Set</h3>
+              <p class="text-sm text-text-light mb-2">Matching necklace and earrings set</p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">$179.99</span>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="5" data-product-name="Silver Necklace Set" data-product-price="179.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 6 -->
+          <div class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1608042314453-ae338d80c427?ixlib=rb-4.0.3" alt="Rose Gold Ring" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+              <div class="absolute top-3 right-3 flex flex-col space-y-2">
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Add to wishlist">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="bg-white rounded-full p-2 text-primary hover:text-primary-dark transition-all shadow-sm" aria-label="Quick view">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <div class="absolute top-3 left-3 bg-blue-500 text-white text-xs font-medium px-2 py-1 rounded">
+                Limited Edition
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="text-yellow-400 text-xs mb-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span class="text-text-light ml-1">(27)</span>
+              </div>
+              <h3 class="font-medium text-text-dark group-hover:text-primary transition-all">Rose Gold Ring</h3>
+              <p class="text-sm text-text-light mb-2">Delicate rose gold ring with sapphire</p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">$349.99</span>
+                <button class="bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1 rounded transition-all add-to-cart" data-product-id="6" data-product-name="Rose Gold Ring" data-product-price="349.99">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="flex justify-center mt-10">
+          <nav class="inline-flex rounded-md shadow-sm isolate">
+            <a href="#" class="relative inline-flex items-center rounded-l-md px-3 py-2 text-sm font-medium text-text-light ring-1 ring-inset ring-secondary-dark hover:bg-secondary hover:text-primary transition-all">
+              <i class="fas fa-chevron-left text-xs mr-1"></i>
+              Previous
+            </a>
+            <a href="#" class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-primary ring-1 ring-inset ring-primary">
+              1
+            </a>
+            <a href="#" class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-text-light ring-1 ring-inset ring-secondary-dark hover:bg-secondary hover:text-primary transition-all">
+              2
+            </a>
+            <a href="#" class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-text-light ring-1 ring-inset ring-secondary-dark hover:bg-secondary hover:text-primary transition-all">
+              3
+            </a>
+            <a href="#" class="relative inline-flex items-center rounded-r-md px-3 py-2 text-sm font-medium text-text-light ring-1 ring-inset ring-secondary-dark hover:bg-secondary hover:text-primary transition-all">
+              Next
+              <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-white text-[#4a4a4a] text-xs sm:text-sm px-4 sm:px-12 py-10 mt-16">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-8 border-b border-[#d9d4c6] pb-8">
+      <div>
+        <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+          Where about
+        </h4>
+        <address class="not-italic leading-relaxed">
+          4517 Washington Ave. Manchester,
+          <br/>
+          Kentucky 39495
+        </address>
+        <p class="mt-2">
+          Contact
+        </p>
+        <p>
+          (888) 555-0111
+        </p>
+        <p class="mt-2">
+          Mailbox
+        </p>
+        <p>
+          hello@shilpokotha.com
+        </p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+          Pages
+        </h4>
+        <ul class="space-y-1">
+          <li>
+            <a class="hover:underline" href="about.html">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="products.html">
+              Categories
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="products.html">
+              Shop
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="contact.html">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+          Resource
+        </h4>
+        <ul class="space-y-1">
+          <li>
+            <a class="hover:underline" href="#">
+              FAQ
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Reviews
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Blogs
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Return Policy
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+          Utilities
+        </h4>
+        <ul class="space-y-1">
+          <li>
+            <a class="hover:underline" href="#">
+              Style Guide
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Email Alerts
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Licensing
+            </a>
+          </li>
+          <li>
+            <a class="hover:underline" href="#">
+              Changelog
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between py-6">
+      <p class="text-[10px] text-[#a39a7e] mb-4 sm:mb-0">
+        © 2024 ShilpoKotha Company, Limited. All rights reserved.
+      </p>
+      <div class="flex items-center space-x-4 text-[#a39a7e]">
+        <i class="fas fa-gem text-lg"></i>
+        <span class="font-semibold">ShilpoKotha</span>
+      </div>
+      <div class="flex items-center space-x-4 text-[#a39a7e]">
+        <button aria-label="English" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+          En
+        </button>
+        <button aria-label="Spanish" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+          Es
+        </button>
+        <button aria-label="Settings" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+      <form class="flex w-full max-w-sm space-x-2">
+        <input class="flex-grow border border-[#d9d4c6] rounded-md px-3 py-2 text-xs sm:text-sm placeholder-[#a39a7e] focus:outline-none" placeholder="Enter your email" type="email"/>
+        <button class="bg-[#a39a7e] text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-[#7a6f4e]" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </footer>
+
+  <!-- JavaScript for interactivity -->
+  <script type="module" src="./Javascript/auth-state.js"></script>
+  <script>
+    // Mobile Menu Functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuContent = mobileMenu.querySelector('div');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+      setTimeout(() => {
+        mobileMenuContent.classList.remove('-translate-x-full');
+      }, 10);
+    });
+    
+    closeMobileMenuButton.addEventListener('click', () => {
+      mobileMenuContent.classList.add('-translate-x-full');
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+      }, 300);
+    });
+    
+    // Mobile Collections Dropdown
+    const mobileCollectionsButton = document.getElementById('mobile-collections-button');
+    const mobileCollectionsMenu = document.getElementById('mobile-collections-menu');
+    
+    mobileCollectionsButton.addEventListener('click', () => {
+      mobileCollectionsMenu.classList.toggle('hidden');
+    });
+    
+    // Filter functionality
+    const priceRange = document.querySelector('input[type="range"]');
+    const minPriceInput = document.querySelector('input[placeholder="Min"]');
+    const maxPriceInput = document.querySelector('input[placeholder="Max"]');
+    const applyFiltersButton = document.querySelector('button.bg-primary');
+    const clearFiltersButton = document.querySelector('button.text-text-light');
+    const categoryCheckboxes = document.querySelectorAll('.mb-6:first-child input[type="checkbox"]');
+    
+    // Update min/max inputs when range slider changes
+    if (priceRange) {
+      priceRange.addEventListener('input', (e) => {
+        const value = e.target.value;
+        maxPriceInput.value = value;
+      });
+    }
+    
+    // Apply filters
+    if (applyFiltersButton) {
+      applyFiltersButton.addEventListener('click', () => {
+        // Get selected categories
+        const selectedCategories = [];
+        categoryCheckboxes.forEach(checkbox => {
+          if (checkbox.checked && checkbox.nextElementSibling.textContent.trim() !== 'All Categories') {
+            selectedCategories.push(checkbox.nextElementSibling.textContent.trim());
+          }
+        });
+        
+        // Get price range
+        const minPrice = minPriceInput.value || 0;
+        const maxPrice = maxPriceInput.value || 1000;
+        
+        // Here you would typically filter products based on these criteria
+        console.log('Filtering products with:');
+        console.log('Categories:', selectedCategories.length ? selectedCategories : 'All');
+        console.log('Price range:', `$${minPrice} - $${maxPrice}`);
+        
+        // Show confirmation message
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+        confirmationMessage.textContent = 'Filters applied!';
+        document.body.appendChild(confirmationMessage);
+        
+        setTimeout(() => {
+          confirmationMessage.remove();
+        }, 3000);
+      });
+    }
+    
+    // Clear filters
+    if (clearFiltersButton) {
+      clearFiltersButton.addEventListener('click', () => {
+        // Reset checkboxes
+        categoryCheckboxes.forEach((checkbox, index) => {
+          checkbox.checked = index === 0; // Only check 'All Categories'
+        });
+        
+        // Reset price inputs
+        if (priceRange) priceRange.value = 500;
+        if (minPriceInput) minPriceInput.value = '';
+        if (maxPriceInput) maxPriceInput.value = '';
+        
+        // Show confirmation message
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+        confirmationMessage.textContent = 'Filters cleared!';
+        document.body.appendChild(confirmationMessage);
+        
+        setTimeout(() => {
+          confirmationMessage.remove();
+        }, 3000);
+      });
+    }
+    
+    // Sort functionality
+    const sortSelect = document.getElementById('sort-by');
+    
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        const sortOption = sortSelect.value;
+        console.log('Sorting products by:', sortOption);
+        
+        // Here you would typically sort products based on the selected option
+        // For now, we'll just show a message
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+        confirmationMessage.textContent = `Products sorted by: ${sortOption}`;
+        document.body.appendChild(confirmationMessage);
+        
+        setTimeout(() => {
+          confirmationMessage.remove();
+        }, 3000);
+      });
+    }
+    
+    // View toggle functionality
+    const gridViewButton = document.querySelector('button[aria-label="Grid view"]');
+    const listViewButton = document.querySelector('button[aria-label="List view"]');
+    const productsGrid = document.querySelector('.grid.grid-cols-1');
+    
+    if (gridViewButton && listViewButton && productsGrid) {
+      gridViewButton.addEventListener('click', () => {
+        gridViewButton.classList.add('text-primary');
+        gridViewButton.classList.remove('text-text-light');
+        listViewButton.classList.add('text-text-light');
+        listViewButton.classList.remove('text-primary');
+        
+        productsGrid.classList.remove('grid-cols-1');
+        productsGrid.classList.add('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
+      });
+      
+      listViewButton.addEventListener('click', () => {
+        listViewButton.classList.add('text-primary');
+        listViewButton.classList.remove('text-text-light');
+        gridViewButton.classList.add('text-text-light');
+        gridViewButton.classList.remove('text-primary');
+        
+        productsGrid.classList.remove('sm:grid-cols-2', 'lg:grid-cols-3');
+        productsGrid.classList.add('grid-cols-1');
+      });
+    }
+    
+    // Add to Cart functionality
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const productId = button.getAttribute('data-product-id');
+        const productName = button.getAttribute('data-product-name');
+        const productPrice = button.getAttribute('data-product-price');
+        
+        // Here you would typically add the product to the cart in localStorage or send to a server
+        console.log(`Added to cart: ${productName} (ID: ${productId}) - $${productPrice}`);
+        
+        // Update cart count
+        const cartCountBadge = document.querySelector('a[href="cart.html"] span');
+        if (cartCountBadge) {
+          const currentCount = parseInt(cartCountBadge.textContent);
+          cartCountBadge.textContent = currentCount + 1;
+        }
+        
+        // Show confirmation message
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+        confirmationMessage.textContent = `${productName} added to cart!`;
+        document.body.appendChild(confirmationMessage);
+        
+        setTimeout(() => {
+          confirmationMessage.remove();
+        }, 3000);
+      });
+    });
+    
+    // Quick view functionality
+    const quickViewButtons = document.querySelectorAll('button[aria-label="Quick view"]');
+    
+    quickViewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const productCard = button.closest('.group');
+        const productImage = productCard.querySelector('img').src;
+        const productName = productCard.querySelector('h3').textContent;
+        const productPrice = productCard.querySelector('.text-primary').textContent;
+        const productDescription = productCard.querySelector('p').textContent;
+        
+        // Create quick view modal
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+        modal.innerHTML = `
+          <div class="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-auto">
+            <div class="flex justify-end p-4">
+              <button class="text-text-light hover:text-primary" id="close-modal">
+                <i class="fas fa-times text-lg"></i>
+              </button>
+            </div>
+            <div class="flex flex-col md:flex-row p-4 gap-6">
+              <div class="md:w-1/2">
+                <img src="${productImage}" alt="${productName}" class="w-full h-auto rounded-lg">
+              </div>
+              <div class="md:w-1/2">
+                <h2 class="text-2xl font-semibold text-text-dark mb-2">${productName}</h2>
+                <div class="text-yellow-400 text-sm mb-2">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="text-text-light ml-1">(24 reviews)</span>
+                </div>
+                <p class="text-primary text-xl font-semibold mb-4">${productPrice}</p>
+                <p class="text-text-light mb-6">${productDescription}</p>
+                <div class="mb-4">
+                  <label class="block text-text-dark font-medium mb-2">Quantity</label>
+                  <div class="flex items-center">
+                    <button class="bg-secondary-dark text-text-dark px-3 py-1 rounded-l-md">-</button>
+                    <input type="number" value="1" min="1" class="w-16 text-center border-y border-secondary-dark py-1">
+                    <button class="bg-secondary-dark text-text-dark px-3 py-1 rounded-r-md">+</button>
+                  </div>
+                </div>
+                <button class="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-md transition-all font-medium mb-2">Add to Cart</button>
+                <button class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-md transition-all font-medium">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal functionality
+        const closeModal = modal.querySelector('#close-modal');
+        closeModal.addEventListener('click', () => {
+          modal.remove();
+          document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+          }
+        });
+      });
+    });
+    
+    // Wishlist functionality
+    const wishlistButtons = document.querySelectorAll('button[aria-label="Add to wishlist"]');
+    
+    wishlistButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const icon = button.querySelector('i');
+        
+        if (icon.classList.contains('far')) {
+          icon.classList.remove('far');
+          icon.classList.add('fas');
+          icon.style.color = '#e53e3e';
+          
+          // Show confirmation message
+          const confirmationMessage = document.createElement('div');
+          confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+          confirmationMessage.textContent = 'Added to wishlist!';
+          document.body.appendChild(confirmationMessage);
+          
+          setTimeout(() => {
+            confirmationMessage.remove();
+          }, 3000);
+        } else {
+          icon.classList.remove('fas');
+          icon.classList.add('far');
+          icon.style.color = '';
+          
+          // Show confirmation message
+          const confirmationMessage = document.createElement('div');
+          confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+          confirmationMessage.textContent = 'Removed from wishlist!';
+          document.body.appendChild(confirmationMessage);
+          
+          setTimeout(() => {
+            confirmationMessage.remove();
+          }, 3000);
+        }
+      });
+    });
+    
+    // Newsletter subscription
+    const newsletterForm = document.querySelector('form');
+    
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emailInput = newsletterForm.querySelector('input[type="email"]');
+        const email = emailInput.value;
+        
+        if (email && email.includes('@')) {
+          // Here you would typically send the email to your server
+          console.log(`Newsletter subscription: ${email}`);
+          
+          // Show confirmation message
+          const confirmationMessage = document.createElement('div');
+          confirmationMessage.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg z-50';
+          confirmationMessage.textContent = 'Thank you for subscribing to our newsletter!';
+          document.body.appendChild(confirmationMessage);
+          
+          emailInput.value = '';
+          
+          setTimeout(() => {
+            confirmationMessage.remove();
+          }, 3000);
+        } else {
+          // Show error message
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg z-50';
+          errorMessage.textContent = 'Please enter a valid email address.';
+          document.body.appendChild(errorMessage);
+          
+          setTimeout(() => {
+            errorMessage.remove();
+          }, 3000);
+        }
+      });
+    }
+    
+    // URL parameter handling for category filtering
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    
+    // Check if category parameter exists and apply filter
+    const categoryParam = getUrlParameter('category');
+    if (categoryParam) {
+      // Find the checkbox for this category and check it
+      categoryCheckboxes.forEach(checkbox => {
+        const categoryName = checkbox.nextElementSibling.textContent.trim().toLowerCase();
+        if (categoryName === categoryParam.toLowerCase()) {
+          checkbox.checked = true;
+          // Uncheck 'All Categories'
+          categoryCheckboxes[0].checked = false;
+          
+          // Apply filter automatically
+          if (applyFiltersButton) {
+            applyFiltersButton.click();
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

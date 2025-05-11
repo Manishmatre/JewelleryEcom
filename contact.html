@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Contact Us - RadEl Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .playfair {
+      font-family: "Playfair Display", serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-[#f6f1e6] text-[#1a1a1a]">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button" aria-label="Search">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all" aria-expanded="false" aria-haspopup="true">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-primary text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 hidden">
+    <div class="bg-white h-full w-80 max-w-[80%] p-6 transform transition-all duration-500 -translate-x-full shadow-2xl">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-12 w-auto">
+          <span class="playfair font-semibold text-xl text-primary">ShilpoKotha</span>
+        </div>
+        <button id="close-mobile-menu" class="text-text-light hover:text-primary p-2 hover:bg-secondary-dark rounded-full transition-all" aria-label="Close menu">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="mb-6">
+        <div class="relative">
+          <input class="w-full bg-secondary bg-opacity-30 border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-5">
+        <a href="index.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-home text-primary-dark"></i>
+          <span class="font-medium">Home</span>
+        </a>
+        
+        <a href="products.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-store text-primary-dark"></i>
+          <span class="font-medium">Shop All</span>
+        </a>
+        
+        <div>
+          <button class="flex items-center justify-between w-full py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all" id="mobile-collections-button" aria-expanded="false" aria-controls="mobile-collections-menu">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-gem text-primary-dark"></i>
+              <span class="font-medium">Collections</span>
+            </div>
+            <i class="fas fa-chevron-down text-xs mr-4 transition-transform duration-300" id="mobile-collections-icon"></i>
+          </button>
+          
+          <div class="pl-12 mt-2 space-y-3 hidden bg-secondary bg-opacity-20 py-4 rounded-md" id="mobile-collections-menu">
+            <a href="products.html?category=necklaces" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Necklaces</span>
+            </a>
+            <a href="products.html?category=earrings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Earrings</span>
+            </a>
+            <a href="products.html?category=bracelets" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Bracelets</span>
+            </a>
+            <a href="products.html?category=rings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Rings</span>
+            </a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-info-circle text-primary-dark"></i>
+          <span class="font-medium">About Us</span>
+        </a>
+        
+        <a href="contact.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-primary text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-envelope text-primary-dark"></i>
+          <span class="font-medium">Contact</span>
+        </a>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-secondary-dark">
+        <div class="grid grid-cols-2 gap-4">
+          <a href="login.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-user-circle mb-1"></i>
+            <span class="text-sm font-medium">Account</span>
+          </a>
+          <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-shopping-bag mb-1"></i>
+            <span class="text-sm font-medium">Cart</span>
+          </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-text-light mb-2">Connect with us</p>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-white">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] opacity-5"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="playfair text-4xl md:text-5xl font-bold text-text-dark mb-6">Get In Touch</h1>
+        <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-lg text-text-light leading-relaxed mb-8">
+          We'd love to hear from you. Whether you have a question about our products, custom orders, or anything else, our team is ready to answer all your inquiries.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Information Cards -->
+  <section class="py-12 bg-secondary bg-opacity-30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Customer Service -->
+        <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition-all transform hover:-translate-y-1">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-headset text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Customer Service</h3>
+          <p class="text-text-light mb-6">
+            Our customer service team is available to assist you with any questions or concerns.
+          </p>
+          <div class="space-y-2">
+            <p class="flex items-center justify-center">
+              <i class="fas fa-phone-alt text-primary mr-2"></i>
+              <span>(888) 555-0111</span>
+            </p>
+            <p class="flex items-center justify-center">
+              <i class="fas fa-envelope text-primary mr-2"></i>
+              <span>support@shilpokotha.com</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Sales Inquiries -->
+        <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition-all transform hover:-translate-y-1">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-gem text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Sales Inquiries</h3>
+          <p class="text-text-light mb-6">
+            For bulk orders, wholesale inquiries, or custom jewelry requests.
+          </p>
+          <div class="space-y-2">
+            <p class="flex items-center justify-center">
+              <i class="fas fa-phone-alt text-primary mr-2"></i>
+              <span>(888) 555-0112</span>
+            </p>
+            <p class="flex items-center justify-center">
+              <i class="fas fa-envelope text-primary mr-2"></i>
+              <span>sales@shilpokotha.com</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Press & Media -->
+        <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition-all transform hover:-translate-y-1">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-newspaper text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Press & Media</h3>
+          <p class="text-text-light mb-6">
+            For media inquiries, interviews, or press kit requests.
+          </p>
+          <div class="space-y-2">
+            <p class="flex items-center justify-center">
+              <i class="fas fa-phone-alt text-primary mr-2"></i>
+              <span>(888) 555-0113</span>
+            </p>
+            <p class="flex items-center justify-center">
+              <i class="fas fa-envelope text-primary mr-2"></i>
+              <span>press@shilpokotha.com</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form & Map Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Contact Form -->
+        <div class="lg:w-1/2">
+          <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Send Us a Message</h2>
+          <div class="w-16 h-1 bg-primary mb-8"></div>
+          <p class="text-text-light mb-8">
+            Fill out the form below and we'll get back to you as soon as possible. We value your feedback and inquiries.
+          </p>
+          
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="first-name" class="block text-sm font-medium text-text-light mb-1">First Name*</label>
+                <input type="text" id="first-name" name="first-name" required class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              </div>
+              <div>
+                <label for="last-name" class="block text-sm font-medium text-text-light mb-1">Last Name*</label>
+                <input type="text" id="last-name" name="last-name" required class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              </div>
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-text-light mb-1">Email Address*</label>
+              <input type="email" id="email" name="email" required class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium text-text-light mb-1">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label for="subject" class="block text-sm font-medium text-text-light mb-1">Subject*</label>
+              <select id="subject" name="subject" required class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="">Please select</option>
+                <option value="customer-service">Customer Service</option>
+                <option value="order-inquiry">Order Inquiry</option>
+                <option value="product-question">Product Question</option>
+                <option value="custom-order">Custom Order Request</option>
+                <option value="wholesale">Wholesale Inquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-text-light mb-1">Your Message*</label>
+              <textarea id="message" name="message" rows="5" required class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="privacy" name="privacy" type="checkbox" required class="h-4 w-4 text-primary border-secondary-dark rounded focus:ring-primary">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="privacy" class="text-text-light">I agree to the <a href="#" class="text-primary hover:underline">Privacy Policy</a> and consent to having my data processed.</label>
+              </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-md transition-all shadow-md">
+              Send Message
+            </button>
+          </form>
+        </div>
+        
+        <!-- Map & Store Info -->
+        <div class="lg:w-1/2 mt-12 lg:mt-0">
+          <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Visit Our Stores</h2>
+          <div class="w-16 h-1 bg-primary mb-8"></div>
+          <p class="text-text-light mb-8">
+            Experience our jewelry collections in person at one of our boutique locations.
+          </p>
+          
+          <!-- Map (Placeholder) -->
+          <div class="bg-secondary h-64 mb-8 rounded-lg overflow-hidden">
+            <!-- Replace with actual map embed code -->
+            <div class="w-full h-full flex items-center justify-center bg-secondary-dark bg-opacity-20">
+              <p class="text-primary-dark">Interactive Map Coming Soon</p>
+            </div>
+          </div>
+          
+          <!-- Store Locations -->
+          <div class="space-y-6">
+            <div class="flex">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-text-dark mb-1">Flagship Store - New York</h3>
+                <p class="text-text-light text-sm mb-1">4517 Washington Ave. Manchester, Kentucky 39495</p>
+                <p class="text-text-light text-sm">Mon-Sat: 10am-7pm, Sun: 12pm-5pm</p>
+                <p class="text-primary text-sm mt-1">+1 (888) 555-0111</p>
+              </div>
+            </div>
+            
+            <div class="flex">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-text-dark mb-1">Boutique - San Francisco</h3>
+                <p class="text-text-light text-sm mb-1">2715 Ash Dr. San Jose, South Dakota 83475</p>
+                <p class="text-text-light text-sm">Mon-Sat: 10am-7pm, Sun: 12pm-5pm</p>
+                <p class="text-primary text-sm mt-1">+1 (888) 555-0112</p>
+              </div>
+            </div>
+            
+            <div class="flex">
+              <div class="flex-shrink-0 w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-text-dark mb-1">Studio - Chicago</h3>
+                <p class="text-text-light text-sm mb-1">2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
+                <p class="text-text-light text-sm">Mon-Sat: 10am-7pm, Sun: Closed</p>
+                <p class="text-primary text-sm mt-1">+1 (888) 555-0113</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-secondary bg-opacity-30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Frequently Asked Questions</h2>
+        <div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-text-light leading-relaxed">
+          Find answers to our most commonly asked questions. If you can't find what you're looking for, please contact us.
+        </p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto space-y-6">
+        <!-- FAQ Item 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" aria-controls="faq-1-content">
+            <span class="font-medium text-text-dark">What are your shipping policies?</span>
+            <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+          </button>
+          <div id="faq-1-content" class="px-6 pb-4 hidden">
+            <p class="text-text-light">
+              We offer free standard shipping on all orders over $100. Standard shipping typically takes 3-5 business days. Express shipping is available for an additional fee and typically takes 1-2 business days. International shipping is available to select countries.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" aria-controls="faq-2-content">
+            <span class="font-medium text-text-dark">What is your return policy?</span>
+            <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+          </button>
+          <div id="faq-2-content" class="px-6 pb-4 hidden">
+            <p class="text-text-light">
+              We accept returns within 30 days of delivery for a full refund or exchange. Items must be in their original condition with all packaging and tags. Custom orders are non-refundable unless there is a defect in craftsmanship.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" aria-controls="faq-3-content">
+            <span class="font-medium text-text-dark">Do you offer custom jewelry design services?</span>
+            <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+          </button>
+          <div id="faq-3-content" class="px-6 pb-4 hidden">
+            <p class="text-text-light">
+              Yes, we offer custom jewelry design services. Our team of skilled artisans can create a unique piece based on your specifications. Please contact our customer service team or visit one of our stores to discuss your custom order requirements.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 4 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" aria-controls="faq-4-content">
+            <span class="font-medium text-text-dark">How do I care for my jewelry?</span>
+            <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+          </button>
+          <div id="faq-4-content" class="px-6 pb-4 hidden">
+            <p class="text-text-light">
+              To keep your jewelry looking its best, we recommend storing pieces separately to prevent scratching, removing jewelry before swimming or bathing, and cleaning regularly with a soft cloth. For specific care instructions for your piece, please refer to the care card included with your purchase.
+            </p>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 5 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" aria-expanded="false" aria-controls="faq-5-content">
+            <span class="font-medium text-text-dark">Do you offer jewelry repair services?</span>
+            <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+          </button>
+          <div id="faq-5-content" class="px-6 pb-4 hidden">
+            <p class="text-text-light">
+              Yes, we offer repair services for our jewelry. Please bring your piece to one of our stores or contact our customer service team to arrange for repair. Repair costs will vary depending on the type of repair needed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto bg-primary rounded-lg overflow-hidden shadow-xl">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 p-12 text-white">
+            <h3 class="playfair text-2xl font-bold mb-4">Subscribe to Our Newsletter</h3>
+            <p class="opacity-90 mb-6">
+              Stay updated with our latest collections, exclusive offers, and jewelry care tips.
+            </p>
+            <form class="flex flex-col sm:flex-row gap-3">
+              <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-md focus:outline-none text-text-dark">
+              <button type="submit" class="bg-white text-primary hover:bg-secondary hover:text-primary-dark px-6 py-3 rounded-md font-medium transition-all">
+                Subscribe
+              </button>
+            </form>
+            <p class="text-xs mt-4 opacity-80">
+              By subscribing, you agree to our Privacy Policy and consent to receive marketing emails.
+            </p>
+          </div>
+          <div class="md:w-1/2 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white text-[#4a4a4a] text-xs sm:text-sm px-4 sm:px-12 py-10">
+   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-8 border-b border-[#d9d4c6] pb-8">
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Where about
+     </h4>
+     <address class="not-italic leading-relaxed">
+      4517 Washington Ave. Manchester,
+      <br/>
+      Kentucky 39495
+     </address>
+     <p class="mt-2">
+      Contact
+     </p>
+     <p>
+      (888) 555-0111
+     </p>
+     <p class="mt-2">
+      Mailbox
+     </p>
+     <p>
+      hello@shilpokotha.com
+     </p>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Pages
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="about.html">
+        About Us
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="products.html">
+        Categories
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="products.html">
+        Shop
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="contact.html">
+        Contact Us
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Resource
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        FAQ
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Reviews
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Blogs
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Return Policy
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Utilities
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        Style Guide
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Email Alerts
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Licensing
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Changelog
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between py-6">
+    <p class="text-[10px] text-[#a39a7e] mb-4 sm:mb-0">
+     © 2024 RadEl Company, Limited. All rights reserved.
+    </p>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <i class="fas fa-gem text-lg">
+     </i>
+     <span class="font-semibold">
+      RadEl
+     </span>
+    </div>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <button aria-label="English" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      En
+     </button>
+     <button aria-label="Spanish" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      Es
+     </button>
+     <button aria-label="Settings" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      <i class="fas fa-cog">
+      </i>
+     </button>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+    <form class="flex w-full max-w-sm space-x-2">
+     <input class="flex-grow border border-[#d9d4c6] rounded-md px-3 py-2 text-xs sm:text-sm placeholder-[#a39a7e] focus:outline-none" placeholder="Enter your email" type="email"/>
+     <button class="bg-[#a39a7e] text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-[#7a6f4e]" type="submit">
+      Submit
+     </button>
+    </form>
+  </div>
+</footer>
+
+<!-- JavaScript for interactivity -->
+<script type="module" src="./Javascript/auth-state.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileMenuContent = mobileMenu.querySelector('.bg-white');
+    
+    mobileMenuButton.addEventListener('click', function() {
+      mobileMenu.classList.remove('hidden');
+      setTimeout(() => {
+        mobileMenuContent.classList.remove('-translate-x-full');
+      }, 10);
+    });
+    
+    closeMobileMenu.addEventListener('click', function() {
+      mobileMenuContent.classList.add('-translate-x-full');
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+      }, 300);
+    });
+    
+    // Mobile collections dropdown
+    const mobileCollectionsButton = document.getElementById('mobile-collections-button');
+    const mobileCollectionsMenu = document.getElementById('mobile-collections-menu');
+    const mobileCollectionsIcon = document.getElementById('mobile-collections-icon');
+    
+    mobileCollectionsButton.addEventListener('click', function() {
+      mobileCollectionsMenu.classList.toggle('hidden');
+      mobileCollectionsIcon.classList.toggle('rotate-180');
+    });
+    
+    // Mobile search toggle
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const mobileSearch = document.getElementById('mobile-search');
+    
+    mobileSearchButton.addEventListener('click', function() {
+      mobileSearch.classList.toggle('hidden');
+    });
+    
+    // FAQ accordion functionality
+    const faqButtons = document.querySelectorAll('[aria-controls^="faq-"]');
+    
+    faqButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const content = document.getElementById(this.getAttribute('aria-controls'));
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle current FAQ item
+        this.setAttribute('aria-expanded', !isExpanded);
+        content.classList.toggle('hidden');
+        this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');
+      });
+    });
+  });
+</script>
+</body>
+</html>

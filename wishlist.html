@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist | RadEl Jewelry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f6f1e6;
+    }
+    .playfair {
+      font-family: 'Playfair Display', serif;
+    }
+    .brand-gradient {
+      background: linear-gradient(90deg, #a39a7e 0%, #7a6f4e 100%);
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Announcement Bar -->
+  <div class="bg-[#a39a7e] text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-primary hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span id="wishlist-count" class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-12 px-4">
+    <div class="container mx-auto">
+      <!-- Page Title -->
+      <div class="text-center mb-12">
+        <h1 class="playfair text-3xl md:text-4xl font-bold text-text-dark mb-4">My Wishlist</h1>
+        <p class="text-text-light max-w-xl mx-auto">Items you've saved for later. Sign in to see your wishlist across all your devices.</p>
+      </div>
+
+      <!-- Authentication Check -->
+      <div id="not-logged-in" class="hidden max-w-lg mx-auto bg-white rounded-lg shadow-md p-8 text-center">
+        <div class="mb-6">
+          <i class="fas fa-user-lock text-4xl text-primary"></i>
+        </div>
+        <h2 class="playfair text-2xl font-semibold text-text-dark mb-4">Please Sign In</h2>
+        <p class="text-text-light mb-6">Sign in to view your wishlist items. Create an account if you don't have one yet.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="login.html" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-all">
+            Sign In
+          </a>
+          <a href="signup.html" class="border border-primary text-primary px-6 py-3 rounded-md hover:bg-secondary-dark transition-all">
+            Create Account
+          </a>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading-state" class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        <p class="mt-4 text-text-light">Loading your wishlist...</p>
+      </div>
+
+      <!-- Empty Wishlist -->
+      <div id="empty-wishlist" class="hidden max-w-lg mx-auto bg-white rounded-lg shadow-md p-8 text-center">
+        <div class="mb-6">
+          <i class="far fa-heart text-4xl text-primary"></i>
+        </div>
+        <h2 class="playfair text-2xl font-semibold text-text-dark mb-4">Your Wishlist is Empty</h2>
+        <p class="text-text-light mb-6">Browse our collections and add items to your wishlist.</p>
+        <a href="products.html" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-all inline-block">
+          Explore Products
+        </a>
+      </div>
+
+      <!-- Wishlist Items -->
+      <div id="wishlist-items" class="hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="wishlist-grid">
+          <!-- Items will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1a1a1a] text-white pt-16 pb-8 mt-16">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <h4 class="playfair text-xl font-semibold mb-4">ShilpoKotha</h4>
+          <p class="text-gray-400 text-sm mb-4">Handcrafted jewelry that celebrates the beauty of traditional craftsmanship with a modern twist.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-[#a39a7e] transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-[#a39a7e] transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-[#a39a7e] transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-[#a39a7e] transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="playfair text-lg font-semibold mb-4">Shop</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="products.html" class="hover:text-[#a39a7e] transition-all">All Products</a></li>
+            <li><a href="products.html?category=necklaces" class="hover:text-[#a39a7e] transition-all">Necklaces</a></li>
+            <li><a href="products.html?category=earrings" class="hover:text-[#a39a7e] transition-all">Earrings</a></li>
+            <li><a href="products.html?category=bracelets" class="hover:text-[#a39a7e] transition-all">Bracelets</a></li>
+            <li><a href="products.html?category=rings" class="hover:text-[#a39a7e] transition-all">Rings</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="playfair text-lg font-semibold mb-4">Customer Care</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Contact Us</a></li>
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">FAQs</a></li>
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Shipping & Returns</a></li>
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Care Instructions</a></li>
+            <li><a href="#" class="hover:text-[#a39a7e] transition-all">Size Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="playfair text-lg font-semibold mb-4">Stay Updated</h4>
+          <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter for exclusive offers and updates.</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="bg-[#2a2a2a] text-white text-sm px-4 py-2 rounded-l-md focus:outline-none w-full" />
+            <button type="submit" class="bg-[#a39a7e] px-4 py-2 rounded-r-md hover:bg-[#7a6f4e] transition-all">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-6 pt-6 text-center text-xs text-gray-500">
+        <p>&copy; 2025 ShilpoKotha. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK and Local Storage -->
+  <script type="module">
+    import { getCurrentUser } from './Javascript/firebase-config.js';
+    import { getWishlist, removeFromWishlist, addToCart } from './Javascript/local-storage.js';
+    import { checkAuthState } from './Javascript/auth-state.js';
+    
+    // DOM Elements
+    const loadingState = document.getElementById('loading-state');
+    const notLoggedIn = document.getElementById('not-logged-in');
+    const emptyWishlist = document.getElementById('empty-wishlist');
+    const wishlistItems = document.getElementById('wishlist-items');
+    const wishlistGrid = document.getElementById('wishlist-grid');
+    const wishlistCount = document.getElementById('wishlist-count');
+    
+    // Product template function
+    function createProductCard(item) {
+      return `
+        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group" data-product-id="${item.id}">
+          <div class="relative overflow-hidden">
+            <img src="${item.image}" alt="${item.name}" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute top-0 right-0 p-2">
+              <button class="remove-from-wishlist bg-white text-primary hover:text-red-500 p-2 rounded-full shadow-md transition-all" data-product-id="${item.id}">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-text-dark font-medium mb-1 group-hover:text-primary transition-all">${item.name}</h3>
+            <p class="text-primary font-semibold mb-3">$${item.price.toFixed(2)}</p>
+            <div class="flex space-x-2">
+              <button class="add-to-cart bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-all flex-grow text-sm" data-product-id="${item.id}">
+                Add to Cart
+              </button>
+              <a href="product.html?id=${item.id}" class="border border-primary text-primary px-3 py-2 rounded-md hover:bg-secondary-dark transition-all text-sm">
+                View
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Load wishlist items
+    async function loadWishlist() {
+      try {
+        // Show loading state
+        loadingState.classList.remove('hidden');
+        notLoggedIn.classList.add('hidden');
+        emptyWishlist.classList.add('hidden');
+        wishlistItems.classList.add('hidden');
+        
+        // Check if user is logged in
+        const user = await getCurrentUser();
+        
+        if (!user) {
+          // User is not logged in
+          loadingState.classList.add('hidden');
+          notLoggedIn.classList.remove('hidden');
+          return;
+        }
+        
+        // Get wishlist items
+        const result = getWishlist();
+        
+        if (!result.success) {
+          console.error('Error getting wishlist:', result.error);
+          loadingState.classList.add('hidden');
+          emptyWishlist.classList.remove('hidden');
+          return;
+        }
+        
+        const wishlist = result.data;
+        
+        // Update wishlist count
+        wishlistCount.textContent = wishlist.items.length;
+        
+        if (wishlist.items.length === 0) {
+          // Wishlist is empty
+          loadingState.classList.add('hidden');
+          emptyWishlist.classList.remove('hidden');
+          return;
+        }
+        
+        // Render wishlist items
+        wishlistGrid.innerHTML = '';
+        wishlist.items.forEach(item => {
+          wishlistGrid.innerHTML += createProductCard(item);
+        });
+        
+        // Add event listeners to buttons
+        document.querySelectorAll('.remove-from-wishlist').forEach(button => {
+          button.addEventListener('click', handleRemoveFromWishlist);
+        });
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+          button.addEventListener('click', handleAddToCart);
+        });
+        
+        // Show wishlist items
+        loadingState.classList.add('hidden');
+        wishlistItems.classList.remove('hidden');
+      } catch (error) {
+        console.error('Error loading wishlist:', error);
+        loadingState.classList.add('hidden');
+        emptyWishlist.classList.remove('hidden');
+      }
+    }
+    
+    // Handle remove from wishlist
+    function handleRemoveFromWishlist(e) {
+      const productId = e.currentTarget.dataset.productId;
+      
+      // Remove from wishlist
+      const result = removeFromWishlist(productId);
+      
+      if (result.success) {
+        // Update UI
+        const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+        if (productCard) {
+          productCard.remove();
+        }
+        
+        // Update wishlist count
+        wishlistCount.textContent = result.data.items.length;
+        
+        // Show empty wishlist if no items left
+        if (result.data.items.length === 0) {
+          wishlistItems.classList.add('hidden');
+          emptyWishlist.classList.remove('hidden');
+        }
+      } else {
+        console.error('Error removing from wishlist:', result.error);
+      }
+    }
+    
+    // Handle add to cart
+    function handleAddToCart(e) {
+      const productId = e.currentTarget.dataset.productId;
+      const wishlistResult = getWishlist();
+      
+      if (!wishlistResult.success) {
+        console.error('Error getting wishlist:', wishlistResult.error);
+        return;
+      }
+      
+      // Find product in wishlist
+      const product = wishlistResult.data.items.find(item => item.id === productId);
+      
+      if (!product) {
+        console.error('Product not found in wishlist');
+        return;
+      }
+      
+      // Add to cart
+      const result = addToCart(product);
+      
+      if (result.success) {
+        // Show success message
+        const button = e.currentTarget;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check mr-1"></i> Added';
+        button.disabled = true;
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+        }, 2000);
+      } else {
+        console.error('Error adding to cart:', result.error);
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadWishlist();
+      
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileSearchButton = document.getElementById('mobile-search-button');
+      const mobileSearch = document.getElementById('mobile-search');
+      
+      mobileSearchButton.addEventListener('click', () => {
+        mobileSearch.classList.toggle('hidden');
+      });
+    });
+  </script>
+</body>
+</html>

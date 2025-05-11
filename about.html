@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>About Us - RadEl Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a39a7e',
+            'primary-dark': '#7a6f4e',
+            secondary: '#f6f1e6',
+            'secondary-dark': '#d9d4c6',
+            'text-dark': '#1a1a1a',
+            'text-light': '#4a4a4a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .playfair {
+      font-family: "Playfair Display", serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-[#f6f1e6] text-[#1a1a1a]">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over $100</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-secondary border-b border-secondary-dark shadow-md transition-all duration-300" id="main-header">
+    <!-- Upper Header -->
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-3 group">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
+          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden lg:block w-1/3 max-w-md">
+        <div class="relative">
+          <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Icons -->
+      <div class="flex items-center space-x-1 sm:space-x-5">
+        <!-- Search Toggle (Mobile) -->
+        <button class="lg:hidden p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all" id="mobile-search-button" aria-label="Search">
+          <i class="fas fa-search text-lg"></i>
+        </button>
+        
+        <!-- Account Link - Always visible, changes color when logged in -->
+        <a href="profile.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-circle text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Account</span>
+        </a>
+        
+        <!-- Login/Signup Links - Only visible when logged out -->
+        <a href="login.html" class="login-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-sign-in-alt text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Login</span>
+        </a>
+        
+        <a href="signup.html" class="signup-link relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-user-plus text-lg"></i>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Sign Up</span>
+        </a>
+        
+        <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
+          <i class="fas fa-heart text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">2</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
+        </a>
+        
+        <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
+          <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">0</span>
+          <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
+        </a>
+        
+        <button id="mobile-menu-button" class="p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all lg:hidden" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobile-search" class="lg:hidden px-4 pb-4 hidden">
+      <div class="relative">
+        <input class="w-full bg-white border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+               placeholder="Search for jewelry..." 
+               type="search"/>
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Navigation Bar -->
+    <nav class="hidden lg:block bg-secondary-dark bg-opacity-30 border-t border-secondary-dark">
+      <div class="container mx-auto px-4">
+        <ul class="flex justify-center space-x-8 text-sm font-medium">
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="products.html">Shop All</a>
+          </li>
+          <li class="relative group">
+            <button class="inline-flex items-center py-3 border-b-2 border-transparent group-hover:border-primary group-hover:text-primary transition-all" aria-expanded="false" aria-haspopup="true">
+              <span>Collections</span>
+              <i class="fas fa-chevron-down text-[8px] ml-1.5 transition-transform duration-300 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 bg-white shadow-xl rounded-md hidden group-hover:block z-10 text-sm text-text-light w-64 border border-secondary-dark overflow-hidden transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <div class="grid grid-cols-2 gap-0">
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=necklaces">
+                  <i class="fas fa-gem mb-2 text-primary"></i>
+                  <span>Necklaces</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=earrings">
+                  <i class="fas fa-dot-circle mb-2 text-primary"></i>
+                  <span>Earrings</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=bracelets">
+                  <i class="fas fa-circle mb-2 text-primary"></i>
+                  <span>Bracelets</span>
+                </a>
+                <a class="flex flex-col items-center p-4 hover:bg-secondary hover:text-primary transition-all" href="products.html?category=rings">
+                  <i class="fas fa-ring mb-2 text-primary"></i>
+                  <span>Rings</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-primary text-primary transition-all" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="inline-block py-3 border-b-2 border-transparent hover:border-primary hover:text-primary transition-all" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 hidden">
+    <div class="bg-white h-full w-80 max-w-[80%] p-6 transform transition-all duration-500 -translate-x-full shadow-2xl">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-12 w-auto">
+          <span class="playfair font-semibold text-xl text-primary">ShilpoKotha</span>
+        </div>
+        <button id="close-mobile-menu" class="text-text-light hover:text-primary p-2 hover:bg-secondary-dark rounded-full transition-all" aria-label="Close menu">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="mb-6">
+        <div class="relative">
+          <input class="w-full bg-secondary bg-opacity-30 border border-secondary-dark rounded-full pl-5 pr-12 py-2.5 text-sm placeholder-text-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
+                 placeholder="Search for jewelry..." 
+                 type="search"/>
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary-dark transition-all">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-5">
+        <a href="index.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-home text-primary-dark"></i>
+          <span class="font-medium">Home</span>
+        </a>
+        
+        <a href="products.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-store text-primary-dark"></i>
+          <span class="font-medium">Shop All</span>
+        </a>
+        
+        <div>
+          <button class="flex items-center justify-between w-full py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all" id="mobile-collections-button" aria-expanded="false" aria-controls="mobile-collections-menu">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-gem text-primary-dark"></i>
+              <span class="font-medium">Collections</span>
+            </div>
+            <i class="fas fa-chevron-down text-xs mr-4 transition-transform duration-300" id="mobile-collections-icon"></i>
+          </button>
+          
+          <div class="pl-12 mt-2 space-y-3 hidden bg-secondary bg-opacity-20 py-4 rounded-md" id="mobile-collections-menu">
+            <a href="products.html?category=necklaces" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Necklaces</span>
+            </a>
+            <a href="products.html?category=earrings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Earrings</span>
+            </a>
+            <a href="products.html?category=bracelets" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Bracelets</span>
+            </a>
+            <a href="products.html?category=rings" class="flex items-center space-x-3 py-2 hover:text-primary transition-all">
+              <i class="fas fa-angle-right text-xs text-primary-dark"></i>
+              <span>Rings</span>
+            </a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-primary text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-info-circle text-primary-dark"></i>
+          <span class="font-medium">About Us</span>
+        </a>
+        
+        <a href="contact.html" class="flex items-center space-x-3 py-3 pl-4 border-l-4 border-transparent hover:border-primary hover:text-primary hover:bg-secondary hover:bg-opacity-30 rounded-r-md transition-all">
+          <i class="fas fa-envelope text-primary-dark"></i>
+          <span class="font-medium">Contact</span>
+        </a>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-secondary-dark">
+        <div class="grid grid-cols-2 gap-4">
+          <a href="login.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-user-circle mb-1"></i>
+            <span class="text-sm font-medium">Account</span>
+          </a>
+          <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
+            <i class="fas fa-shopping-bag mb-1"></i>
+            <span class="text-sm font-medium">Cart</span>
+          </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-text-light mb-2">Connect with us</p>
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+            <a href="#" class="text-primary hover:text-primary-dark transition-all">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-white">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] opacity-5"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="playfair text-4xl md:text-5xl font-bold text-text-dark mb-6">Our Story</h1>
+        <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-lg text-text-light leading-relaxed mb-8">
+          At ShilpoKotha, we believe that jewelry is more than an accessory—it's an expression of identity, a celebration of craftsmanship, and a connection to tradition. Our journey began with a passion for preserving the artistry of handcrafted jewelry while bringing it into the modern world.
+        </p>
+        <div class="flex justify-center">
+          <a href="#our-story" class="text-primary border border-primary rounded-full w-10 h-10 flex items-center justify-center animate-bounce">
+            <i class="fas fa-chevron-down"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story Section -->
+  <section id="our-story" class="py-20 bg-secondary bg-opacity-30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                 alt="Artisan crafting jewelry" 
+                 class="w-full h-auto rounded-lg shadow-lg">
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary rounded-full flex items-center justify-center text-white playfair font-semibold text-xl">Since 2015</div>
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <h2 class="playfair text-3xl font-bold text-text-dark mb-6">The Beginning of ShilpoKotha</h2>
+          <div class="w-16 h-1 bg-primary mb-8"></div>
+          <p class="text-text-light mb-6 leading-relaxed">
+            Founded in 2015 by jewelry designer Anika Rahman, ShilpoKotha (meaning "House of Art" in Bengali) began as a small workshop in Dhaka, Bangladesh. Anika's vision was to combine traditional South Asian jewelry-making techniques with contemporary designs that appeal to the modern woman.
+          </p>
+          <p class="text-text-light mb-6 leading-relaxed">
+            What started as a passion project quickly grew into a beloved brand known for its unique designs, ethical sourcing practices, and commitment to preserving traditional craftsmanship while embracing innovation.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 mt-8">
+            <div class="flex flex-col items-center sm:items-start">
+              <div class="text-primary text-4xl font-bold mb-2">5000+</div>
+              <p class="text-text-light text-sm">Happy Customers</p>
+            </div>
+            <div class="flex flex-col items-center sm:items-start">
+              <div class="text-primary text-4xl font-bold mb-2">300+</div>
+              <p class="text-text-light text-sm">Unique Designs</p>
+            </div>
+            <div class="flex flex-col items-center sm:items-start">
+              <div class="text-primary text-4xl font-bold mb-2">15+</div>
+              <p class="text-text-light text-sm">Skilled Artisans</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Our Values</h2>
+        <div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-text-light leading-relaxed">
+          At the heart of ShilpoKotha are the values that guide every piece we create and every decision we make.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-secondary bg-opacity-30 p-8 rounded-lg text-center hover:shadow-lg transition-all">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-hands text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Artisanal Craftsmanship</h3>
+          <p class="text-text-light">
+            We honor traditional techniques passed down through generations, ensuring each piece is crafted with care and precision by skilled artisans.
+          </p>
+        </div>
+
+        <div class="bg-secondary bg-opacity-30 p-8 rounded-lg text-center hover:shadow-lg transition-all">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-leaf text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Ethical Sourcing</h3>
+          <p class="text-text-light">
+            We are committed to responsible sourcing of materials, ensuring our gemstones and metals are ethically obtained and our practices environmentally sustainable.
+          </p>
+        </div>
+
+        <div class="bg-secondary bg-opacity-30 p-8 rounded-lg text-center hover:shadow-lg transition-all">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-heart text-primary text-2xl"></i>
+          </div>
+          <h3 class="playfair text-xl font-semibold text-text-dark mb-4">Community Impact</h3>
+          <p class="text-text-light">
+            We believe in giving back to the communities that inspire us. A portion of our profits supports education and training for aspiring artisans.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Craftsmanship Section -->
+  <section class="py-20 bg-secondary bg-opacity-30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2 order-2 lg:order-1">
+          <h2 class="playfair text-3xl font-bold text-text-dark mb-6">The Art of Craftsmanship</h2>
+          <div class="w-16 h-1 bg-primary mb-8"></div>
+          <p class="text-text-light mb-6 leading-relaxed">
+            Each ShilpoKotha piece is a testament to the meticulous craftsmanship that goes into creating fine jewelry. Our artisans combine traditional techniques with modern precision to create pieces that are both timeless and contemporary.
+          </p>
+          
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mr-4">
+                <i class="fas fa-gem"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-text-dark mb-1">Ethically Sourced Materials</h4>
+                <p class="text-sm text-text-light">We use only the finest ethically sourced gemstones and recycled precious metals in our creations.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mr-4">
+                <i class="fas fa-tools"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-text-dark mb-1">Traditional Techniques</h4>
+                <p class="text-sm text-text-light">Our artisans employ age-old techniques like filigree, meenakari (enameling), and hand-setting to create intricate details.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mr-4">
+                <i class="fas fa-certificate"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-text-dark mb-1">Quality Assurance</h4>
+                <p class="text-sm text-text-light">Every piece undergoes rigorous quality checks to ensure it meets our exacting standards before reaching you.</p>
+              </div>
+            </div>
+          </div>
+          
+          <a href="products.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-md transition-all shadow-md">
+            Explore Our Collections
+          </a>
+        </div>
+        
+        <div class="lg:w-1/2 order-1 lg:order-2 grid grid-cols-2 gap-4">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Jewelry crafting process" 
+               class="w-full h-auto rounded-lg shadow-md">
+          <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Detailed jewelry work" 
+               class="w-full h-auto rounded-lg shadow-md mt-8">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Gemstone selection" 
+               class="w-full h-auto rounded-lg shadow-md">
+          <img src="https://images.unsplash.com/photo-1589118949245-7d38baf380d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Finished jewelry piece" 
+               class="w-full h-auto rounded-lg shadow-md mt-8">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Meet Our Team</h2>
+        <div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-text-light leading-relaxed">
+          Behind every ShilpoKotha creation is a team of passionate individuals dedicated to bringing beauty and artistry to life.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Founder -->
+        <div class="bg-secondary bg-opacity-20 rounded-lg overflow-hidden group">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" 
+                 alt="Anika Rahman - Founder & Lead Designer" 
+                 class="w-full h-80 object-cover object-center transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="playfair text-xl font-semibold text-text-dark mb-2">Anika Rahman</h3>
+            <p class="text-primary font-medium mb-4">Founder & Lead Designer</p>
+            <p class="text-text-light text-sm mb-4">
+              With over 15 years of experience in jewelry design, Anika founded ShilpoKotha to blend her cultural heritage with contemporary aesthetics.
+            </p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Head Artisan -->
+        <div class="bg-secondary bg-opacity-20 rounded-lg overflow-hidden group">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1442&q=80" 
+                 alt="Rahul Sharma - Head Artisan" 
+                 class="w-full h-80 object-cover object-center transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="playfair text-xl font-semibold text-text-dark mb-2">Rahul Sharma</h3>
+            <p class="text-primary font-medium mb-4">Head Artisan</p>
+            <p class="text-text-light text-sm mb-4">
+              A third-generation goldsmith, Rahul brings decades of traditional craftsmanship expertise to every ShilpoKotha creation.
+            </p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Creative Director -->
+        <div class="bg-secondary bg-opacity-20 rounded-lg overflow-hidden group">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1361&q=80" 
+                 alt="Maya Patel - Creative Director" 
+                 class="w-full h-80 object-cover object-center transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="playfair text-xl font-semibold text-text-dark mb-2">Maya Patel</h3>
+            <p class="text-primary font-medium mb-4">Creative Director</p>
+            <p class="text-text-light text-sm mb-4">
+              With a background in fashion and fine arts, Maya ensures each collection tells a cohesive story while pushing creative boundaries.
+            </p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-primary hover:text-primary-dark transition-all">
+                <i class="fab fa-behance"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="contact.html" class="inline-block border border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-md transition-all">
+          Join Our Team
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="py-20 bg-secondary bg-opacity-30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="playfair text-3xl font-bold text-text-dark mb-6">Our Journey</h2>
+        <div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-text-light leading-relaxed">
+          From a small workshop to an internationally recognized brand, our journey has been one of passion, perseverance, and artistry.
+        </p>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary bg-opacity-30"></div>
+        
+        <!-- 2015 -->
+        <div class="relative z-10 mb-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2015</h3>
+                <h4 class="text-primary font-medium mb-3">The Beginning</h4>
+                <p class="text-text-light text-sm">
+                  ShilpoKotha was founded in Dhaka, Bangladesh by Anika Rahman with a small team of 3 artisans.
+                </p>
+              </div>
+            </div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-gem"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0"></div>
+          </div>
+        </div>
+        
+        <!-- 2017 -->
+        <div class="relative z-10 mb-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right"></div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-store"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2017</h3>
+                <h4 class="text-primary font-medium mb-3">First Flagship Store</h4>
+                <p class="text-text-light text-sm">
+                  Opened our first physical store in Dhaka, showcasing our complete collection of handcrafted jewelry.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 2019 -->
+        <div class="relative z-10 mb-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2019</h3>
+                <h4 class="text-primary font-medium mb-3">International Recognition</h4>
+                <p class="text-text-light text-sm">
+                  Featured in Vogue and received the South Asian Artisan Excellence Award for our innovative designs.
+                </p>
+              </div>
+            </div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-award"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0"></div>
+          </div>
+        </div>
+        
+        <!-- 2021 -->
+        <div class="relative z-10 mb-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right"></div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-globe-asia"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2021</h3>
+                <h4 class="text-primary font-medium mb-3">Global Expansion</h4>
+                <p class="text-text-light text-sm">
+                  Launched our international e-commerce platform and expanded our team to 15 artisans.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 2023 -->
+        <div class="relative z-10 mb-12">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2023</h3>
+                <h4 class="text-primary font-medium mb-3">Sustainability Pledge</h4>
+                <p class="text-text-light text-sm">
+                  Committed to using 100% recycled metals and ethically sourced gemstones in all our creations.
+                </p>
+              </div>
+            </div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0"></div>
+          </div>
+        </div>
+        
+        <!-- 2025 -->
+        <div class="relative z-10">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 text-right"></div>
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mx-auto md:mx-0">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-12 mt-8 md:mt-0">
+              <div class="bg-white p-6 rounded-lg shadow-md inline-block">
+                <h3 class="playfair text-xl font-semibold text-text-dark mb-2">2025</h3>
+                <h4 class="text-primary font-medium mb-3">Today & Beyond</h4>
+                <p class="text-text-light text-sm">
+                  Continuing our mission to create beautiful, meaningful jewelry while supporting artisan communities and sustainable practices.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="playfair text-3xl font-bold text-text-dark mb-6">What Our Customers Say</h2>
+        <div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+        <p class="text-text-light leading-relaxed">
+          We're honored to be part of our customers' most special moments and cherished memories.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-secondary bg-opacity-10 p-8 rounded-lg relative">
+          <div class="absolute -top-4 left-8 text-primary text-6xl opacity-20">“</div>
+          <div class="relative z-10">
+            <p class="text-text-light italic mb-6">
+              "My ShilpoKotha necklace has become my signature piece. The craftsmanship is exquisite, and I receive compliments every time I wear it. It's not just jewelry; it's wearable art."
+            </p>
+            <div class="flex items-center">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                   alt="Sarah Johnson" 
+                   class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-text-dark">Sarah Johnson</h4>
+                <div class="flex text-primary text-sm">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-secondary bg-opacity-10 p-8 rounded-lg relative">
+          <div class="absolute -top-4 left-8 text-primary text-6xl opacity-20">“</div>
+          <div class="relative z-10">
+            <p class="text-text-light italic mb-6">
+              "I purchased a pair of earrings for my wife's birthday, and she absolutely loves them. The attention to detail is remarkable, and the packaging was beautiful. Exceptional service from start to finish."
+            </p>
+            <div class="flex items-center">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                   alt="Michael Chen" 
+                   class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-text-dark">Michael Chen</h4>
+                <div class="flex text-primary text-sm">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-secondary bg-opacity-10 p-8 rounded-lg relative">
+          <div class="absolute -top-4 left-8 text-primary text-6xl opacity-20">“</div>
+          <div class="relative z-10">
+            <p class="text-text-light italic mb-6">
+              "As someone who appreciates traditional craftsmanship, I'm impressed by how ShilpoKotha blends heritage techniques with modern designs. My bracelet is a conversation starter and a piece I'll treasure forever."
+            </p>
+            <div class="flex items-center">
+              <img src="https://images.unsplash.com/photo-1619895862022-09114b41f16f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                   alt="Priya Patel" 
+                   class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-text-dark">Priya Patel</h4>
+                <div class="flex text-primary text-sm">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="products.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 px-8 rounded-md transition-all shadow-md">
+          Shop Our Collections
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA Section -->
+  <section class="py-20 bg-secondary relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] opacity-5"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 bg-primary p-12 text-white">
+            <h3 class="playfair text-2xl font-bold mb-6">Get In Touch</h3>
+            <p class="mb-8 opacity-90">
+              Have questions about our products or interested in a custom piece? We'd love to hear from you.
+            </p>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-map-marker-alt mr-3"></i>
+                </div>
+                <p>4517 Washington Ave. Manchester, Kentucky 39495</p>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-phone-alt mr-3"></i>
+                </div>
+                <p>(888) 555-0111</p>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-envelope mr-3"></i>
+                </div>
+                <p>hello@shilpokotha.com</p>
+              </div>
+            </div>
+            <div class="mt-8">
+              <p class="mb-4 opacity-90">Follow us on social media</p>
+              <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 border border-white rounded-full flex items-center justify-center hover:bg-white hover:text-primary transition-all">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-10 h-10 border border-white rounded-full flex items-center justify-center hover:bg-white hover:text-primary transition-all">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 border border-white rounded-full flex items-center justify-center hover:bg-white hover:text-primary transition-all">
+                  <i class="fab fa-pinterest-p"></i>
+                </a>
+                <a href="#" class="w-10 h-10 border border-white rounded-full flex items-center justify-center hover:bg-white hover:text-primary transition-all">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 p-12">
+            <h3 class="playfair text-2xl font-bold text-text-dark mb-6">Send Us a Message</h3>
+            <form class="space-y-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-text-light mb-1">Your Name</label>
+                <input type="text" id="name" name="name" class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-text-light mb-1">Email Address</label>
+                <input type="email" id="email" name="email" class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              </div>
+              <div>
+                <label for="subject" class="block text-sm font-medium text-text-light mb-1">Subject</label>
+                <input type="text" id="subject" name="subject" class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-text-light mb-1">Your Message</label>
+                <textarea id="message" name="message" rows="4" class="w-full border border-secondary-dark rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-md transition-all">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white text-[#4a4a4a] text-xs sm:text-sm px-4 sm:px-12 py-10">
+   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-8 border-b border-[#d9d4c6] pb-8">
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Where about
+     </h4>
+     <address class="not-italic leading-relaxed">
+      4517 Washington Ave. Manchester,
+      <br/>
+      Kentucky 39495
+     </address>
+     <p class="mt-2">
+      Contact
+     </p>
+     <p>
+      (888) 555-0111
+     </p>
+     <p class="mt-2">
+      Mailbox
+     </p>
+     <p>
+      hello@shilpokotha.com
+     </p>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Pages
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="about.html">
+        About Us
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="products.html">
+        Categories
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="products.html">
+        Shop
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="contact.html">
+        Contact Us
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Resource
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        FAQ
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Reviews
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Blogs
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Return Policy
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div>
+     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
+      Utilities
+     </h4>
+     <ul class="space-y-1">
+      <li>
+       <a class="hover:underline" href="#">
+        Style Guide
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Email Alerts
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Licensing
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#">
+        Changelog
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between py-6">
+    <p class="text-[10px] text-[#a39a7e] mb-4 sm:mb-0">
+     © 2024 RadEl Company, Limited. All rights reserved.
+    </p>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <i class="fas fa-gem text-lg">
+     </i>
+     <span class="font-semibold">
+      RadEl
+     </span>
+    </div>
+    <div class="flex items-center space-x-4 text-[#a39a7e]">
+     <button aria-label="English" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      En
+     </button>
+     <button aria-label="Spanish" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      Es
+     </button>
+     <button aria-label="Settings" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
+      <i class="fas fa-cog">
+      </i>
+     </button>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+    <form class="flex w-full max-w-sm space-x-2">
+     <input class="flex-grow border border-[#d9d4c6] rounded-md px-3 py-2 text-xs sm:text-sm placeholder-[#a39a7e] focus:outline-none" placeholder="Enter your email" type="email"/>
+     <button class="bg-[#a39a7e] text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-[#7a6f4e]" type="submit">
+      Submit
+     </button>
+    </form>
+   </div>
+  </footer>
+  
+  <!-- JavaScript for interactivity -->
+  <script type="module" src="./Javascript/auth-state.js"></script>
+  <script src="./Javascript/script.js"></script>
+  <!-- Custom script to fix header sticking issue -->
+  <script src="./Javascript/about-header-fix.js"></script>
+</body>
+</html>
