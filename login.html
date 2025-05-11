@@ -88,12 +88,14 @@
         
         <a href="wishlist.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group">
           <i class="fas fa-heart text-lg"></i>
+          <span class="wishlist-badge wishlist-count absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
           <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 wishlist-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Wishlist</span>
         </a>
         
         <a href="cart.html" class="relative p-2 text-text-dark hover:text-primary hover:bg-secondary-dark rounded-full transition-all group" aria-label="Cart">
           <i class="fas fa-shopping-bag text-lg"></i>
+          <span class="cart-badge cart-count absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
           <span class="absolute -top-2 -right-1 bg-primary text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 cart-count">0</span>
           <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-md px-3 py-1.5 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">Cart</span>
         </a>
@@ -246,6 +248,7 @@
           </a>
           <a href="cart.html" class="flex flex-col items-center justify-center py-3 bg-secondary hover:bg-primary hover:text-white rounded-md transition-all">
             <i class="fas fa-shopping-bag mb-1"></i>
+          <span class="cart-badge cart-count absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
             <span class="text-sm font-medium">Cart</span>
           </a>
         </div>
