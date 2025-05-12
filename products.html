@@ -31,10 +31,11 @@
     @keyframes marquee {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
-    }
-  </style>
+    }  </style>
+  <script type="module" src="./Javascript/shared-header.js"></script>
 </head>
-<body class="bg-[#f6f1e6] text-[#1a1a1a]">
+
+<bodyclass="bg-[#f6f1e6] text-[#1a1a1a]">
   <!-- Announcement Bar -->
   <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
     <div class="animate-marquee whitespace-nowrap">
@@ -701,151 +702,227 @@
       </div>
     </div>
   </div>
-  <!-- Footer -->
-  <footer class="bg-white text-[#4a4a4a] text-sm px-4 sm:px-12 py-10">
-    <div class="max-w-7xl mx-auto">
+  <footer class="bg-gradient-to-b from-white to-secondary text-[#4a4a4a] text-sm px-4 sm:px-12 py-16 relative">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 w-full overflow-hidden h-12">
+      <div class="absolute -top-10 left-0 w-40 h-40 rounded-full bg-primary opacity-10"></div>
+      <div class="absolute -top-5 right-20 w-20 h-20 rounded-full bg-primary-dark opacity-10"></div>
+      <div class="absolute top-10 right-0 w-32 h-32 rounded-full bg-primary opacity-10"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
       <!-- Footer Top Section with Logo and Newsletter -->
-      <div class="flex flex-col md:flex-row justify-between items-center mb-10 pb-10 border-b border-[#d9d4c6]">
-        <div class="flex items-center mb-6 md:mb-0">
-          <i class="fas fa-gem text-primary text-2xl mr-3"></i>
-          <span class="font-semibold text-xl text-text-dark">ShilpoKotha</span>
+      <div class="flex flex-col md:flex-row justify-between items-center mb-12 pb-12 border-b border-[#d9d4c6]">
+        <div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+          <div class="flex items-center mb-3">
+            <div class="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-white shadow-md mr-3">
+              <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-8 w-auto">
+            </div>
+            <span class="playfair font-semibold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">ShilpoKotha</span>
+          </div>
+          <p class="text-text-light text-sm max-w-xs text-center md:text-left">Discover the art of handcrafted jewelry that tells your unique story</p>
         </div>
         
-        <form class="flex w-full max-w-md space-x-2">
-          <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-2.5 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Subscribe to our newsletter" type="email"/>
-          <button class="bg-primary text-white px-5 py-2.5 rounded-md text-sm hover:bg-primary-dark transition-colors shadow-sm hover:shadow" type="submit">
-            Subscribe
-          </button>
-        </form>
+        <div class="w-full max-w-md">
+          <h3 class="text-center md:text-right font-medium mb-3 playfair text-primary-dark">Stay Updated with New Collections</h3>
+          <form class="flex w-full space-x-2">
+            <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-3 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white/80 backdrop-blur-sm shadow-inner" placeholder="Enter your email address" type="email"/>
+            <button class="bg-gradient-to-r from-primary to-primary-dark text-white px-5 py-3 rounded-md text-sm hover:brightness-110 transition-all shadow-md hover:shadow-lg" type="submit">
+              Subscribe
+            </button>
+          </form>
+        </div>
       </div>
       
       <!-- Footer Links Section -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 pb-10 border-b border-[#d9d4c6]">
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 pb-12 border-b border-[#d9d4c6]">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
             Contact Us
           </h4>
-          <address class="not-italic leading-relaxed mb-3 text-text-light">
-            4517 Washington Ave. Manchester,<br/>
-            Kentucky 39495
+          <address class="not-italic leading-relaxed mb-3 text-text-light flex items-start">
+            <span class="bg-primary/10 p-1 rounded mr-2 mt-1">
+              <i class="fas fa-home text-primary-dark text-xs"></i>
+            </span>
+            <span>4517 Washington Ave. Manchester,<br/>
+            Kentucky 39495</span>
           </address>
-          <p class="mb-1 text-text-light">
-            <span class="text-primary font-medium">Phone:</span> (888) 555-0111
+          <p class="mb-3 text-text-light flex items-center">
+            <span class="bg-primary/10 p-1 rounded mr-2">
+              <i class="fas fa-phone-alt text-primary-dark text-xs"></i>
+            </span>
+            <span>(888) 555-0111</span>
           </p>
-          <p class="text-text-light">
-            <span class="text-primary font-medium">Email:</span> hello@shilpokotha.com
+          <p class="text-text-light flex items-center mb-4">
+            <span class="bg-primary/10 p-1 rounded mr-2">
+              <i class="fas fa-envelope text-primary-dark text-xs"></i>
+            </span>
+            <span>hello@shilpokotha.com</span>
           </p>
           
           <!-- Social Media Icons -->
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-facebook-f"></i>
+          <div class="flex space-x-3 mt-5">
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-facebook-f text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-instagram"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-instagram text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-twitter"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-twitter text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-pinterest-p"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-pinterest-p text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
           </div>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-shopping-bag text-primary mr-2"></i>
             Shop
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-gem text-xs text-primary-dark"></i>
+                </span>
                 All Collections
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=necklaces">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=necklaces">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-link text-xs text-primary-dark"></i>
+                </span>
                 Necklaces
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=rings">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=rings">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-ring text-xs text-primary-dark"></i>
+                </span>
                 Rings
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=earrings">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=earrings">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-dot-circle text-xs text-primary-dark"></i>
+                </span>
                 Earrings
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=bracelets">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=bracelets">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-circle text-xs text-primary-dark"></i>
+                </span>
                 Bracelets
               </a>
             </li>
           </ul>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-building text-primary mr-2"></i>
             Company
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="about.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="about.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-info-circle text-xs text-primary-dark"></i>
+                </span>
                 About Us
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-book-open text-xs text-primary-dark"></i>
+                </span>
                 Our Story
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-briefcase text-xs text-primary-dark"></i>
+                </span>
                 Careers
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-newspaper text-xs text-primary-dark"></i>
+                </span>
                 Press
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="contact.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="contact.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-envelope text-xs text-primary-dark"></i>
+                </span>
                 Contact Us
               </a>
             </li>
           </ul>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-question-circle text-primary mr-2"></i>
             Help
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-question text-xs text-primary-dark"></i>
+                </span>
                 FAQ
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-truck text-xs text-primary-dark"></i>
+                </span>
                 Shipping & Returns
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-hand-sparkles text-xs text-primary-dark"></i>
+                </span>
                 Product Care
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-ruler text-xs text-primary-dark"></i>
+                </span>
                 Size Guide
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-shield-alt text-xs text-primary-dark"></i>
+                </span>
                 Privacy Policy
               </a>
             </li>
@@ -854,28 +931,56 @@
       </div>
       
       <!-- Footer Bottom Section -->
-      <div class="flex flex-col md:flex-row items-center justify-between py-4">
-        <p class="text-xs text-[#a39a7e] mb-4 md:mb-0 text-center md:text-left">
-          © 2024 ShilpoKotha. All rights reserved. Crafted with <i class="fas fa-heart text-primary text-xs"></i> by ShilpoKotha
-        </p>
+      <div class="flex flex-col md:flex-row items-center justify-between py-8 relative">
+        <!-- Decorative wave -->
+        <div class="absolute top-0 left-0 w-full h-4 overflow-hidden">
+          <div class="w-full h-12 bg-secondary-dark/20 rounded-full transform translate-y-6"></div>
+        </div>
         
-        <div class="flex items-center space-x-3">
-          <button aria-label="English" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            EN
-          </button>
-          <button aria-label="Bengali" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            BN
-          </button>
-          <button aria-label="Hindi" class="border border-[#  d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            HI
-          </button>
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 mb-4 md:mb-0 z-10">
+          <div class="flex items-center">
+            <div class="relative overflow-hidden rounded-full h-10 w-10 border-2 border-primary flex items-center justify-center bg-white shadow-sm mr-3">
+              <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-7 w-auto">
+            </div>
+            <p class="text-xs text-[#a39a7e] text-center md:text-left">
+              © 2024 ShilpoKotha. All rights reserved. <br class="hidden md:block" />
+              <span class="whitespace-nowrap">Crafted with <i class="fas fa-heart text-primary text-xs animate-pulse"></i> by ShilpoKotha</span>
+            </p>
+          </div>
+          
+          <div class="flex items-center space-x-3">
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Terms</a>
+            <span class="text-secondary-dark">•</span>
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Privacy</a>
+            <span class="text-secondary-dark">•</span>
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Cookies</a>
+          </div>
+        </div>
+        
+        <div class="flex flex-col items-center md:items-end space-y-3 z-10">
+          <div class="flex items-center space-x-3 bg-white px-3 py-1.5 rounded-full shadow-sm">
+            <button aria-label="English" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              EN
+            </button>
+            <button aria-label="Bengali" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              BN
+            </button>
+            <button aria-label="Hindi" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              HI
+            </button>
+          </div>
+          <div class="text-xs text-primary-dark">Secure payments by <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-paypal mx-1"></i></div>
         </div>
       </div>
     </div>
-  </footer>  <!-- JavaScript for interactivity -->
+  </footer> 
+  
+  
+  <!-- JavaScript for interactivity -->
   <script type="module" src="./Javascript/auth-state.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>
   <script type="module" src="./Javascript/display-all-products.js"></script>
   <script type="module" src="./Javascript/products.js"></script>
 </body>
 </html>
+

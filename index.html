@@ -27,6 +27,86 @@
       transition: all 0.3s ease;
     }
     
+    /* Testimonial carousel styles */
+    .testimonial-container {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .testimonials-wrapper {
+      display: flex;
+      width: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+    
+    .testimonial-slide {
+      min-width: 100%;
+      padding: 0 1rem;
+      opacity: 0.7;
+      transition: opacity 0.5s ease;
+    }
+    
+    .testimonial-slide.active {
+      opacity: 1;
+    }
+    
+    /* Dot indicators styling */
+    #testimonial-dots button {
+      transition: all 0.3s ease;
+      transform: scale(1);
+    }
+    
+    #testimonial-dots button.bg-primary {
+      transform: scale(1.2);
+    }
+    
+    /* Arrow hover effects */
+    #testimonial-prev:hover, #testimonial-next:hover {
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    /* Loading state styling */
+    .testimonial-carousel.loading .testimonials-wrapper {
+      opacity: 0.6;
+    }
+    
+    .testimonial-carousel.loading::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary-color, #9c6644);
+      animation: spinner 0.8s linear infinite;
+      z-index: 20;
+    }
+    
+    .testimonial-carousel.loaded::before {
+      display: none;
+    }
+    
+    /* Fallback for when JS fails */
+    .testimonial-carousel .js-error .testimonial-slide {
+      opacity: 1;
+      display: block;
+    }
+    
+    @keyframes spinner {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    /* Make sure carousel arrows are visible on smaller screens */
+    @media (max-width: 640px) {
+      .testimonial-slide p {
+        font-size: 1rem;
+      }
+    }
+    
     /* Custom Animations */
     @keyframes fadeIn {
       0% { opacity: 0; }
@@ -105,7 +185,11 @@
       animation-delay: 0.5s;
     }
   </style>
+  <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/header-manager.js"></script>
+  <script type="module" src="./Javascript/shared-header.js"></script>
 </head>
+
  <body class="bg-[#f6f1e6] text-[#1a1a1a]">
   <!-- Announcement Bar -->
   <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
@@ -126,9 +210,15 @@
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <!-- Logo -->
       <div class="flex items-center space-x-3">
-        <a href="index.html" class="flex items-center space-x-3 group">
-          <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-14 w-auto transition-transform duration-300 group-hover:scale-105">
-          <span class="playfair font-semibold text-xl text-text-dark hidden sm:inline group-hover:text-primary transition-all">ShilpoKotha</span>
+        <a href="index.html" class="flex items-center space-x-3 group relative">
+          <div class="relative overflow-hidden rounded-full h-14 w-14 border-2 border-primary flex items-center justify-center bg-white shadow-md transition-transform duration-300 group-hover:scale-105">
+            <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-10 w-auto transition-all duration-300 group-hover:brightness-110">
+            <div class="absolute inset-0 border-4 border-secondary opacity-0 rounded-full group-hover:opacity-30 transition-all duration-300"></div>
+          </div>
+          <div class="hidden sm:block">
+            <span class="playfair font-semibold text-xl text-text-dark block group-hover:text-primary transition-all">ShilpoKotha</span>
+            <span class="text-xs text-primary-dark italic">Handcrafted Elegance</span>
+          </div>
         </a>
       </div>
       
@@ -610,7 +700,7 @@
       </div>
     </div>
     
-    <!-- Customer Testimonial Preview -->
+    <!-- Customer Testimonial Carousel -->
     <div class="max-w-4xl mx-auto mt-20 bg-gradient-to-br from-secondary to-secondary-dark bg-opacity-70 rounded-2xl p-10 text-center shadow-lg relative overflow-hidden">
       <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary opacity-5 rounded-full"></div>
       <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary opacity-5 rounded-full"></div>
@@ -618,22 +708,132 @@
       <div class="text-primary mb-6 relative z-10">
         <i class="fas fa-quote-left text-4xl opacity-70"></i>
       </div>
-      <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"The craftsmanship of my necklace is absolutely stunning. I receive compliments every time I wear it, and the customer service was exceptional! ShilpoKotha has become my go-to for all jewelry needs."</p>
-      <div class="flex items-center justify-center space-x-4 relative z-10">
-        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-full h-full object-cover">
-        </div>
-        <div class="text-left">
-          <h4 class="font-medium text-text-dark text-lg">Sarah Johnson</h4>
-          <div class="text-primary text-sm">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+      
+      <!-- Testimonial Carousel -->
+      <div class="relative testimonial-carousel loading" tabindex="0" role="region" aria-label="Customer Testimonials">
+        <!-- Testimonials Wrapper -->
+        <div class="testimonial-container overflow-hidden relative" aria-live="polite">
+          <div class="testimonials-wrapper flex transition-all duration-500 ease-in-out" role="presentation">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide w-full flex-shrink-0">
+              <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"The traditional Indian craftsmanship in my gold necklace is absolutely breathtaking. Every detail tells a story of artistry and heritage. I wear it to all special occasions and celebrations!"</p>
+              <div class="flex items-center justify-center space-x-4 relative z-10">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+                  <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Aanya Sharma" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                  <h4 class="font-medium text-text-dark text-lg">Aanya Sharma</h4>
+                  <div class="text-primary text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide w-full flex-shrink-0">
+              <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"I ordered a traditional mangalsutra from ShilpoKotha for my wedding, and it exceeded all my expectations. The quality is remarkable, and it perfectly blends modern design with our cultural traditions."</p>
+              <div class="flex items-center justify-center space-x-4 relative z-10">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+                  <img src="https://randomuser.me/api/portraits/women/51.jpg" alt="Priya Patel" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                  <h4 class="font-medium text-text-dark text-lg">Priya Patel</h4>
+                  <div class="text-primary text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide w-full flex-shrink-0">
+              <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"As a groom, I wanted something special for my wedding day. The handcrafted gold cufflinks I purchased from ShilpoKotha were perfect. They incorporated traditional motifs that matched my sherwani beautifully."</p>
+              <div class="flex items-center justify-center space-x-4 relative z-10">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+                  <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Vikram Singh" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                  <h4 class="font-medium text-text-dark text-lg">Vikram Singh</h4>
+                  <div class="text-primary text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="testimonial-slide w-full flex-shrink-0">
+              <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"The temple jewelry I ordered for my daughter's Bharatanatyam dance performance was simply exquisite. The attention to detail in the traditional South Indian design was remarkable. Customer service was outstanding as well!"</p>
+              <div class="flex items-center justify-center space-x-4 relative z-10">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+                  <img src="https://randomuser.me/api/portraits/women/66.jpg" alt="Lakshmi Venkatesh" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                  <h4 class="font-medium text-text-dark text-lg">Lakshmi Venkatesh</h4>
+                  <div class="text-primary text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 5 -->
+            <div class="testimonial-slide w-full flex-shrink-0">
+              <p class="text-text-dark text-xl italic mb-8 relative z-10 font-light max-w-3xl mx-auto leading-relaxed">"I gifted my wife a beautiful kundan necklace set from ShilpoKotha on our anniversary, and she was overjoyed. The intricate designs remind us of our cultural heritage, and the quality is outstanding. ShilpoKotha truly delivers heirloom-quality pieces."</p>
+              <div class="flex items-center justify-center space-x-4 relative z-10">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rajesh Kapoor" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                  <h4 class="font-medium text-text-dark text-lg">Rajesh Kapoor</h4>
+                  <div class="text-primary text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        
+        <!-- Navigation Arrows -->
+        <button class="absolute top-1/2 left-0 sm:-left-5 transform -translate-y-1/2 bg-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md z-20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-primary" id="testimonial-prev" aria-label="Previous testimonial">
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="absolute top-1/2 right-0 sm:-right-5 transform -translate-y-1/2 bg-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md z-20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-primary" id="testimonial-next" aria-label="Next testimonial">
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+        
+        <!-- Dots Navigation -->
+        <div class="flex justify-center space-x-2 mt-6" id="testimonial-dots" role="tablist" aria-label="Testimonial navigation">
+          <button class="w-3 h-3 rounded-full bg-primary" data-index="0" aria-label="Testimonial 1" role="tab" aria-selected="true" tabindex="0"></button>
+          <button class="w-3 h-3 rounded-full bg-secondary-dark" data-index="1" aria-label="Testimonial 2" role="tab" aria-selected="false" tabindex="-1"></button>
+          <button class="w-3 h-3 rounded-full bg-secondary-dark" data-index="2" aria-label="Testimonial 3" role="tab" aria-selected="false" tabindex="-1"></button>
+          <button class="w-3 h-3 rounded-full bg-secondary-dark" data-index="3" aria-label="Testimonial 4" role="tab" aria-selected="false" tabindex="-1"></button>
+          <button class="w-3 h-3 rounded-full bg-secondary-dark" data-index="4" aria-label="Testimonial 5" role="tab" aria-selected="false" tabindex="-1"></button>
+        </div>
       </div>
+      
       <a href="about.html#testimonials" class="inline-block mt-8 text-primary hover:text-primary-dark font-medium relative z-10 group">
         <span>Read More Testimonials</span>
         <span class="block w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mt-0.5"></span>
@@ -1336,150 +1536,227 @@
     </div>
   </section>
   <!-- Footer -->
-  <footer class="bg-white text-[#4a4a4a] text-sm px-4 sm:px-12 py-10">
-    <div class="max-w-7xl mx-auto">
+  <footer class="bg-gradient-to-b from-white to-secondary text-[#4a4a4a] text-sm px-4 sm:px-12 py-16 relative">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 w-full overflow-hidden h-12">
+      <div class="absolute -top-10 left-0 w-40 h-40 rounded-full bg-primary opacity-10"></div>
+      <div class="absolute -top-5 right-20 w-20 h-20 rounded-full bg-primary-dark opacity-10"></div>
+      <div class="absolute top-10 right-0 w-32 h-32 rounded-full bg-primary opacity-10"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
       <!-- Footer Top Section with Logo and Newsletter -->
-      <div class="flex flex-col md:flex-row justify-between items-center mb-10 pb-10 border-b border-[#d9d4c6]">
-        <div class="flex items-center mb-6 md:mb-0">
-          <i class="fas fa-gem text-primary text-2xl mr-3"></i>
-          <span class="font-semibold text-xl text-text-dark">ShilpoKotha</span>
+      <div class="flex flex-col md:flex-row justify-between items-center mb-12 pb-12 border-b border-[#d9d4c6]">
+        <div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+          <div class="flex items-center mb-3">
+            <div class="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-white shadow-md mr-3">
+              <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-8 w-auto">
+            </div>
+            <span class="playfair font-semibold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">ShilpoKotha</span>
+          </div>
+          <p class="text-text-light text-sm max-w-xs text-center md:text-left">Discover the art of handcrafted jewelry that tells your unique story</p>
         </div>
         
-        <form class="flex w-full max-w-md space-x-2">
-          <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-2.5 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Subscribe to our newsletter" type="email"/>
-          <button class="bg-primary text-white px-5 py-2.5 rounded-md text-sm hover:bg-primary-dark transition-colors shadow-sm hover:shadow" type="submit">
-            Subscribe
-          </button>
-        </form>
+        <div class="w-full max-w-md">
+          <h3 class="text-center md:text-right font-medium mb-3 playfair text-primary-dark">Stay Updated with New Collections</h3>
+          <form class="flex w-full space-x-2">
+            <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-3 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white/80 backdrop-blur-sm shadow-inner" placeholder="Enter your email address" type="email"/>
+            <button class="bg-gradient-to-r from-primary to-primary-dark text-white px-5 py-3 rounded-md text-sm hover:brightness-110 transition-all shadow-md hover:shadow-lg" type="submit">
+              Subscribe
+            </button>
+          </form>
+        </div>
       </div>
       
       <!-- Footer Links Section -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 pb-10 border-b border-[#d9d4c6]">
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 pb-12 border-b border-[#d9d4c6]">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
             Contact Us
           </h4>
-          <address class="not-italic leading-relaxed mb-3 text-text-light">
-            4517 Washington Ave. Manchester,<br/>
-            Kentucky 39495
+          <address class="not-italic leading-relaxed mb-3 text-text-light flex items-start">
+            <span class="bg-primary/10 p-1 rounded mr-2 mt-1">
+              <i class="fas fa-home text-primary-dark text-xs"></i>
+            </span>
+            <span>4517 Washington Ave. Manchester,<br/>
+            Kentucky 39495</span>
           </address>
-          <p class="mb-1 text-text-light">
-            <span class="text-primary font-medium">Phone:</span> (888) 555-0111
+          <p class="mb-3 text-text-light flex items-center">
+            <span class="bg-primary/10 p-1 rounded mr-2">
+              <i class="fas fa-phone-alt text-primary-dark text-xs"></i>
+            </span>
+            <span>(888) 555-0111</span>
           </p>
-          <p class="text-text-light">
-            <span class="text-primary font-medium">Email:</span> hello@shilpokotha.com
+          <p class="text-text-light flex items-center mb-4">
+            <span class="bg-primary/10 p-1 rounded mr-2">
+              <i class="fas fa-envelope text-primary-dark text-xs"></i>
+            </span>
+            <span>hello@shilpokotha.com</span>
           </p>
           
           <!-- Social Media Icons -->
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-facebook-f"></i>
+          <div class="flex space-x-3 mt-5">
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-facebook-f text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-instagram"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-instagram text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-twitter"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-twitter text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
-            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
-              <i class="fab fa-pinterest-p"></i>
+            <a href="#" class="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md group transition-all border border-[#d9d4c6]">
+              <i class="fab fa-pinterest-p text-[#a39a7e] group-hover:text-primary transition-all"></i>
             </a>
           </div>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-shopping-bag text-primary mr-2"></i>
             Shop
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-gem text-xs text-primary-dark"></i>
+                </span>
                 All Collections
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=necklaces">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=necklaces">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-link text-xs text-primary-dark"></i>
+                </span>
                 Necklaces
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=rings">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=rings">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-ring text-xs text-primary-dark"></i>
+                </span>
                 Rings
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=earrings">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=earrings">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-dot-circle text-xs text-primary-dark"></i>
+                </span>
                 Earrings
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=bracelets">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="products.html?category=bracelets">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-circle text-xs text-primary-dark"></i>
+                </span>
                 Bracelets
               </a>
             </li>
           </ul>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-building text-primary mr-2"></i>
             Company
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="about.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="about.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-info-circle text-xs text-primary-dark"></i>
+                </span>
                 About Us
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-book-open text-xs text-primary-dark"></i>
+                </span>
                 Our Story
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-briefcase text-xs text-primary-dark"></i>
+                </span>
                 Careers
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-newspaper text-xs text-primary-dark"></i>
+                </span>
                 Press
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="contact.html">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="contact.html">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-envelope text-xs text-primary-dark"></i>
+                </span>
                 Contact Us
               </a>
             </li>
           </ul>
         </div>
         
-        <div>
-          <h4 class="font-semibold mb-4 text-text-dark text-base">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-8 h-8 bg-primary opacity-10 rounded-full"></div>
+          <h4 class="font-semibold mb-5 text-text-dark text-lg playfair flex items-center">
+            <i class="fas fa-question-circle text-primary mr-2"></i>
             Help
           </h4>
-          <ul class="space-y-2">
+          <ul class="space-y-3">
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-question text-xs text-primary-dark"></i>
+                </span>
                 FAQ
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-truck text-xs text-primary-dark"></i>
+                </span>
                 Shipping & Returns
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-hand-sparkles text-xs text-primary-dark"></i>
+                </span>
                 Product Care
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-ruler text-xs text-primary-dark"></i>
+                </span>
                 Size Guide
               </a>
             </li>
             <li>
-              <a class="text-text-light hover:text-primary transition-colors" href="#">
+              <a class="text-text-light hover:text-primary transition-all flex items-center group" href="#">
+                <span class="w-6 h-6 rounded-full bg-white shadow-sm border border-[#d9d4c6] flex items-center justify-center mr-2 group-hover:bg-primary/10 transition-all">
+                  <i class="fas fa-shield-alt text-xs text-primary-dark"></i>
+                </span>
                 Privacy Policy
               </a>
             </li>
@@ -1488,21 +1765,45 @@
       </div>
       
       <!-- Footer Bottom Section -->
-      <div class="flex flex-col md:flex-row items-center justify-between py-4">
-        <p class="text-xs text-[#a39a7e] mb-4 md:mb-0 text-center md:text-left">
-          © 2024 ShilpoKotha. All rights reserved. Crafted with <i class="fas fa-heart text-primary text-xs"></i> by ShilpoKotha
-        </p>
+      <div class="flex flex-col md:flex-row items-center justify-between py-8 relative">
+        <!-- Decorative wave -->
+        <div class="absolute top-0 left-0 w-full h-4 overflow-hidden">
+          <div class="w-full h-12 bg-secondary-dark/20 rounded-full transform translate-y-6"></div>
+        </div>
         
-        <div class="flex items-center space-x-3">
-          <button aria-label="English" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            EN
-          </button>
-          <button aria-label="Bengali" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            BN
-          </button>
-          <button aria-label="Hindi" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
-            HI
-          </button>
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 mb-4 md:mb-0 z-10">
+          <div class="flex items-center">
+            <div class="relative overflow-hidden rounded-full h-10 w-10 border-2 border-primary flex items-center justify-center bg-white shadow-sm mr-3">
+              <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-7 w-auto">
+            </div>
+            <p class="text-xs text-[#a39a7e] text-center md:text-left">
+              © 2024 ShilpoKotha. All rights reserved. <br class="hidden md:block" />
+              <span class="whitespace-nowrap">Crafted with <i class="fas fa-heart text-primary text-xs animate-pulse"></i> by ShilpoKotha</span>
+            </p>
+          </div>
+          
+          <div class="flex items-center space-x-3">
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Terms</a>
+            <span class="text-secondary-dark">•</span>
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Privacy</a>
+            <span class="text-secondary-dark">•</span>
+            <a href="#" class="text-xs text-text-light hover:text-primary transition-all">Cookies</a>
+          </div>
+        </div>
+        
+        <div class="flex flex-col items-center md:items-end space-y-3 z-10">
+          <div class="flex items-center space-x-3 bg-white px-3 py-1.5 rounded-full shadow-sm">
+            <button aria-label="English" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              EN
+            </button>
+            <button aria-label="Bengali" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              BN
+            </button>
+            <button aria-label="Hindi" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs font-medium">
+              HI
+            </button>
+          </div>
+          <div class="text-xs text-primary-dark">Secure payments by <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-paypal mx-1"></i></div>
         </div>
       </div>
     </div>
