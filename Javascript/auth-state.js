@@ -66,7 +66,7 @@ function updateUIForAuthState(user, profile) {
     // Update user name displays
     if (profile) {
       authElements.userNameElements.forEach(el => {
-        el.textContent = profile.displayName || 'RadEl Customer';
+        el.textContent = profile.displayName || 'ShilpoKotha Customer';
       });
     }
   } else {

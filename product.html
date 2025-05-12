@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCT  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=display" rel="stylesheet"/>
+  <link rel="stylesheet" href="style/style.css">
+  <script src="./Javascript/tailwind-config.js"></script>="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -8,22 +11,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style/style.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#a39a7e',
-            'primary-dark': '#7a6f4e',
-            secondary: '#f6f1e6',
-            'secondary-dark': '#d9d4c6',
-            'text-dark': '#1a1a1a',
-            'text-light': '#4a4a4a'
-          }
-        }
-      }
-    }
-  </script>
+  <script src="./Javascript/tailwind-config.js"></script>
 </head>
 <body class="bg-secondary text-text-dark">
   <!-- Header -->
@@ -624,66 +612,6 @@
   <script type="module" src="./Javascript/auth-state.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>
   <script src="./Javascript/script.js"></script>
-  
-  <!-- Add to Cart Script -->
-  <script type="module">
-    import { addToCart } from './Javascript/local-storage.js';
-    import { updateCartCount } from './Javascript/header-manager.js';
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add to Cart button functionality
-      const addToCartButton = document.querySelector('.add-to-cart-btn');
-      if (addToCartButton) {
-        addToCartButton.addEventListener('click', function() {
-          // Get product details
-          const productId = 'product-' + Math.random().toString(36).substr(2, 9); // Generate a random ID
-          const productName = document.querySelector('.product-title').textContent.trim();
-          const productPrice = parseFloat(document.querySelector('.product-price').textContent.replace('₹', ''));
-          const productImage = document.querySelector('.product-image').src;
-          const quantity = parseInt(document.querySelector('.quantity-input').value);
-          
-          const product = {
-            id: productId,
-            name: productName,
-            price: productPrice,
-            image: productImage
-          };
-          
-          const result = addToCart(product, quantity);
-          
-          if (result.success) {
-            // Show success message
-            alert(`${productName} added to cart!`);
-            // Update cart count
-            updateCartCount();
-          } else {
-            // Show error message
-            alert(result.error || 'Failed to add item to cart. Please try again.');
-          }
-        });
-      }
-      
-      // Quantity buttons functionality
-      const quantityDecrease = document.querySelector('.quantity-decrease');
-      const quantityIncrease = document.querySelector('.quantity-increase');
-      const quantityInput = document.querySelector('.quantity-input');
-      
-      if (quantityDecrease && quantityInput) {
-        quantityDecrease.addEventListener('click', function() {
-          let quantity = parseInt(quantityInput.value);
-          if (quantity > 1) {
-            quantityInput.value = quantity - 1;
-          }
-        });
-      }
-      
-      if (quantityIncrease && quantityInput) {
-        quantityIncrease.addEventListener('click', function() {
-          let quantity = parseInt(quantityInput.value);
-          quantityInput.value = quantity + 1;
-        });
-      }
-    });
-  </script>
+  <script type="module" src="./Javascript/product-detail.js"></script>
 </body>
 </html>
