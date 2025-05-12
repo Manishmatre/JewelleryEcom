@@ -61,7 +61,7 @@ export function renderCartItems() {
         </div>
         <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
           <span class="text-sm text-text-light md:hidden">Price:</span>
-          <span class="ml-auto md:ml-0 font-medium">$${product.price.toFixed(2)}</span>
+          <span class="ml-auto md:ml-0 font-medium">₹${product.price.toFixed(2)}</span>
         </div>
         <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
           <span class="text-sm text-text-light md:hidden">Quantity:</span>
@@ -77,7 +77,7 @@ export function renderCartItems() {
         </div>
         <div class="md:col-span-2 flex md:flex-col md:items-center md:justify-center p-4 md:p-0 border-t md:border-t-0 md:border-l border-secondary-dark">
           <span class="text-sm text-text-light md:hidden">Total:</span>
-          <span class="ml-auto md:ml-0 font-medium item-total">$${itemTotal}</span>
+          <span class="ml-auto md:ml-0 font-medium item-total">₹${itemTotal}</span>
         </div>
       </div>
     `;
@@ -173,7 +173,7 @@ function updateItemTotal(productId) {
   const itemTotalElement = document.querySelector(`[data-product-id="${productId}"] .item-total`);
   if (itemTotalElement) {
     const itemTotal = (product.price * cartItem.quantity).toFixed(2);
-    itemTotalElement.textContent = `$${itemTotal}`;
+    itemTotalElement.textContent = `₹${itemTotal}`;
   }
 }
 
@@ -192,9 +192,9 @@ export function updateOrderSummary() {
   const tax = subtotal * 0.1; // Assuming 10% tax
   const total = subtotal + tax;
   
-  subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-  taxElement.textContent = `$${tax.toFixed(2)}`;
-  totalElement.textContent = `$${total.toFixed(2)}`;
+  subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+  taxElement.textContent = `₹${tax.toFixed(2)}`;
+  totalElement.textContent = `₹${total.toFixed(2)}`;
 }
 
 /**

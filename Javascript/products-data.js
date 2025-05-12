@@ -9,8 +9,8 @@ export const products = [
   {
     id: "necklace-001",
     name: "Gold Pendant Necklace",
-    price: 249.99,
-    originalPrice: 299.99,
+    price: 18749.25,
+    originalPrice: 22499.25,
     discount: 17,
     category: "necklaces",
     subcategory: "pendant",
@@ -37,8 +37,8 @@ export const products = [
   {
     id: "necklace-002",
     name: "Pearl Strand Necklace",
-    price: 299.99,
-    originalPrice: 349.99,
+    price: 22499.25,
+    originalPrice: 26249.25,
     discount: 14,
     category: "necklaces",
     subcategory: "strand",
@@ -64,8 +64,8 @@ export const products = [
   {
     id: "necklace-003",
     name: "Diamond Solitaire Pendant",
-    price: 599.99,
-    originalPrice: 699.99,
+    price: 44999.25,
+    originalPrice: 52499.25,
     discount: 14,
     category: "necklaces",
     subcategory: "pendant",
@@ -91,8 +91,8 @@ export const products = [
   {
     id: "necklace-004",
     name: "Rose Gold Chain Necklace",
-    price: 179.99,
-    originalPrice: 199.99,
+    price: 13499.25,
+    originalPrice: 14999.25,
     discount: 10,
     category: "necklaces",
     subcategory: "chain",
@@ -118,8 +118,8 @@ export const products = [
   {
     id: "necklace-005",
     name: "Emerald Pendant Necklace",
-    price: 449.99,
-    originalPrice: 499.99,
+    price: 33749.25,
+    originalPrice: 37499.25,
     discount: 10,
     category: "necklaces",
     subcategory: "pendant",
@@ -147,8 +147,8 @@ export const products = [
   {
     id: "earring-001",
     name: "Diamond Stud Earrings",
-    price: 399.99,
-    originalPrice: 499.99,
+    price: 29999.25,
+    originalPrice: 37499.25,
     discount: 20,
     category: "earrings",
     subcategory: "stud",
@@ -173,8 +173,8 @@ export const products = [
   {
     id: "earring-002",
     name: "Gold Hoop Earrings",
-    price: 149.99,
-    originalPrice: 179.99,
+    price: 11249.25,
+    originalPrice: 13499.25,
     discount: 17,
     category: "earrings",
     subcategory: "hoop",
@@ -200,8 +200,8 @@ export const products = [
   {
     id: "earring-003",
     name: "Pearl Drop Earrings",
-    price: 129.99,
-    originalPrice: 159.99,
+    price: 9749.25,
+    originalPrice: 11999.25,
     discount: 19,
     category: "earrings",
     subcategory: "drop",
@@ -227,8 +227,8 @@ export const products = [
   {
     id: "earring-004",
     name: "Sapphire Stud Earrings",
-    price: 349.99,
-    originalPrice: 399.99,
+    price: 26249.25,
+    originalPrice: 29999.25,
     discount: 13,
     category: "earrings",
     subcategory: "stud",
@@ -253,8 +253,8 @@ export const products = [
   {
     id: "earring-005",
     name: "Chandelier Earrings",
-    price: 229.99,
-    originalPrice: 279.99,
+    price: 17249.25,
+    originalPrice: 20999.25,
     discount: 18,
     category: "earrings",
     subcategory: "chandelier",
@@ -311,8 +311,8 @@ export const materials = [
 
 // Export price ranges
 export const priceRanges = [
-  { id: "under-100", name: "Under $100", min: 0, max: 99.99 },
-  { id: "100-200", name: "$100 - $200", min: 100, max: 199.99 },
-  { id: "200-500", name: "$200 - $500", min: 200, max: 499.99 },
-  { id: "500-plus", name: "$500+", min: 500, max: Infinity }
+  { id: "under-7500", name: "Under ₹7500", min: 0, max: 7499 },
+  { id: "7500-15000", name: "₹7500 - ₹15000", min: 7500, max: 14999 },
+  { id: "15000-37500", name: "₹15000 - ₹37500", min: 15000, max: 37499 },
+  { id: "37500-plus", name: "₹37500+", min: 37500, max: Infinity }
 ];

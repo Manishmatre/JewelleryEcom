@@ -289,7 +289,7 @@ function setupFilterListeners() {
           // Update the displayed max price
           const maxPriceDisplay = priceSection.querySelector('.flex.justify-between.text-xs.text-text-light.mt-2 span:last-child');
           if (maxPriceDisplay) {
-            maxPriceDisplay.textContent = `$${maxPrice}`;
+            maxPriceDisplay.textContent = `₹${maxPrice}`;
           }
           applyFilters();
         });
@@ -328,7 +328,7 @@ function setupFilterListeners() {
             // Update the displayed max price
             const maxPriceDisplay = priceSection.querySelector('.flex.justify-between.text-xs.text-text-light.mt-2 span:last-child');
             if (maxPriceDisplay) {
-              maxPriceDisplay.textContent = `$${max}`;
+              maxPriceDisplay.textContent = `₹${max}`;
             }
           }
           
@@ -594,7 +594,7 @@ function clearAllFilters() {
       // Update the displayed max price
       const maxPriceDisplay = priceSection.querySelector('.flex.justify-between.text-xs.text-text-light.mt-2 span:last-child');
       if (maxPriceDisplay) {
-        maxPriceDisplay.textContent = `$1000`;
+        maxPriceDisplay.textContent = `₹75000`;
       }
     }
   }
@@ -822,7 +822,7 @@ function displayProducts(products) {
     // Update product price
     const productPrice = productCard.querySelector('.text-primary.font-semibold');
     if (productPrice) {
-      productPrice.textContent = `$${product.price.toFixed(2)}`;
+      productPrice.textContent = `₹${product.price.toFixed(2)}`;
     }
     
     // Add or update wishlist button
@@ -876,7 +876,7 @@ function displayProducts(products) {
     // Update original price if available
     const originalPrice = productCard.querySelector('.text-text-light.line-through');
     if (originalPrice && product.originalPrice) {
-      originalPrice.textContent = `$${product.originalPrice.toFixed(2)}`;
+      originalPrice.textContent = `₹${product.originalPrice.toFixed(2)}`;
       originalPrice.style.display = 'inline';
     } else if (originalPrice) {
       originalPrice.style.display = 'none';

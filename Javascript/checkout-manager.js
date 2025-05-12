@@ -14,12 +14,12 @@ const SHIPPING_OPTIONS = {
   standard: {
     name: 'Standard Shipping',
     description: 'Delivery in 3-5 business days',
-    cost: 5.00
+    cost: 375.00
   },
   express: {
     name: 'Express Shipping',
     description: 'Delivery in 1-2 business days',
-    cost: 15.00
+    cost: 1125.00
   }
 };
 
@@ -91,7 +91,7 @@ function loadCartItems() {
             <p class="text-xs text-text-light">Qty: ${cartItem.quantity}</p>
           </div>
         </div>
-        <span class="font-medium">$${itemTotal}</span>
+        <span class="font-medium">₹${itemTotal}</span>
       </div>
     `;
   });
@@ -295,10 +295,10 @@ function updateOrderSummary() {
   const tax = (subtotal + shipping) * TAX_RATE;
   const total = subtotal + shipping + tax;
   
-  subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-  shippingElement.textContent = `$${shipping.toFixed(2)}`;
-  taxElement.textContent = `$${tax.toFixed(2)}`;
-  totalElement.textContent = `$${total.toFixed(2)}`;
+  subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+  shippingElement.textContent = `₹${shipping.toFixed(2)}`;
+  taxElement.textContent = `₹${tax.toFixed(2)}`;
+  totalElement.textContent = `₹${total.toFixed(2)}`;
 }
 
 // Initialize checkout when DOM is loaded

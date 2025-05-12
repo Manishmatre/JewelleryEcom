@@ -56,7 +56,7 @@
   <!-- Announcement Bar -->
   <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
     <div class="animate-marquee whitespace-nowrap">
-      <span>Free Shipping on Orders Over $100</span>
+      <span>Free Shipping on Orders Over ₹7500</span>
       <span class="mx-8">•</span>
       <span>Use Code WELCOME15 for 15% Off Your First Order</span>
       <span class="mx-8">•</span>
@@ -878,147 +878,178 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-white text-[#4a4a4a] text-xs sm:text-sm px-4 sm:px-12 py-10">
-   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-8 border-b border-[#d9d4c6] pb-8">
-    <div>
-     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
-      Where about
-     </h4>
-     <address class="not-italic leading-relaxed">
-      4517 Washington Ave. Manchester,
-      <br/>
-      Kentucky 39495
-     </address>
-     <p class="mt-2">
-      Contact
-     </p>
-     <p>
-      (888) 555-0111
-     </p>
-     <p class="mt-2">
-      Mailbox
-     </p>
-     <p>
-      hello@shilpokotha.com
-     </p>
+   <!-- Footer -->
+   <footer class="bg-white text-[#4a4a4a] text-sm px-4 sm:px-12 py-10">
+    <div class="max-w-7xl mx-auto">
+      <!-- Footer Top Section with Logo and Newsletter -->
+      <div class="flex flex-col md:flex-row justify-between items-center mb-10 pb-10 border-b border-[#d9d4c6]">
+        <div class="flex items-center mb-6 md:mb-0">
+          <i class="fas fa-gem text-primary text-2xl mr-3"></i>
+          <span class="font-semibold text-xl text-text-dark">ShilpoKotha</span>
+        </div>
+        
+        <form class="flex w-full max-w-md space-x-2">
+          <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-2.5 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Subscribe to our newsletter" type="email"/>
+          <button class="bg-primary text-white px-5 py-2.5 rounded-md text-sm hover:bg-primary-dark transition-colors shadow-sm hover:shadow" type="submit">
+            Subscribe
+          </button>
+        </form>
+      </div>
+      
+      <!-- Footer Links Section -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 pb-10 border-b border-[#d9d4c6]">
+        <div>
+          <h4 class="font-semibold mb-4 text-text-dark text-base">
+            Contact Us
+          </h4>
+          <address class="not-italic leading-relaxed mb-3 text-text-light">
+            4517 Washington Ave. Manchester,<br/>
+            Kentucky 39495
+          </address>
+          <p class="mb-1 text-text-light">
+            <span class="text-primary font-medium">Phone:</span> (888) 555-0111
+          </p>
+          <p class="text-text-light">
+            <span class="text-primary font-medium">Email:</span> hello@shilpokotha.com
+          </p>
+          
+          <!-- Social Media Icons -->
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-[#a39a7e] hover:text-primary transition-colors">
+              <i class="fab fa-pinterest-p"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4 text-text-dark text-base">
+            Shop
+          </h4>
+          <ul class="space-y-2">
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="products.html">
+                All Collections
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=necklaces">
+                Necklaces
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=rings">
+                Rings
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=earrings">
+                Earrings
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="products.html?category=bracelets">
+                Bracelets
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4 text-text-dark text-base">
+            Company
+          </h4>
+          <ul class="space-y-2">
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="about.html">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Our Story
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Careers
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Press
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="contact.html">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4 text-text-dark text-base">
+            Help
+          </h4>
+          <ul class="space-y-2">
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Shipping & Returns
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Product Care
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Size Guide
+              </a>
+            </li>
+            <li>
+              <a class="text-text-light hover:text-primary transition-colors" href="#">
+                Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom Section -->
+      <div class="flex flex-col md:flex-row items-center justify-between py-4">
+        <p class="text-xs text-[#a39a7e] mb-4 md:mb-0 text-center md:text-left">
+          © 2024 ShilpoKotha. All rights reserved. Crafted with <i class="fas fa-heart text-primary text-xs"></i> by RadEl
+        </p>
+        
+        <div class="flex items-center space-x-3">
+          <button aria-label="English" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
+            EN
+          </button>
+          <button aria-label="Bengali" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
+            BN
+          </button>
+          <button aria-label="Hindi" class="border border-[#d9d4c6] rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all text-text-light text-xs">
+            HI
+          </button>
+        </div>
+      </div>
     </div>
-    <div>
-     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
-      Pages
-     </h4>
-     <ul class="space-y-1">
-      <li>
-       <a class="hover:underline" href="about.html">
-        About Us
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="products.html">
-        Categories
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="products.html">
-        Shop
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="contact.html">
-        Contact Us
-       </a>
-      </li>
-     </ul>
-    </div>
-    <div>
-     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
-      Resource
-     </h4>
-     <ul class="space-y-1">
-      <li>
-       <a class="hover:underline" href="#">
-        FAQ
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Reviews
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Blogs
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Return Policy
-       </a>
-      </li>
-     </ul>
-    </div>
-    <div>
-     <h4 class="font-semibold mb-2 text-[#1a1a1a]">
-      Utilities
-     </h4>
-     <ul class="space-y-1">
-      <li>
-       <a class="hover:underline" href="#">
-        Style Guide
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Email Alerts
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Licensing
-       </a>
-      </li>
-      <li>
-       <a class="hover:underline" href="#">
-        Changelog
-       </a>
-      </li>
-     </ul>
-    </div>
-   </div>
-   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between py-6">
-    <p class="text-[10px] text-[#a39a7e] mb-4 sm:mb-0">
-     © 2024 RadEl Company, Limited. All rights reserved.
-    </p>
-    <div class="flex items-center space-x-4 text-[#a39a7e]">
-     <i class="fas fa-gem text-lg">
-     </i>
-     <span class="font-semibold">
-      RadEl
-     </span>
-    </div>
-    <div class="flex items-center space-x-4 text-[#a39a7e]">
-     <button aria-label="English" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
-      En
-     </button>
-     <button aria-label="Spanish" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
-      Es
-     </button>
-     <button aria-label="Settings" class="border border-[#a39a7e] rounded-full w-7 h-7 flex items-center justify-center hover:bg-[#a39a7e] hover:text-white transition">
-      <i class="fas fa-cog">
-      </i>
-     </button>
-    </div>
-   </div>
-   <div class="max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-    <form class="flex w-full max-w-sm space-x-2">
-     <input class="flex-grow border border-[#d9d4c6] rounded-md px-3 py-2 text-xs sm:text-sm placeholder-[#a39a7e] focus:outline-none" placeholder="Enter your email" type="email"/>
-     <button class="bg-[#a39a7e] text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-[#7a6f4e]" type="submit">
-      Submit
-     </button>
-    </form>
-   </div>
   </footer>
-  
   <!-- JavaScript for interactivity -->
   <script type="module" src="./Javascript/auth-state.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>

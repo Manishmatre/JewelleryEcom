@@ -17,12 +17,12 @@ const SHIPPING_OPTIONS = {
   standard: {
     name: 'Standard Shipping',
     description: 'Delivery in 3-5 business days',
-    cost: 5.00
+    cost: 375.00
   },
   express: {
     name: 'Express Shipping',
     description: 'Delivery in 1-2 business days',
-    cost: 15.00
+    cost: 1125.00
   }
 };
 
@@ -211,7 +211,7 @@ function updateOrderItems(items) {
             <p class="text-xs text-text-light">Qty: ${item.quantity}</p>
           </div>
         </div>
-        <span class="font-medium">$${itemTotal.toFixed(2)}</span>
+        <span class="font-medium">₹${itemTotal.toFixed(2)}</span>
       </div>
     `;
   });
@@ -318,17 +318,17 @@ function updateOrderSummary(orderData) {
   const totals = calculateOrderTotals(orderData.items, orderData.shipping);
   
   // Update the display
-  subtotalElement.textContent = `$${totals.subtotal.toFixed(2)}`;
+  subtotalElement.textContent = `₹${totals.subtotal.toFixed(2)}`;
   
   // Show 'Free' if shipping is zero, otherwise show the cost
   if (totals.shipping === 0) {
     shippingElement.textContent = 'Free';
   } else {
-    shippingElement.textContent = `$${totals.shipping.toFixed(2)}`;
+    shippingElement.textContent = `₹${totals.shipping.toFixed(2)}`;
   }
   
-  taxElement.textContent = `$${totals.tax.toFixed(2)}`;
-  totalElement.textContent = `$${totals.total.toFixed(2)}`;
+  taxElement.textContent = `₹${totals.tax.toFixed(2)}`;
+  totalElement.textContent = `₹${totals.total.toFixed(2)}`;
 }
 
 // Initialize confirmation page when DOM is loaded

@@ -162,7 +162,7 @@
       const productPrice = button.getAttribute('data-product-price');
       
       // Here you would typically add the product to the cart in localStorage or send to a server
-      console.log(`Added to cart: ${productName} (ID: ${productId}) - $${productPrice}`);
+      console.log(`Added to cart: ${productName} (ID: ${productId}) - ₹${productPrice}`);
       
       // Show confirmation message
       const confirmationMessage = document.createElement('div');
