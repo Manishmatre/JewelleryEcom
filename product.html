@@ -638,7 +638,7 @@
           // Get product details
           const productId = 'product-' + Math.random().toString(36).substr(2, 9); // Generate a random ID
           const productName = document.querySelector('.product-title').textContent.trim();
-          const productPrice = parseFloat(document.querySelector('.product-price').textContent.replace('$', ''));
+          const productPrice = parseFloat(document.querySelector('.product-price').textContent.replace('₹', ''));
           const productImage = document.querySelector('.product-image').src;
           const quantity = parseInt(document.querySelector('.quantity-input').value);
           

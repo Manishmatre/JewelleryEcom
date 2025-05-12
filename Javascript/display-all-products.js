@@ -316,7 +316,7 @@ function setupFilterListeners() {
           if (DEBUG) console.log('Apply Filters button clicked');
           
           const min = parseInt(minPriceInput?.value) || 0;
-          const max = parseInt(maxPriceInput?.value) || 1000;
+          const max = parseInt(maxPriceInput?.value) || 75000;
           currentFilters.priceMin = min;
           currentFilters.priceMax = max;
           
@@ -582,7 +582,7 @@ function clearAllFilters() {
       // Reset price range slider
       const priceRangeSlider = priceSection.querySelector('input[type="range"]');
       if (priceRangeSlider) {
-        priceRangeSlider.value = 1000;
+        priceRangeSlider.value = 75000;
       }
       
       // Reset min/max price inputs
@@ -610,7 +610,7 @@ function clearAllFilters() {
     categories: [],
     materials: [],
     priceMin: 0,
-    priceMax: 1000,
+    priceMax: 75000,
     gemstones: [],
     searchQuery: ''
   };
