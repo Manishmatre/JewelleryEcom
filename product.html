@@ -269,39 +269,46 @@
         <div class="lg:w-1/2">
           <div class="bg-white rounded-lg shadow-sm p-6">
             <div class="mb-4">
-              <span class="inline-block bg-red-500 text-white text-xs font-medium px-2 py-1 rounded mb-2">Best Seller</span>
-              <h1 class="playfair text-3xl font-semibold text-text-dark mb-2">Diamond Engagement Ring</h1>
-              <div class="flex items-center mb-2">
-                <div class="text-yellow-400 text-sm mr-2">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-                <span class="text-text-light text-sm">(42 reviews)</span>
+              <div id="product-badges">
+                <!-- Badges will be dynamically added here -->
               </div>
-              <div class="mb-4">
-                <span class="text-2xl font-bold text-primary">₹67499.25</span>
-                <span class="text-text-light line-through ml-2">₹74999.25</span>
-                <span class="text-green-600 text-sm ml-2">Save ₹7500.00 (10%)</span>
+              <h1 class="product-title playfair text-3xl font-semibold text-text-dark mb-2"></h1>
+              <div class="product-rating flex items-center mb-2">
+                <!-- Rating stars will be dynamically added here -->
+              </div>
+              <div class="product-price mb-4">
+                <!-- Price will be dynamically added here -->
               </div>
             </div>
             
             <div class="border-t border-secondary-dark pt-4 mb-4">
-              <p class="text-text-light mb-4">Exquisite 1.2 carat diamond engagement ring set in 18k gold. This stunning piece features a brilliant-cut center stone surrounded by a halo of smaller diamonds for maximum sparkle. The band is crafted with precision and adorned with pavé diamonds for added elegance.</p>
+              <p class="product-description text-text-light mb-4"></p>
               
               <div class="flex items-center space-x-4 mb-4">
                 <div class="text-text-dark font-medium">Availability:</div>
-                <div class="text-green-600 flex items-center">
-                  <i class="fas fa-check-circle mr-1"></i>
-                  <span>In Stock (7 items left)</span>
+                <div class="product-availability text-green-600 flex items-center">
+                  <!-- Availability will be dynamically added here -->
                 </div>
               </div>
               
               <div class="flex items-center space-x-4 mb-4">
                 <div class="text-text-dark font-medium">SKU:</div>
-                <div class="text-text-light">RNG-DMD-1002</div>
+                <div class="product-sku text-text-light"></div>
+              </div>
+              
+              <div class="flex items-center space-x-4 mb-4">
+                <div class="text-text-dark font-medium">Category:</div>
+                <div class="product-category text-text-light"></div>
+              </div>
+              
+              <div class="flex items-center space-x-4 mb-4">
+                <div class="text-text-dark font-medium">Brand:</div>
+                <div class="product-brand text-text-light"></div>
+              </div>
+              
+              <div class="flex items-center space-x-4 mb-4">
+                <div class="text-text-dark font-medium">Material:</div>
+                <div class="product-material text-text-light"></div>
               </div>
             </div>
             

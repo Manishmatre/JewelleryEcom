@@ -27,11 +27,32 @@
     }
     .animate-marquee {
       animation: marquee 30s linear infinite;
-    }
-    @keyframes marquee {
+    }    @keyframes marquee {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
-    }  </style>
+    }
+
+    @media (max-width: 768px) {
+      #filters-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 85%;
+        max-width: 320px;
+        z-index: 50;
+        overflow-y: auto;
+        background: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      #filters-sidebar .bg-white {
+        border-radius: 0;
+        box-shadow: none;
+        height: 100%;
+      }
+    }  
+  </style>
   <script type="module" src="./Javascript/shared-header.js"></script>
 </head>
 
@@ -298,15 +319,26 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Products Section -->
+  </div>      <!-- Products Section -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Mobile Filter Toggle Button -->
+    <div class="flex md:hidden justify-end mb-4">
+      <button id="mobile-filter-toggle" class="flex items-center space-x-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition-all">
+        <i class="fas fa-filter"></i>
+        <span>Filters</span>
+      </button>
+    </div>
+    
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Filters Sidebar -->
-      <div class="w-full md:w-64 flex-shrink-0">
+      <div id="filters-sidebar" class="w-full md:w-64 flex-shrink-0 hidden md:block">
         <div class="bg-white p-6 rounded-lg shadow-sm sticky top-24">
-          <h2 class="font-semibold text-lg mb-4">Filters</h2>
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-semibold text-lg">Filters</h2>
+            <button class="md:hidden text-text-light hover:text-primary" id="close-filters">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
           
           <!-- Category Filter -->
           <div class="mb-6">
@@ -975,12 +1007,12 @@
     </div>
   </footer> 
   
-  
-  <!-- JavaScript for interactivity -->
+    <!-- JavaScript for interactivity -->
   <script type="module" src="./Javascript/auth-state.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>
   <script type="module" src="./Javascript/display-all-products.js"></script>
   <script type="module" src="./Javascript/products.js"></script>
+  <script type="module" src="./Javascript/filter-manager.js"></script>
 </body>
 </html>
 
