@@ -929,4 +929,15 @@ function displayProducts(products) {
     // Add the product card to the container
     productsContainer.appendChild(productCard);
   });
+  
+  // Trigger virtual try-on buttons to be added
+  // This will ensure the buttons are added after products are displayed
+  if (typeof window.initVirtualPreview === 'function') {
+    window.initVirtualPreview();
+  } else {
+    // If the function isn't available yet, dispatch a custom event
+    // that the virtual-preview.js can listen for
+    const event = new CustomEvent('productsDisplayed');
+    document.dispatchEvent(event);
+  }
 }

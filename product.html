@@ -8,6 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/virtual-preview.css">
   <script src="./Javascript/tailwind-config.js"></script>
   <script type="module" src="./Javascript/auth-state.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>
@@ -349,9 +350,15 @@
               
               <!-- Action Buttons -->
               <div class="flex flex-col sm:flex-row gap-3">
-                <button class="flex-1 bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-md transition-all font-medium flex items-center justify-center">
-                  <i class="fas fa-shopping-bag mr-2"></i>
-                  Add to Cart
+                <button class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-md shadow-sm flex items-center justify-center space-x-2 mb-4 add-to-cart" data-product-id="ring-001">
+                  <i class="fas fa-shopping-bag"></i>
+                  <span>Add to Cart</span>
+                </button>
+                
+                <!-- Virtual Try-On Button -->
+                <button class="w-full bg-secondary hover:bg-secondary-dark text-primary hover:text-white transition-all py-3 px-6 rounded-md shadow-sm flex items-center justify-center space-x-2 mb-4" id="virtual-try-on-button" data-product-id="ring-001" aria-label="Virtual Try-On">
+                  <i class="fas fa-eye"></i>
+                  <span>Virtual Try-On</span>
                 </button>
                 <button class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-3 px-6 rounded-md transition-all font-medium flex items-center justify-center">
                   <i class="fas fa-bolt mr-2"></i>
@@ -621,5 +628,34 @@
   <script type="module" src="./Javascript/header-manager.js"></script>
   <script src="./Javascript/script.js"></script>
   <script type="module" src="./Javascript/product-detail.js"></script>
+  <script type="module" src="./Javascript/virtual-preview.js"></script>
+  
+  <!-- Direct script for virtual try-on button -->
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Setting up direct event listener for virtual try-on button');
+      const tryOnButton = document.getElementById('virtual-try-on-button');
+      if (tryOnButton) {
+        tryOnButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('Virtual try-on button clicked directly');
+          const productId = tryOnButton.getAttribute('data-product-id');
+          // Import the openPreview function from virtual-preview.js
+          import('./Javascript/virtual-preview.js').then(module => {
+            if (typeof module.openPreview === 'function') {
+              module.openPreview(productId);
+            } else {
+              console.error('openPreview function not found in virtual-preview.js');
+            }
+          }).catch(error => {
+            console.error('Error importing virtual-preview.js:', error);
+          });
+        });
+        console.log('Event listener added to virtual try-on button');
+      } else {
+        console.error('Virtual try-on button not found');
+      }
+    });
+  </script>
 </body>
 </html>

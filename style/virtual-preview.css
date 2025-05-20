@@ -1,0 +1,108 @@
+/**
+ * ShilpoKotha Virtual Preview Styles
+ */
+
+/* Preview container animation */
+#virtual-preview-container {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#virtual-preview-container:not(.hidden) {
+  opacity: 1;
+}
+
+/* Canvas container styling */
+#preview-canvas-container {
+  min-height: 400px;
+  background-image: linear-gradient(45deg, #f6f1e6 25%, #eae5da 25%, #eae5da 50%, #f6f1e6 50%, #f6f1e6 75%, #eae5da 75%, #eae5da 100%);
+  background-size: 20px 20px;
+}
+
+/* Slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;  
+  background: #d9d4c6;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%; 
+  background: #b88846;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #a67a3e;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: #b88846;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #a67a3e;
+}
+
+/* Preview button hover effect */
+button[aria-label="Virtual Try-On"] {
+  transform: scale(0.9);
+  opacity: 0.8;
+  transition: all 0.2s ease-in-out;
+}
+
+button[aria-label="Virtual Try-On"]:hover {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Tooltip styling */
+button[aria-label="Virtual Try-On"] span {
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Canvas cursor */
+#preview-canvas-container canvas {
+  cursor: grab;
+}
+
+#preview-canvas-container canvas:active {
+  cursor: grabbing;
+}
+
+/* Toast animation */
+.toast-enter {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.toast-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.toast-exit {
+  opacity: 1;
+}
+
+.toast-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
