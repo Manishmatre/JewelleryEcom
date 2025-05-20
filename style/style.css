@@ -196,6 +196,11 @@ input:focus, textarea:focus, select:focus {
   .hidden-mobile {
     display: none;
   }
+  
+  /* Hide login and signup icons on small screens */
+  .login-link, .signup-link {
+    display: none !important;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
