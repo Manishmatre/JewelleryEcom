@@ -10,10 +10,7 @@ import { getCurrentUserProfile } from './local-storage.js';
 const authElements = {
   // Account icon/link in the header
   accountLink: document.querySelector('a[href="profile.html"]'),
-  
-  // Login/signup links in the header or navigation
-  loginLinks: document.querySelectorAll('.login-link'),
-  signupLinks: document.querySelectorAll('.signup-link'),
+  accountLabel: document.querySelector('.account-label'),
   
   // User-specific elements that should only be shown when logged in
   userOnlyElements: document.querySelectorAll('.user-only'),
@@ -42,16 +39,15 @@ function updateUIForAuthState(user, profile) {
         accountIcon.classList.remove('text-text-dark');
         accountIcon.classList.add('text-primary');
       }
+      
+      // Update account label to show 'Profile'
+      if (authElements.accountLabel) {
+        authElements.accountLabel.textContent = 'Profile';
+      }
+      
+      // Update href to ensure it goes to profile page
+      authElements.accountLink.href = 'profile.html';
     }
-    
-    // Hide login/signup links
-    authElements.loginLinks.forEach(link => {
-      link.classList.add('hidden');
-    });
-    
-    authElements.signupLinks.forEach(link => {
-      link.classList.add('hidden');
-    });
     
     // Show user-only elements
     authElements.userOnlyElements.forEach(el => {
@@ -80,16 +76,15 @@ function updateUIForAuthState(user, profile) {
         accountIcon.classList.remove('text-primary');
         accountIcon.classList.add('text-text-dark');
       }
+      
+      // Update account label to show 'Login'
+      if (authElements.accountLabel) {
+        authElements.accountLabel.textContent = 'Login';
+      }
+      
+      // Update href to go to login page when not logged in
+      authElements.accountLink.href = 'login.html';
     }
-    
-    // Show login/signup links
-    authElements.loginLinks.forEach(link => {
-      link.classList.remove('hidden');
-    });
-    
-    authElements.signupLinks.forEach(link => {
-      link.classList.remove('hidden');
-    });
     
     // Hide user-only elements
     authElements.userOnlyElements.forEach(el => {

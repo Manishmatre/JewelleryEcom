@@ -197,9 +197,15 @@ input:focus, textarea:focus, select:focus {
     display: none;
   }
   
-  /* Hide login and signup icons on small screens */
+  /* Hide login and signup icons on small screens, keep account icon visible */
   .login-link, .signup-link {
     display: none !important;
+  }
+  
+  /* Ensure account icon is visible and properly spaced */
+  a[href="profile.html"] {
+    display: flex !important;
+    margin-right: 0.5rem;
   }
 }
 
