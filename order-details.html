@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Details | ShilpoKotha Jewelry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./Javascript/tailwind-config.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f6f1e6;
+    }
+    .playfair {
+      font-family: 'Playfair Display', serif;
+    }
+    .brand-gradient {
+      background: linear-gradient(90deg, #a39a7e 0%, #7a6f4e 100%);
+      color: #fff;
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    
+    /* Animation for marquee in announcement bar */
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      display: inline-block;
+      animation: marquee 30s linear infinite;
+    }
+    
+    /* Order timeline styles */
+    .timeline-container {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .timeline-line {
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: #d9d4c6;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: -30px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #f6f1e6;
+      border: 2px solid #d9d4c6;
+      z-index: 1;
+    }
+    
+    .timeline-dot.active {
+      background-color: #a39a7e;
+      border-color: #7a6f4e;
+    }
+    
+    .timeline-dot.completed {
+      background-color: #a39a7e;
+      border-color: #7a6f4e;
+    }
+    
+    .timeline-dot.completed::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 10px;
+    }
+  </style>
+  <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/header-manager.js"></script>
+  <script type="module" src="./Javascript/shared-header.js"></script>
+</head>
+
+<body class="bg-secondary text-text-dark min-h-screen flex flex-col">
+  <!-- Announcement Bar -->
+  <div class="bg-primary text-white text-xs py-2 px-4 text-center relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span>Free Shipping on Orders Over ₹7500</span>
+      <span class="mx-8">•</span>
+      <span>Use Code WELCOME15 for 15% Off Your First Order</span>
+      <span class="mx-8">•</span>
+      <span>New Collection Launch: Explore Our Spring 2025 Designs</span>
+      <span class="mx-8">•</span>
+      <span>Free Gift Wrapping on All Orders</span>
+    </div>
+  </div>
+
+  <!-- Header will be dynamically inserted by shared-header.js -->
+  <header id="main-header"></header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8 text-sm" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="index.html" class="text-text-light hover:text-primary transition-all">
+              <i class="fas fa-home mr-2"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <i class="fas fa-chevron-right text-text-light text-xs mx-2"></i>
+              <a href="profile.html" class="text-text-light hover:text-primary transition-all">My Account</a>
+            </div>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <i class="fas fa-chevron-right text-text-light text-xs mx-2"></i>
+              <span class="text-primary">Order Details</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+      
+      <!-- Loading State -->
+      <div id="loading-state" class="text-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a39a7e] mx-auto mb-4"></div>
+        <p class="text-gray-500">Loading order details...</p>
+      </div>
+      
+      <!-- Not Logged In State -->
+      <div id="not-logged-in" class="hidden text-center py-12 bg-white rounded-xl shadow-md">
+        <i class="fas fa-user-lock text-4xl text-[#a39a7e] mb-4"></i>
+        <h2 class="text-xl font-semibold mb-2">You're not logged in</h2>
+        <p class="text-gray-500 mb-6">Please log in to view your order details</p>
+        <div class="flex justify-center space-x-4">
+          <a href="login.html" class="px-6 py-2 brand-gradient rounded-md font-medium transition hover:opacity-90">Log In</a>
+          <a href="signup.html" class="px-6 py-2 border border-[#a39a7e] text-[#7a6f4e] rounded-md font-medium transition hover:bg-[#f6f1e6]">Sign Up</a>
+        </div>
+      </div>
+      
+      <!-- Order Not Found State -->
+      <div id="order-not-found" class="hidden text-center py-12 bg-white rounded-xl shadow-md">
+        <i class="fas fa-search text-4xl text-[#a39a7e] mb-4"></i>
+        <h2 class="text-xl font-semibold mb-2">Order Not Found</h2>
+        <p class="text-gray-500 mb-6">We couldn't find the order you're looking for</p>
+        <a href="profile.html" class="px-6 py-2 brand-gradient rounded-md font-medium transition hover:opacity-90">Back to My Account</a>
+      </div>
+      
+      <!-- Order Details -->
+      <div id="order-details" class="hidden">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <!-- Order Header -->
+          <div class="brand-gradient p-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+              <div>
+                <h1 class="text-2xl font-bold mb-1">Order #<span id="order-number"></span></h1>
+                <p class="text-white text-opacity-80 text-sm">Placed on <span id="order-date"></span></p>
+              </div>
+              <div class="mt-4 md:mt-0">
+                <span id="order-status" class="px-3 py-1 rounded-full text-sm font-medium bg-white text-primary">Processing</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Order Content -->
+          <div class="p-6">
+            <!-- Order Timeline -->
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold mb-4">Order Status</h2>
+              <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Order Placed -->
+                <div class="timeline-item">
+                  <div class="timeline-dot completed"></div>
+                  <div class="ml-2">
+                    <h3 class="font-medium">Order Placed</h3>
+                    <p class="text-sm text-text-light" id="timeline-order-placed">May 15, 2025 at 10:30 AM</p>
+                    <p class="text-sm text-text-light mt-1">Your order has been received and is being processed.</p>
+                  </div>
+                </div>
+                
+                <!-- Payment Confirmed -->
+                <div class="timeline-item">
+                  <div class="timeline-dot" id="payment-dot"></div>
+                  <div class="ml-2">
+                    <h3 class="font-medium">Payment Confirmed</h3>
+                    <p class="text-sm text-text-light" id="timeline-payment">Pending</p>
+                    <p class="text-sm text-text-light mt-1">Your payment has been confirmed and your order is being prepared.</p>
+                  </div>
+                </div>
+                
+                <!-- Order Processing -->
+                <div class="timeline-item">
+                  <div class="timeline-dot" id="processing-dot"></div>
+                  <div class="ml-2">
+                    <h3 class="font-medium">Order Processing</h3>
+                    <p class="text-sm text-text-light" id="timeline-processing">Pending</p>
+                    <p class="text-sm text-text-light mt-1">Your order is being prepared for shipping.</p>
+                  </div>
+                </div>
+                
+                <!-- Shipped -->
+                <div class="timeline-item">
+                  <div class="timeline-dot" id="shipped-dot"></div>
+                  <div class="ml-2">
+                    <h3 class="font-medium">Shipped</h3>
+                    <p class="text-sm text-text-light" id="timeline-shipped">Pending</p>
+                    <p class="text-sm text-text-light mt-1">Your order has been shipped and is on its way to you.</p>
+                  </div>
+                </div>
+                
+                <!-- Delivered -->
+                <div class="timeline-item">
+                  <div class="timeline-dot" id="delivered-dot"></div>
+                  <div class="ml-2">
+                    <h3 class="font-medium">Delivered</h3>
+                    <p class="text-sm text-text-light" id="timeline-delivered">Pending</p>
+                    <p class="text-sm text-text-light mt-1">Your order has been delivered.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Shipping Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-secondary bg-opacity-30 rounded-lg p-4">
+                <h2 class="text-lg font-semibold mb-3">Shipping Information</h2>
+                <div class="space-y-2">
+                  <p class="font-medium" id="shipping-name">John Doe</p>
+                  <p id="shipping-address-1">123 Main Street</p>
+                  <p id="shipping-address-2">Apt 4B</p>
+                  <p id="shipping-city-state-zip">Mumbai, Maharashtra 400001</p>
+                  <p id="shipping-country">India</p>
+                  <p id="shipping-phone" class="mt-2">+91 9876543210</p>
+                </div>
+              </div>
+              
+              <div class="bg-secondary bg-opacity-30 rounded-lg p-4">
+                <h2 class="text-lg font-semibold mb-3">Payment Information</h2>
+                <div class="space-y-2">
+                  <p><span class="font-medium">Payment Method:</span> <span id="payment-method">Credit Card</span></p>
+                  <p><span class="font-medium">Card:</span> <span id="payment-card">•••• •••• •••• 1234</span></p>
+                  <p id="payment-upi" class="hidden"><span class="font-medium">UPI ID:</span> <span id="payment-upi-id">user@bank</span></p>
+                  <p><span class="font-medium">Billing Address:</span> <span id="payment-billing">Same as shipping address</span></p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Order Items -->
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold mb-4">Order Items</h2>
+              <div class="bg-secondary bg-opacity-20 rounded-lg overflow-hidden">
+                <div class="hidden md:grid md:grid-cols-12 text-sm font-medium text-text-light p-4 border-b border-secondary-dark">
+                  <div class="md:col-span-6">Product</div>
+                  <div class="md:col-span-2 text-center">Price</div>
+                  <div class="md:col-span-2 text-center">Quantity</div>
+                  <div class="md:col-span-2 text-center">Total</div>
+                </div>
+                
+                <div id="order-items-container" class="divide-y divide-secondary-dark">
+                  <!-- Order items will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="bg-secondary bg-opacity-30 rounded-lg p-4">
+              <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-text-light">Subtotal</span>
+                  <span id="order-subtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-text-light">Shipping</span>
+                  <span id="order-shipping">₹0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-text-light">Tax</span>
+                  <span id="order-tax">₹0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-text-light">Discount</span>
+                  <span id="order-discount">-₹0.00</span>
+                </div>
+                <div class="flex justify-between font-semibold pt-2 border-t border-secondary-dark">
+                  <span>Total</span>
+                  <span id="order-total" class="text-primary">₹0.00</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap justify-between items-center mt-8 gap-4">
+              <div>
+                <a href="profile.html" class="inline-flex items-center text-primary hover:text-primary-dark transition-all">
+                  <i class="fas fa-arrow-left mr-2"></i>
+                  Back to My Account
+                </a>
+              </div>
+              
+              <div class="flex flex-wrap gap-3">
+                <button id="track-package-btn" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-md text-sm font-medium transition-all hidden">
+                  <i class="fas fa-truck mr-1"></i> Track Package
+                </button>
+                
+                <button id="cancel-order-btn" class="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-md text-sm font-medium transition-all hidden">
+                  <i class="fas fa-times mr-1"></i> Cancel Order
+                </button>
+                
+                <button id="reorder-btn" class="px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-white rounded-md text-sm font-medium transition-all">
+                  <i class="fas fa-redo-alt mr-1"></i> Reorder
+                </button>
+                
+                <button id="contact-support-btn" class="px-4 py-2 border border-secondary-dark text-text-dark hover:bg-secondary rounded-md text-sm font-medium transition-all">
+                  <i class="fas fa-headset mr-1"></i> Contact Support
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-b from-white to-secondary text-[#4a4a4a] text-sm px-4 sm:px-12 py-16 relative mt-12">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 w-full overflow-hidden h-12">
+      <div class="absolute -top-10 left-0 w-40 h-40 rounded-full bg-primary opacity-10"></div>
+      <div class="absolute -top-5 right-20 w-20 h-20 rounded-full bg-primary-dark opacity-10"></div>
+      <div class="absolute top-10 right-0 w-32 h-32 rounded-full bg-primary opacity-10"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <!-- Footer Top Section with Logo and Newsletter -->
+      <div class="flex flex-col md:flex-row justify-between items-center mb-12 pb-12 border-b border-[#d9d4c6]">
+        <div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+          <div class="flex items-center mb-3">
+            <div class="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary flex items-center justify-center bg-white shadow-md mr-3">
+              <img src="images/logo.png" alt="ShilpoKotha Logo" class="h-8 w-auto">
+            </div>
+            <span class="playfair font-semibold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">ShilpoKotha</span>
+          </div>
+          <p class="text-text-light text-sm max-w-xs text-center md:text-left">Discover the art of handcrafted jewelry that tells your unique story</p>
+        </div>
+        
+        <div class="w-full max-w-md">
+          <h3 class="text-center md:text-right font-medium mb-3 playfair text-primary-dark">Stay Updated with New Collections</h3>
+          <form class="flex w-full space-x-2">
+            <input class="flex-grow border border-[#d9d4c6] rounded-md px-4 py-3 text-sm placeholder-[#a39a7e] focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white/80 backdrop-blur-sm shadow-inner" placeholder="Enter your email address" type="email"/>
+            <button class="bg-gradient-to-r from-primary to-primary-dark text-white px-5 py-3 rounded-md text-sm hover:brightness-110 transition-all shadow-md hover:shadow-lg" type="submit">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom Section -->
+      <div class="flex flex-col md:flex-row items-center justify-between py-8 relative">
+        <p class="text-text-light mb-4 md:mb-0">© 2025 ShilpoKotha. All rights reserved.</p>
+        
+        <div class="flex space-x-6">
+          <a href="#" class="text-text-light hover:text-primary transition-all">Privacy Policy</a>
+          <a href="#" class="text-text-light hover:text-primary transition-all">Terms of Service</a>
+          <a href="#" class="text-text-light hover:text-primary transition-all">Shipping Policy</a>
+          <a href="#" class="text-text-light hover:text-primary transition-all">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script type="module" src="./Javascript/order-details.js"></script>
+</body>
+</html>

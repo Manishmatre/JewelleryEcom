@@ -57,7 +57,26 @@ function getEstimatedDeliveryDate(daysToAdd) {
 function initConfirmation() {
   if (DEBUG) console.log('Initializing confirmation page');
   
-  // Check if we have order data in sessionStorage
+  // First check localStorage for the last order (from checkout-manager.js)
+  const lastOrderStr = localStorage.getItem('shilpokotha_last_order');
+  
+  if (lastOrderStr) {
+    try {
+      const lastOrder = JSON.parse(lastOrderStr);
+      if (DEBUG) console.log('Found last order in localStorage:', lastOrder);
+      
+      // Use the saved order data
+      displayOrderConfirmation(lastOrder);
+      
+      // Clear the last order from localStorage to prevent showing it again on refresh
+      localStorage.removeItem('shilpokotha_last_order');
+      return;
+    } catch (error) {
+      if (DEBUG) console.error('Error parsing last order:', error);
+    }
+  }
+  
+  // Fallback: Check if we have order data in sessionStorage
   const orderData = sessionStorage.getItem('shilpokotha_order_data');
   
   if (orderData) {
@@ -67,9 +86,6 @@ function initConfirmation() {
     // Generate order data from cart and user profile
     generateOrderConfirmation();
   }
-  
-  // Clear the cart after displaying the confirmation
-  clearCart();
 }
 
 /**
@@ -124,25 +140,92 @@ function generateOrderConfirmation() {
 function displayOrderConfirmation(orderData) {
   if (DEBUG) console.log('Displaying order confirmation', orderData);
   
+  // Normalize order data to handle both formats (from localStorage and from generateOrderConfirmation)
+  const normalizedOrderData = normalizeOrderData(orderData);
+  
   // Update order number
   const orderNumberElement = document.querySelector('.order-number');
   if (orderNumberElement) {
-    orderNumberElement.textContent = orderData.orderNumber;
+    orderNumberElement.textContent = normalizedOrderData.orderNumber;
   }
   
   // Update customer email
   const customerEmailElement = document.querySelector('.customer-email');
-  if (customerEmailElement && orderData.userProfile && orderData.userProfile.email) {
-    customerEmailElement.textContent = orderData.userProfile.email;
+  if (customerEmailElement && normalizedOrderData.userProfile && normalizedOrderData.userProfile.email) {
+    customerEmailElement.textContent = normalizedOrderData.userProfile.email;
+  } else if (customerEmailElement) {
+    // Fallback to a generic message if no email is available
+    const userProfileStr = localStorage.getItem('shilpokotha_user_profile');
+    if (userProfileStr) {
+      try {
+        const userProfile = JSON.parse(userProfileStr);
+        if (userProfile.email) {
+          customerEmailElement.textContent = userProfile.email;
+        } else {
+          customerEmailElement.textContent = 'Not provided';
+        }
+      } catch (error) {
+        customerEmailElement.textContent = 'Not provided';
+      }
+    } else {
+      customerEmailElement.textContent = 'Not provided';
+    }
   }
   
   // First update the order summary to ensure calculations are done
-  updateOrderSummary(orderData);
+  updateOrderSummary(normalizedOrderData);
   
   // Then update the other sections
-  updateOrderItems(orderData.items);
-  updateShippingInfo(orderData.userProfile, orderData.shipping);
-  updatePaymentInfo(orderData.payment, orderData.userProfile);
+  updateOrderItems(normalizedOrderData.items);
+  updateShippingInfo(normalizedOrderData.userProfile, normalizedOrderData.shipping);
+  updatePaymentInfo(normalizedOrderData.payment, normalizedOrderData.userProfile);
+}
+
+/**
+ * Normalize order data to handle both formats
+ * @param {Object} orderData - Order data to normalize
+ * @returns {Object} Normalized order data
+ */
+function normalizeOrderData(orderData) {
+  // Create a new object to avoid modifying the original
+  const normalized = { ...orderData };
+  
+  // Add order number if not present
+  if (!normalized.orderNumber) {
+    normalized.orderNumber = normalized.id || generateOrderNumber();
+  }
+  
+  // Add order date if not present
+  if (!normalized.orderDate) {
+    normalized.orderDate = normalized.date || new Date().toISOString();
+  }
+  
+  // Add user profile if not present
+  if (!normalized.userProfile) {
+    const userProfileStr = localStorage.getItem('shilpokotha_user_profile');
+    normalized.userProfile = userProfileStr ? JSON.parse(userProfileStr) : {};
+  }
+  
+  // Add shipping info if not present
+  if (!normalized.shipping) {
+    const shippingMethod = normalized.shippingMethod || 'standard';
+    normalized.shipping = {
+      method: shippingMethod,
+      cost: normalized.shipping || SHIPPING_OPTIONS[shippingMethod].cost,
+      name: SHIPPING_OPTIONS[shippingMethod].name,
+      estimatedDelivery: getEstimatedDeliveryDate(shippingMethod === 'express' ? 2 : 5)
+    };
+  }
+  
+  // Add payment info if not present
+  if (!normalized.payment) {
+    normalized.payment = {
+      method: sessionStorage.getItem('shilpokotha_payment_method') || 'credit-card',
+      lastFour: sessionStorage.getItem('shilpokotha_card_last_four') || '4242'
+    };
+  }
+  
+  return normalized;
 }
 
 /**

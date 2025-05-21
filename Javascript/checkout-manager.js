@@ -264,14 +264,57 @@ function processOrder() {
     placeOrderButton.disabled = true;
     placeOrderButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
     
-    // Simulate order processing
-    setTimeout(() => {
-      // Clear the cart
-      clearCart();
+    try {
+      // Save order information to localStorage for the confirmation page
+      const cart = getCart();
+      const allProducts = getAllProducts();
+      const subtotal = getCartTotalPrice(allProducts);
+      const shipping = SHIPPING_OPTIONS[currentShipping].cost;
+      const tax = (subtotal + shipping) * TAX_RATE;
+      const total = subtotal + shipping + tax;
       
-      // Redirect to confirmation page
-      window.location.href = 'confirmation.html';
-    }, 2000);
+      // Create order object
+      const order = {
+        id: 'SK' + Date.now(),
+        items: cart,
+        subtotal: subtotal,
+        shipping: shipping,
+        tax: tax,
+        total: total,
+        shippingMethod: currentShipping,
+        date: new Date().toISOString()
+      };
+      
+      // Save to localStorage
+      localStorage.setItem('shilpokotha_last_order', JSON.stringify(order));
+      
+      if (DEBUG) console.log('Order saved:', order);
+      
+      // Simulate order processing
+      setTimeout(() => {
+        // Clear the cart
+        clearCart();
+        
+        // Force redirect to confirmation page
+        if (DEBUG) console.log('Redirecting to confirmation page...');
+        window.location.replace('confirmation.html');
+        
+        // Fallback redirect if replace doesn't work
+        setTimeout(() => {
+          if (DEBUG) console.log('Fallback redirect...');
+          window.location.href = 'confirmation.html';
+        }, 500);
+      }, 2000);
+    } catch (error) {
+      if (DEBUG) console.error('Error processing order:', error);
+      
+      // Reset button state
+      placeOrderButton.disabled = false;
+      placeOrderButton.innerHTML = originalText;
+      
+      // Show error message
+      alert('There was an error processing your order. Please try again.');
+    }
   }
 }
 

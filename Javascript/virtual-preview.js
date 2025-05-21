@@ -3,8 +3,43 @@
  * This script adds virtual try-on functionality for jewelry products
  */
 
-// Import the product data
-import { getAllProducts } from './products-data-additional.js';
+// Import cart and wishlist functions
+import { addToCart, isInCart } from './cart-handler.js';
+import { addToWishlist, removeFromWishlist, isInWishlist, toggleWishlist } from './wishlist-handler.js';
+
+// This section intentionally left empty - variables are declared below
+
+/**
+ * Get product data based on product ID
+ * @param {string} productId - The ID of the product
+ * @returns {Object} Product data object
+ */
+function getProductData(productId) {
+  // Try to get from window.productsData if it exists (set by product-detail.js)
+  if (window.productsData && Array.isArray(window.productsData)) {
+    const product = window.productsData.find(p => p.id === productId);
+    if (product) return product;
+  }
+  
+  // Fallback: create a product based on the ID
+  let category = 'rings'; // Default category
+  if (productId && productId.includes('-')) {
+    category = productId.split('-')[0];
+    // Make it plural if it's not already
+    if (!category.endsWith('s')) {
+      category += 's';
+    }
+  }
+  
+  return {
+    id: productId,
+    name: 'Jewelry Item',
+    price: 0,
+    category: category,
+    image: null, // Will use placeholder
+    description: 'Virtual preview of this jewelry item.'
+  };
+}
 
 // Configuration for the preview feature
 const previewConfig = {
@@ -20,7 +55,9 @@ const previewConfig = {
     rings: '/images/preview/hand-model.png',
     bracelets: '/images/preview/wrist-model.png',
     necklaces: '/images/preview/neck-model.png',
-    earrings: '/images/preview/ear-model.png'
+    earrings: '/images/preview/ear-model.png',
+    // Fallback image for any category
+    fallback: '/images/preview/fallback-model.png'
   },
   // Default positions for different product categories
   defaultPositions: {
@@ -31,53 +68,387 @@ const previewConfig = {
   }
 };
 
-// State variables
-let currentProduct = null;
-let previewActive = false;
+// DOM elements
 let previewContainer = null;
 let previewCanvas = null;
-let ctx = null;
+let previewContext = null;
+
+// State variables
+let previewActive = false;
+let currentProduct = null;
 let modelImage = null;
 let productImage = null;
 let dragActive = false;
 let lastMousePos = { x: 0, y: 0 };
-let productPosition = { x: 0, y: 0, scale: 1, rotation: 0 };
+let productPosition = {
+  x: 0,
+  y: 0,
+  scale: 1,
+  rotation: 0
+};
+
+// Flag to track initialization
+let isInitialized = false;
 
 /**
  * Initialize the virtual preview feature
  */
-export function initVirtualPreview() {
-  // Make the function globally accessible
-  window.initVirtualPreview = initVirtualPreview;
-  
-  // Track initialization state to prevent duplicate initialization
-  if (window.virtualPreviewInitialized) {
-    console.log('Virtual preview already initialized, updating buttons');
-    addPreviewButtonsToProducts();
+function initVirtualPreview() {
+  // Prevent multiple initializations
+  if (isInitialized) {
+    console.log('Virtual preview already initialized');
     return;
   }
   
-  // Mark as initialized
-  window.virtualPreviewInitialized = true;
+  console.log('Initializing virtual preview');
   
-  // Add preview buttons to all product cards with retry logic
-  addPreviewButtonsToProducts(3); // Try up to 3 times
+  // Get DOM elements
+  previewContainer = document.getElementById('preview-container');
+  previewCanvas = document.getElementById('preview-canvas');
   
-  // Create the preview container (hidden initially)
-  createPreviewContainer();
+  if (!previewContainer || !previewCanvas) {
+    console.log('Preview container or canvas not found, creating them');
+    createPreviewElements();
+  }
   
-  // Create the preview canvas
-  createPreviewCanvas();
+  // Set up canvas context
+  if (previewCanvas) {
+    previewContext = previewCanvas.getContext('2d');
+  }
   
   // Set up event listeners
   setupEventListeners();
   
-  console.log('Virtual preview initialized');
+  // Set up direct event listeners for try-on buttons
+  setupDirectEventListeners();
   
-  // Schedule periodic checks for new products
-  setInterval(() => {
-    addPreviewButtonsToProducts(1, true);
-  }, 2000);
+  // Mark as initialized
+  isInitialized = true;
+  
+  console.log('Virtual preview initialized');
+}
+
+/**
+ * Set up event listeners for the preview controls
+ */
+function setupEventListeners() {
+  console.log('Setting up event listeners for preview controls');
+  
+  try {
+    // Close button
+    const closeButton = document.getElementById('close-preview');
+    if (closeButton) {
+      closeButton.addEventListener('click', closePreview);
+    }
+    
+    // Scale control
+    const scaleControl = document.getElementById('scale-control');
+    if (scaleControl) {
+      scaleControl.addEventListener('input', function() {
+        if (currentProduct && currentProduct.position) {
+          currentProduct.position.scale = parseFloat(this.value);
+          renderPreview();
+        }
+      });
+    }
+    
+    // Rotation control
+    const rotationControl = document.getElementById('rotation-control');
+    if (rotationControl) {
+      rotationControl.addEventListener('input', function() {
+        if (currentProduct && currentProduct.position) {
+          currentProduct.position.rotation = parseInt(this.value);
+          renderPreview();
+        }
+      });
+    }
+    
+    // Reset position button
+    const resetButton = document.getElementById('reset-position');
+    if (resetButton) {
+      resetButton.addEventListener('click', function() {
+        resetProductPosition();
+        renderPreview();
+        
+        // Update the control sliders
+        if (scaleControl && currentProduct && currentProduct.position) {
+          scaleControl.value = currentProduct.position.scale;
+        }
+        if (rotationControl && currentProduct && currentProduct.position) {
+          rotationControl.value = currentProduct.position.rotation;
+        }
+      });
+    }
+    
+    // Add to cart button
+    const addToCartButton = document.getElementById('add-to-cart-preview');
+    if (addToCartButton) {
+      addToCartButton.addEventListener('click', function() {
+        if (currentProduct && typeof addToCart === 'function') {
+          addToCart(currentProduct.id, 1);
+          showToast('Added to cart', 'success');
+        } else {
+          console.error('Cannot add to cart: missing product ID or addToCart function');
+          showToast('Could not add to cart', 'error');
+        }
+      });
+    }
+    
+    // Add to wishlist button
+    const wishlistButton = document.getElementById('add-to-wishlist-preview');
+    if (wishlistButton) {
+      wishlistButton.addEventListener('click', function() {
+        if (currentProduct && typeof toggleWishlist === 'function') {
+          const inWishlist = toggleWishlist(currentProduct.id);
+          const wishlistButtonText = document.getElementById('wishlist-button-text');
+          if (wishlistButtonText) {
+            wishlistButtonText.textContent = inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
+          }
+          showToast(inWishlist ? 'Added to wishlist' : 'Removed from wishlist', 'success');
+        } else {
+          console.error('Cannot toggle wishlist: missing product ID or toggleWishlist function');
+          showToast('Could not update wishlist', 'error');
+        }
+      });
+    }
+    
+    // Share button
+    const shareButton = document.getElementById('share-preview');
+    if (shareButton) {
+      shareButton.addEventListener('click', function() {
+        try {
+          // Create a data URL from the canvas
+          const dataUrl = previewCanvas.toDataURL('image/png');
+          
+          // Try to use the Web Share API if available
+          if (navigator.share) {
+            fetch(dataUrl)
+              .then(res => res.blob())
+              .then(blob => {
+                const file = new File([blob], 'virtual-try-on.png', { type: 'image/png' });
+                navigator.share({
+                  title: 'Virtual Try-On',
+                  text: `Check out this ${currentProduct.name || 'jewelry item'} I tried on virtually!`,
+                  files: [file]
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch(error => {
+                  console.error('Error sharing:', error);
+                  fallbackShare(dataUrl);
+                });
+              });
+          } else {
+            fallbackShare(dataUrl);
+          }
+        } catch (error) {
+          console.error('Error in share function:', error);
+          showToast('Could not share preview', 'error');
+        }
+      });
+    }
+    
+    // Canvas drag events for positioning
+    if (previewCanvas) {
+      let isDragging = false;
+      let lastX = 0;
+      let lastY = 0;
+      
+      previewCanvas.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+      });
+      
+      previewCanvas.addEventListener('mousemove', function(e) {
+        if (isDragging && currentProduct && currentProduct.position) {
+          const deltaX = e.offsetX - lastX;
+          const deltaY = e.offsetY - lastY;
+          
+          currentProduct.position.x += deltaX;
+          currentProduct.position.y += deltaY;
+          
+          lastX = e.offsetX;
+          lastY = e.offsetY;
+          
+          renderPreview();
+        }
+      });
+      
+      previewCanvas.addEventListener('mouseup', function() {
+        isDragging = false;
+      });
+      
+      previewCanvas.addEventListener('mouseleave', function() {
+        isDragging = false;
+      });
+      
+      // Touch events for mobile
+      previewCanvas.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          lastX = e.touches[0].clientX - previewCanvas.getBoundingClientRect().left;
+          lastY = e.touches[0].clientY - previewCanvas.getBoundingClientRect().top;
+          e.preventDefault();
+        }
+      });
+      
+      previewCanvas.addEventListener('touchmove', function(e) {
+        if (isDragging && e.touches.length === 1 && currentProduct && currentProduct.position) {
+          const touchX = e.touches[0].clientX - previewCanvas.getBoundingClientRect().left;
+          const touchY = e.touches[0].clientY - previewCanvas.getBoundingClientRect().top;
+          
+          const deltaX = touchX - lastX;
+          const deltaY = touchY - lastY;
+          
+          currentProduct.position.x += deltaX;
+          currentProduct.position.y += deltaY;
+          
+          lastX = touchX;
+          lastY = touchY;
+          
+          renderPreview();
+          e.preventDefault();
+        }
+      });
+      
+      previewCanvas.addEventListener('touchend', function() {
+        isDragging = false;
+      });
+    }
+    
+    console.log('Event listeners set up successfully');
+  } catch (error) {
+    console.error('Error setting up event listeners:', error);
+  }
+}
+
+/**
+ * Fallback share method when Web Share API is not available
+ * @param {string} dataUrl - The data URL of the image to share
+ */
+function fallbackShare(dataUrl) {
+  // Create a temporary anchor element
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = 'virtual-try-on.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  
+  showToast('Image downloaded', 'success');
+}
+
+/**
+ * Close the preview
+ */
+function closePreview() {
+  if (previewContainer) {
+    previewContainer.classList.add('hidden');
+    previewActive = false;
+    
+    // Clear the canvas
+    if (previewContext && previewCanvas) {
+      previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+    }
+    
+    console.log('Preview closed');
+  }
+}
+
+/**
+ * Create the preview elements if they don't exist
+ */
+function createPreviewElements() {
+  console.log('Creating preview elements');
+  
+  // Create container if it doesn't exist
+  if (!previewContainer) {
+    previewContainer = document.createElement('div');
+    previewContainer.id = 'virtual-preview-container';
+    previewContainer.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 hidden';
+    document.body.appendChild(previewContainer);
+  }
+  
+  // Create preview content
+  previewContainer.innerHTML = `
+    <div class="relative bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+        <h3 class="text-xl font-semibold text-gray-900" id="preview-title">Virtual Try-On</h3>
+        <button id="close-preview" class="text-gray-400 hover:text-gray-500">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="flex flex-col md:flex-row p-4 gap-4 flex-grow overflow-auto">
+        <div class="flex-grow relative">
+          <canvas id="preview-canvas" width="640" height="480" class="w-full h-auto border rounded-lg shadow-inner bg-gray-100"></canvas>
+        </div>
+        
+        <div class="w-full md:w-64 space-y-4">
+          <div class="p-4 bg-gray-50 rounded-lg">
+            <h4 class="font-medium mb-2">Controls</h4>
+            
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Scale</label>
+                <input type="range" id="scale-control" min="0.5" max="2" step="0.1" value="1" class="w-full">
+              </div>
+              
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Rotation</label>
+                <input type="range" id="rotation-control" min="0" max="360" step="1" value="0" class="w-full">
+              </div>
+              
+              <button id="reset-position" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded transition-all mt-2">
+                Reset Position
+              </button>
+            </div>
+          </div>
+          
+          <div class="space-y-2">
+            <button id="add-to-cart-preview" class="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded transition-all flex items-center justify-center">
+              <i class="fas fa-shopping-cart mr-2"></i>
+              Add to Cart
+            </button>
+            
+            <button id="add-to-wishlist-preview" class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 px-4 rounded transition-all flex items-center justify-center">
+              <i class="fas fa-heart mr-2"></i>
+              <span id="wishlist-button-text">Add to Wishlist</span>
+            </button>
+            
+            <button id="share-preview" class="w-full border border-primary text-primary hover:bg-primary hover:text-white py-2 px-4 rounded transition-all flex items-center justify-center">
+              <i class="fas fa-share-alt mr-2"></i>
+              Share
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Get the canvas element
+  previewCanvas = document.getElementById('preview-canvas');
+  
+  // If we still don't have the canvas, something went wrong
+  if (!previewCanvas) {
+    console.error('Failed to create preview canvas');
+    return;
+  }
+  
+  // Initialize the canvas context
+  try {
+    previewContext = previewCanvas.getContext('2d');
+    if (!previewContext) {
+      console.error('Failed to get 2D context from canvas');
+    } else {
+      console.log('Canvas context initialized successfully');
+    }
+  } catch (error) {
+    console.error('Error initializing canvas context:', error);
+  }
+  
+  // Set up event listeners for the preview controls
+  setupEventListeners();
 }
 
 /**
@@ -282,366 +653,66 @@ function setupProductObserver() {
 }
 
 /**
- * Create the preview container
- */
-function createPreviewContainer() {
-  // Create the container
-  previewContainer = document.createElement('div');
-  previewContainer.id = 'virtual-preview-container';
-  previewContainer.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 hidden';
-  
-  // Add the container to the body
-  document.body.appendChild(previewContainer);
-  
-  // Create the content wrapper
-  const contentWrapper = document.createElement('div');
-  contentWrapper.className = 'relative bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col';
-  previewContainer.appendChild(contentWrapper);
-  
-  // Create the header
-  const header = document.createElement('div');
-  header.className = 'flex items-center justify-between p-4 border-b';
-  contentWrapper.appendChild(header);
-  
-  // Add the title
-  const title = document.createElement('h3');
-  title.className = 'text-xl font-semibold text-gray-900 playfair';
-  title.textContent = 'Virtual Try-On';
-  header.appendChild(title);
-  
-  // Add the close button
-  const closeButton = document.createElement('button');
-  closeButton.className = 'text-gray-400 hover:text-gray-500 focus:outline-none';
-  closeButton.innerHTML = '<i class="fas fa-times text-lg"></i>';
-  closeButton.addEventListener('click', closePreview);
-  header.appendChild(closeButton);
-  
-  // Create the body
-  const body = document.createElement('div');
-  body.className = 'p-6 flex-grow overflow-auto flex flex-col md:flex-row gap-6';
-  contentWrapper.appendChild(body);
-  
-  // Create the canvas container
-  const canvasContainer = document.createElement('div');
-  canvasContainer.className = 'flex-grow flex items-center justify-center bg-gray-100 rounded-lg relative';
-  body.appendChild(canvasContainer);
-  
-  // Add canvas container ID for easy reference
-  canvasContainer.id = 'preview-canvas-container';
-  
-  // Create the controls container
-  const controlsContainer = document.createElement('div');
-  controlsContainer.className = 'w-full md:w-64 flex flex-col gap-4';
-  body.appendChild(controlsContainer);
-  
-  // Add product info container
-  const productInfo = document.createElement('div');
-  productInfo.className = 'bg-secondary bg-opacity-20 p-4 rounded-lg';
-  productInfo.innerHTML = `
-    <h4 class="text-lg font-medium mb-2 playfair" id="preview-product-name"></h4>
-    <p class="text-primary font-semibold" id="preview-product-price"></p>
-    <p class="text-sm text-gray-600 mt-2" id="preview-product-description"></p>
-  `;
-  controlsContainer.appendChild(productInfo);
-  
-  // Add controls
-  const controls = document.createElement('div');
-  controls.className = 'bg-gray-50 p-4 rounded-lg';
-  controls.innerHTML = `
-    <h4 class="text-sm font-medium mb-3">Adjust Position</h4>
-    
-    <div class="mb-3">
-      <label class="text-xs text-gray-500 block mb-1">Zoom</label>
-      <input type="range" min="0.1" max="2" step="0.05" value="1" class="w-full" id="preview-scale-control">
-    </div>
-    
-    <div class="mb-3">
-      <label class="text-xs text-gray-500 block mb-1">Rotation</label>
-      <input type="range" min="0" max="360" step="5" value="0" class="w-full" id="preview-rotation-control">
-    </div>
-    
-    <p class="text-xs text-gray-500 mt-2">Drag the item to position it</p>
-    
-    <button class="mt-4 w-full py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors" id="preview-reset-button">
-      Reset Position
-    </button>
-  `;
-  controlsContainer.appendChild(controls);
-  
-  // Add footer with action buttons
-  const footer = document.createElement('div');
-  footer.className = 'border-t p-4 flex justify-between';
-  contentWrapper.appendChild(footer);
-  
-  // Add the action buttons
-  const actionButtons = document.createElement('div');
-  actionButtons.className = 'flex gap-3';
-  actionButtons.innerHTML = `
-    <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors" id="preview-share-button">
-      <i class="fas fa-share-alt mr-2"></i>Share
-    </button>
-    <button class="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors" id="preview-add-to-cart-button">
-      <i class="fas fa-shopping-bag mr-2"></i>Add to Cart
-    </button>
-  `;
-  footer.appendChild(actionButtons);
-}
-
-/**
- * Create the preview canvas
- */
-function createPreviewCanvas() {
-  // Create the canvas element
-  previewCanvas = document.createElement('canvas');
-  previewCanvas.width = previewConfig.canvasWidth;
-  previewCanvas.height = previewConfig.canvasHeight;
-  previewCanvas.className = 'max-w-full max-h-full';
-  
-  // Add the canvas to the container
-  const canvasContainer = document.getElementById('preview-canvas-container');
-  canvasContainer.appendChild(previewCanvas);
-  
-  // Get the canvas context
-  ctx = previewCanvas.getContext('2d');
-}
-
-/**
- * Set up event listeners for the preview feature
- */
-function setupEventListeners() {
-  // Scale control
-  const scaleControl = document.getElementById('preview-scale-control');
-  if (scaleControl) {
-    scaleControl.addEventListener('input', (e) => {
-      productPosition.scale = parseFloat(e.target.value);
-      renderPreview();
-    });
-  }
-  
-  // Rotation control
-  const rotationControl = document.getElementById('preview-rotation-control');
-  if (rotationControl) {
-    rotationControl.addEventListener('input', (e) => {
-      productPosition.rotation = parseInt(e.target.value);
-      renderPreview();
-    });
-  }
-  
-  // Reset button
-  const resetButton = document.getElementById('preview-reset-button');
-  if (resetButton) {
-    resetButton.addEventListener('click', () => {
-      resetProductPosition();
-      renderPreview();
-    });
-  }
-  
-  // Add to cart button
-  const addToCartButton = document.getElementById('preview-add-to-cart-button');
-  if (addToCartButton) {
-    addToCartButton.addEventListener('click', () => {
-      if (!currentProduct) return;
-      
-      // Import the addToCart function dynamically
-      import('./cart-handler.js')
-        .then(module => {
-          const { addToCart } = module;
-          addToCart(currentProduct.id);
-          
-          // Show confirmation message
-          showToast('Added to cart!', 'success');
-          
-          // Close the preview
-          closePreview();
-        })
-        .catch(error => {
-          console.error('Error importing cart handler:', error);
-        });
-    });
-  }
-  
-  // Share button
-  const shareButton = document.getElementById('preview-share-button');
-  if (shareButton) {
-    shareButton.addEventListener('click', () => {
-      // Capture the current preview as an image
-      const imageData = previewCanvas.toDataURL('image/png');
-      
-      // Create a temporary link element
-      const link = document.createElement('a');
-      link.href = imageData;
-      link.download = `shilpokotha-preview-${currentProduct?.id || 'product'}.png`;
-      
-      // Trigger the download
-      link.click();
-      
-      // Show confirmation message
-      showToast('Preview image saved!', 'success');
-    });
-  }
-  
-  // Canvas drag events
-  previewCanvas.addEventListener('mousedown', (e) => {
-    dragActive = true;
-    const rect = previewCanvas.getBoundingClientRect();
-    lastMousePos = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
-  });
-  
-  previewCanvas.addEventListener('mousemove', (e) => {
-    if (!dragActive) return;
-    
-    const rect = previewCanvas.getBoundingClientRect();
-    const mousePos = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
-    
-    // Calculate the difference
-    const dx = mousePos.x - lastMousePos.x;
-    const dy = mousePos.y - lastMousePos.y;
-    
-    // Update the product position
-    productPosition.x += dx;
-    productPosition.y += dy;
-    
-    // Update the last mouse position
-    lastMousePos = mousePos;
-    
-    // Render the preview
-    renderPreview();
-  });
-  
-  previewCanvas.addEventListener('mouseup', () => {
-    dragActive = false;
-  });
-  
-  previewCanvas.addEventListener('mouseleave', () => {
-    dragActive = false;
-  });
-  
-  // Touch events for mobile
-  previewCanvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    dragActive = true;
-    const rect = previewCanvas.getBoundingClientRect();
-    const touch = e.touches[0];
-    lastMousePos = {
-      x: touch.clientX - rect.left,
-      y: touch.clientY - rect.top
-    };
-  });
-  
-  previewCanvas.addEventListener('touchmove', (e) => {
-    if (!dragActive) return;
-    e.preventDefault();
-    
-    const rect = previewCanvas.getBoundingClientRect();
-    const touch = e.touches[0];
-    const mousePos = {
-      x: touch.clientX - rect.left,
-      y: touch.clientY - rect.top
-    };
-    
-    // Calculate the difference
-    const dx = mousePos.x - lastMousePos.x;
-    const dy = mousePos.y - lastMousePos.y;
-    
-    // Update the product position
-    productPosition.x += dx;
-    productPosition.y += dy;
-    
-    // Update the last mouse position
-    lastMousePos = mousePos;
-    
-    // Render the preview
-    renderPreview();
-  });
-  
-  previewCanvas.addEventListener('touchend', () => {
-    dragActive = false;
-  });
-  
-  previewCanvas.addEventListener('touchcancel', () => {
-    dragActive = false;
-  });
-}
-
-/**
  * Open the preview for a specific product
  * @param {string} productId - The ID of the product to preview
  */
-export function openPreview(productId) {
+function openPreview(productId) {
   console.log(`Opening preview for product ID: ${productId}`);
   
-  try {
-    // Get the product data
-    let allProducts = [];
-    try {
-      allProducts = getAllProducts();
-    } catch (error) {
-      console.error('Error getting all products:', error);
-      // Create a fallback product if getAllProducts fails
-      allProducts = [];
-    }
-    
-    currentProduct = allProducts.find(product => product.id === productId);
-    
-    // If product not found in data, create a fallback product object
-    if (!currentProduct) {
-      console.warn(`Product not found in data: ${productId}, creating fallback product`);
-      
-      // Extract category from product ID if possible
-      let category = 'rings'; // Default category
-      if (productId && productId.includes('-')) {
-        category = productId.split('-')[0];
-        // Make it plural if it's not already
-        if (!category.endsWith('s')) {
-          category += 's';
-        }
-      }
-      
-      // Create a fallback product
-      currentProduct = {
-        id: productId,
-        name: 'Jewelry Item',
-        price: 0,
-        category: category,
-        image: null, // Will use placeholder in loadImages
-        description: 'Virtual preview of this jewelry item.'
-      };
-    }
-  } catch (error) {
-    console.error('Error in openPreview:', error);
-    return;
+  // Initialize if not already done
+  if (!isInitialized) {
+    initVirtualPreview();
   }
   
-  console.log(`Opening preview for product: ${currentProduct.name}`);
-  
-  // Update product info
-  document.getElementById('preview-product-name').textContent = currentProduct.name;
-  document.getElementById('preview-product-price').textContent = `₹${currentProduct.price.toFixed(2)}`;
-  document.getElementById('preview-product-description').textContent = currentProduct.description;
-  
-  // Reset product position
-  resetProductPosition();
-  
-  // Load images
-  loadImages()
-    .then(() => {
-      // Show the preview container
+  try {
+    // Get the product data using our reliable function
+    currentProduct = getProductData(productId);
+    console.log('Current product:', currentProduct);
+    
+    // Make sure preview container exists
+    if (!previewContainer) {
+      console.log('Preview container not found, creating elements');
+      createPreviewElements();
+    }
+    
+    // Update preview title
+    const previewTitle = document.getElementById('preview-title');
+    if (previewTitle) {
+      previewTitle.textContent = `Virtual Try-On: ${currentProduct.name || 'Jewelry Item'}`;
+    }
+    
+    // Update wishlist button state
+    try {
+      const wishlistButtonText = document.getElementById('wishlist-button-text');
+      if (wishlistButtonText && typeof isInWishlist === 'function') {
+        const inWishlist = isInWishlist(productId);
+        wishlistButtonText.textContent = inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
+      }
+    } catch (error) {
+      console.error('Error updating wishlist button state:', error);
+    }
+    
+    // Reset product position
+    resetProductPosition();
+    
+    // Show the preview container
+    if (previewContainer) {
       previewContainer.classList.remove('hidden');
       previewActive = true;
-      
-      // Render the preview
-      renderPreview();
-    })
-    .catch(error => {
-      console.error('Error loading images:', error);
-    });
+    }
+    
+    // Load images and render preview
+    loadImages();
+    
+  } catch (error) {
+    console.error('Error in openPreview:', error);
+    showToast('Error opening preview', 'error');
+    return;
+  }
 }
+
+// Make openPreview available globally for direct script tag usage
+window.openPreview = openPreview;
 
 /**
  * Reset the product position to default
@@ -661,12 +732,12 @@ function resetProductPosition() {
   productPosition = { ...defaultPos };
   
   // Reset the controls
-  const scaleControl = document.getElementById('preview-scale-control');
+  const scaleControl = document.getElementById('scale-control');
   if (scaleControl) {
     scaleControl.value = productPosition.scale;
   }
   
-  const rotationControl = document.getElementById('preview-rotation-control');
+  const rotationControl = document.getElementById('rotation-control');
   if (rotationControl) {
     rotationControl.value = productPosition.rotation;
   }
@@ -675,96 +746,236 @@ function resetProductPosition() {
 /**
  * Load the required images for the preview
  */
-async function loadImages() {
-  return new Promise((resolve, reject) => {
-    // Create model image element
-    modelImage = new Image();
+function loadImages() {
+  console.log('Loading images for preview');
+  
+  try {
+    // Make sure we have a current product
+    if (!currentProduct || !currentProduct.category) {
+      console.error('No valid product data for loading images');
+      return;
+    }
     
-    // Determine product category if not available
-    if (!currentProduct.category) {
-      // Try to determine category from product ID or name
-      if (currentProduct.id && currentProduct.id.includes('-')) {
-        currentProduct.category = currentProduct.id.split('-')[0];
-      } else if (currentProduct.name) {
-        // Check name for category hints
-        const name = currentProduct.name.toLowerCase();
-        if (name.includes('ring')) {
-          currentProduct.category = 'rings';
-        } else if (name.includes('bracelet') || name.includes('bangle')) {
-          currentProduct.category = 'bracelets';
-        } else if (name.includes('necklace') || name.includes('pendant')) {
-          currentProduct.category = 'necklaces';
-        } else if (name.includes('earring')) {
-          currentProduct.category = 'earrings';
-        }
-      }
-      
-      // Default to rings if still no category
-      if (!currentProduct.category) {
-        currentProduct.category = 'rings';
+    // Make sure preview canvas and context exist
+    if (!previewCanvas || !previewContext) {
+      console.error('Canvas or context not initialized');
+      createPreviewElements();
+      if (!previewCanvas || !previewContext) {
+        console.error('Failed to initialize canvas or context');
+        return;
       }
     }
     
+    // Load the model image based on the product category
+    const modelSrc = getModelImageForCategory(currentProduct.category);
+    console.log('Loading model image from:', modelSrc);
+    
+    // Create a new image for the model
+    modelImage = new Image();
+    modelImage.crossOrigin = 'anonymous';
+    modelImage.onload = function() {
+      console.log('Model image loaded successfully');
+      renderPreview();
+    };
+    modelImage.onerror = function() {
+      console.error('Error loading model image from:', modelSrc);
+      renderPlaceholderModel();
+    };
+    modelImage.src = modelSrc;
+    
+    // Load the product image
+    if (currentProduct.image) {
+      console.log('Loading product image from:', currentProduct.image);
+      productImage = new Image();
+      productImage.crossOrigin = 'anonymous';
+      productImage.onload = function() {
+        console.log('Product image loaded successfully');
+        processProductImage();
+        renderPreview();
+      };
+      productImage.onerror = function() {
+        console.error('Error loading product image from:', currentProduct.image);
+        // Try to load a placeholder product image based on category
+        const placeholderSrc = getPlaceholderProductImage(currentProduct.category);
+        if (placeholderSrc) {
+          console.log('Loading placeholder product image from:', placeholderSrc);
+          productImage.src = placeholderSrc;
+        } else {
+          console.log('No placeholder available, rendering without product image');
+          renderPreview();
+        }
+      };
+      productImage.src = currentProduct.image;
+    } else {
+      // Try to load a placeholder product image based on category
+      const placeholderSrc = getPlaceholderProductImage(currentProduct.category);
+      if (placeholderSrc) {
+        console.log('Loading placeholder product image from:', placeholderSrc);
+        productImage = new Image();
+        productImage.crossOrigin = 'anonymous';
+        productImage.onload = function() {
+          console.log('Placeholder product image loaded successfully');
+          renderPreview();
+        };
+        productImage.src = placeholderSrc;
+      } else {
+        console.log('No product image available');
+        renderPreview();
+      }
+    }
+  } catch (error) {
+    console.error('Error in loadImages:', error);
+    showToast('Error loading images for preview', 'error');
+  }
+}
+
+/**
+ * Get a placeholder product image based on category
+ * @param {string} category - The product category
+ * @returns {string} URL to a placeholder image
+ */
+function getPlaceholderProductImage(category) {
+  // Default placeholder images by category
+  const placeholders = {
+    'rings': 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&w=200&h=200&fit=crop',
+    'necklaces': 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&w=200&h=200&fit=crop',
+    'bracelets': 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&w=200&h=200&fit=crop',
+    'earrings': 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&w=200&h=200&fit=crop'
+  };
+  
+  // Normalize category name (remove 's' if present)
+  let normalizedCategory = category.toLowerCase();
+  if (normalizedCategory.endsWith('s')) {
+    normalizedCategory = normalizedCategory.slice(0, -1);
+  }
+  normalizedCategory += 's'; // Add 's' back to ensure consistent format
+  
+  return placeholders[normalizedCategory] || null;
+};
+
+/**
+ * Create a placeholder product image
+ */
+function createPlaceholderProductImage() {
+  // Create a canvas to generate a placeholder product image
+  const canvas = document.createElement('canvas');
+  canvas.width = 200;
+  canvas.height = 200;
+  const ctx = canvas.getContext('2d');
+  
+  // Fill with a light background
+  ctx.fillStyle = '#f6f1e6';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw a simple jewelry shape based on the product category
+  ctx.strokeStyle = '#a39a7e';
+  ctx.lineWidth = 3;
+  ctx.fillStyle = '#d9d4c6';
+  
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  
+  if (currentProduct && currentProduct.category) {
+    switch(currentProduct.category) {
+      case 'rings':
+        // Draw a ring
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 60, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 40, 0, Math.PI * 2);
+        ctx.fillStyle = '#f6f1e6';
+        ctx.fill();
+        break;
+        
+      case 'necklaces':
+        // Draw a necklace
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 70, 0, Math.PI * 2);
+        ctx.stroke();
+        // Draw pendant
+        ctx.beginPath();
+        ctx.arc(centerX, centerY + 50, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        break;
+        
+      case 'earrings':
+        // Draw earrings
+        ctx.beginPath();
+        ctx.arc(centerX - 40, centerY, 30, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(centerX + 40, centerY, 30, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        break;
+        
+      case 'bracelets':
+        // Draw a bracelet
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, 70, 40, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, 50, 25, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#f6f1e6';
+        ctx.fill();
+        break;
+        
+      default:
+        // Draw a generic jewelry item
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 60, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+    }
+  } else {
+    // Draw a generic jewelry item
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 60, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  }
+  
+  // Convert to data URL and set as the product image source
+  const dataUrl = canvas.toDataURL('image/png');
+  if (productImage) {
+    productImage.src = dataUrl;
+  }
+  
+  return dataUrl;
+}
+
+/**
+ * Load the model image for the preview
+ */
+function loadModelImage() {
+  return new Promise((resolve, reject) => {
     console.log(`Loading model for category: ${currentProduct.category}`);
     
     // Get the model image for this product category
-    const modelSrc = previewConfig.modelImages[currentProduct.category];
+    const modelSrc = previewConfig.modelImages[currentProduct.category] || previewConfig.modelImages.fallback;
+    console.log(`Loading model image: ${modelSrc} for category: ${currentProduct.category}`);
     
     // Load the model image
     modelImage.onload = () => {
-      // Create product image element
-      productImage = new Image();
-      
-      // Load the product image
-      productImage.onload = () => {
-        // Apply image processing for better blending
-        try {
-          processProductImage();
-          resolve();
-        } catch (error) {
-          console.error('Error processing product image:', error);
-          resolve(); // Continue anyway with unprocessed image
-        }
-      };
-      
-      productImage.onerror = () => {
-        console.error(`Failed to load product image: ${currentProduct.image}`);
-        // Try to use a fallback image
-        productImage.src = 'https://i.imgur.com/placeholder-jewelry.png';
-        resolve(); // Continue anyway
-      };
-      
-      // Use the product image or a default if not available
-      if (currentProduct.image) {
-        productImage.src = currentProduct.image;
-      } else if (currentProduct.images && currentProduct.images.length > 0) {
-        productImage.src = currentProduct.images[0];
-      } else {
-        // Use a placeholder based on category
-        productImage.src = `https://i.imgur.com/placeholder-${currentProduct.category}.png`;
-      }
-    };
-    
-    modelImage.onerror = () => {
-      console.error(`Failed to load model image for ${currentProduct.category}`);
-      // Use a default model image and continue
-      modelImage.src = 'https://i.imgur.com/JQdjBtM.png';
+      console.log('Model image loaded');
       resolve();
     };
     
-    // Use high-quality model images for different product categories
-    if (currentProduct.category === 'rings') {
-      modelImage.src = 'https://i.imgur.com/JQdjBtM.png'; // Hand model
-    } else if (currentProduct.category === 'bracelets') {
-      modelImage.src = 'https://i.imgur.com/7gN9GjF.png'; // Wrist model
-    } else if (currentProduct.category === 'necklaces') {
-      modelImage.src = 'https://i.imgur.com/LFwHJJ0.png'; // Neck model
-    } else if (currentProduct.category === 'earrings') {
-      modelImage.src = 'https://i.imgur.com/qQ7Lv8E.png'; // Ear model
-    } else {
-      // Default placeholder
-      modelImage.src = 'https://i.imgur.com/JQdjBtM.png';
-    }
+    // Handle model image loading errors
+    modelImage.onerror = () => {
+      console.warn(`Failed to load model image: ${modelSrc}, creating placeholder`);
+      // Create a placeholder model image
+      createPlaceholderImageDataUrl();
+      setTimeout(resolve, 100); // Give a little time for the new image to load
+    };
+    
+    // Set the model image source
+    modelImage.src = modelSrc;
   });
 }
 
@@ -811,54 +1022,39 @@ function processProductImage() {
 }
 
 /**
- * Render the preview
+ * Draw the product on the canvas
  */
-function renderPreview() {
-  if (!ctx || !modelImage || !productImage) return;
+function drawProductOnCanvas() {
+  if (!previewContext || !previewCanvas || !productImage || !productImage.complete) return;
   
-  // Clear the canvas
-  ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-  
-  // Draw the model image
-  ctx.drawImage(modelImage, 0, 0, previewCanvas.width, previewCanvas.height);
-  
-  // Add a subtle shadow effect for depth
-  if (currentProduct.category === 'rings' || currentProduct.category === 'bracelets') {
-    ctx.save();
-    ctx.translate(productPosition.x + 5, productPosition.y + 5);
-    ctx.rotate(productPosition.rotation * Math.PI / 180);
-    ctx.scale(productPosition.scale, productPosition.scale);
-    ctx.globalAlpha = 0.3;
-    ctx.filter = 'blur(5px)';
-    const width = productImage.width;
-    const height = productImage.height;
-    ctx.drawImage(productImage, -width / 2, -height / 2, width, height);
-    ctx.restore();
+  // Set default position if not set
+  if (!productPosition.x && !productPosition.y) {
+    productPosition.x = previewCanvas.width / 2;
+    productPosition.y = previewCanvas.height / 2;
   }
   
-  // Save the current state
-  ctx.save();
+  // Calculate the position based on the current state
+  const productWidth = productImage.width * productPosition.scale;
+  const productHeight = productImage.height * productPosition.scale;
   
-  // Translate to the product position
-  ctx.translate(productPosition.x, productPosition.y);
+  // Save the current context state
+  previewContext.save();
   
-  // Rotate
-  ctx.rotate(productPosition.rotation * Math.PI / 180);
+  // Translate to the position where we want to draw the product
+  previewContext.translate(productPosition.x, productPosition.y);
   
-  // Scale
-  ctx.scale(productPosition.scale, productPosition.scale);
+  // Rotate around the center point
+  previewContext.rotate(productPosition.rotation * Math.PI / 180);
   
   // Apply blending mode based on category
-  if (currentProduct.category === 'rings' || currentProduct.category === 'bracelets') {
-    ctx.globalCompositeOperation = 'multiply';
+  if (currentProduct && (currentProduct.category === 'rings' || currentProduct.category === 'bracelets')) {
+    previewContext.globalCompositeOperation = 'multiply';
   } else {
-    ctx.globalCompositeOperation = 'source-over';
+    previewContext.globalCompositeOperation = 'source-over';
   }
   
-  // Draw the product image centered
-  const width = productImage.width;
-  const height = productImage.height;
-  ctx.drawImage(productImage, -width / 2, -height / 2, width, height);
+  // Draw the product image
+  previewContext.drawImage(productImage, -productWidth / 2, -productHeight / 2, productWidth, productHeight);
   
   // Add a subtle highlight effect for metallic jewelry
   if (currentProduct.material === 'gold' || 
@@ -867,27 +1063,32 @@ function renderPreview() {
       currentProduct.material === 'white-gold' || 
       currentProduct.material === 'rose-gold') {
     
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = 0.2;
-    ctx.drawImage(productImage, -width / 2, -height / 2, width, height);
+    previewContext.globalCompositeOperation = 'lighter';
+    previewContext.globalAlpha = 0.2;
+    previewContext.drawImage(productImage, -productWidth / 2, -productHeight / 2, productWidth, productHeight);
   }
   
   // Restore the state
-  ctx.restore();
+  previewContext.restore();
   
   // Add a watermark
-  ctx.save();
-  ctx.globalAlpha = 0.5;
-  ctx.font = '12px Arial';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText('ShilpoKotha Virtual Try-On', 10, previewCanvas.height - 10);
-  ctx.restore();
+  previewContext.save();
+  previewContext.globalAlpha = 0.5;
+  previewContext.font = '12px Arial';
+  previewContext.fillStyle = '#ffffff';
+  previewContext.fillText('ShilpoKotha Virtual Try-On', 10, previewCanvas.height - 10);
+  previewContext.restore();
 }
 
 /**
  * Close the preview
  */
 function closePreview() {
+  // Check if container exists
+  if (!previewContainer) {
+    return;
+  }
+  
   // Hide the preview container
   previewContainer.classList.add('hidden');
   previewActive = false;
@@ -896,43 +1097,324 @@ function closePreview() {
   currentProduct = null;
   modelImage = null;
   productImage = null;
+  
+  // Reset product position
+  productPosition = {
+    x: 0,
+    y: 0,
+    scale: 1,
+    rotation: 0
+  };
+}
+
+/**
+ * Render a placeholder model when images fail to load
+ */
+function renderPlaceholderModel() {
+  if (!previewContext) return;
+  
+  // Clear the canvas
+  previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+  
+  // Draw a colored rectangle as a placeholder
+  previewContext.fillStyle = '#f6f1e6';
+  previewContext.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
+  
+  // Add text instructions
+  previewContext.fillStyle = '#a39a7e';
+  previewContext.font = '18px Arial';
+  previewContext.textAlign = 'center';
+  previewContext.fillText('Model image not available', previewCanvas.width / 2, previewCanvas.height / 2 - 20);
+  previewContext.fillText('Try moving your product here', previewCanvas.width / 2, previewCanvas.height / 2 + 20);
+  
+  // Draw a silhouette based on product category
+  if (currentProduct && currentProduct.category) {
+    drawCategorySilhouette(currentProduct.category);
+  }
+  
+  // Continue with product rendering
+  if (productImage && productImage.complete) {
+    drawProductOnCanvas();
+  }
+}
+
+/**
+ * Draw a silhouette based on product category
+ * @param {string} category - The product category
+ */
+function drawCategorySilhouette(category) {
+  const centerX = previewCanvas.width / 2;
+  const centerY = previewCanvas.height / 2;
+  
+  previewContext.strokeStyle = '#a39a7e';
+  previewContext.lineWidth = 2;
+  
+  switch(category) {
+    case 'rings':
+      // Draw a hand silhouette
+      previewContext.beginPath();
+      previewContext.ellipse(centerX, centerY + 50, 60, 100, 0, 0, Math.PI * 2);
+      previewContext.stroke();
+      // Draw finger
+      previewContext.beginPath();
+      previewContext.ellipse(centerX, centerY - 30, 20, 80, 0, 0, Math.PI * 2);
+      previewContext.stroke();
+      break;
+      
+    case 'necklaces':
+      // Draw a neck silhouette
+      previewContext.beginPath();
+      previewContext.ellipse(centerX, centerY - 50, 70, 40, 0, 0, Math.PI * 2);
+      previewContext.stroke();
+      // Draw shoulders
+      previewContext.beginPath();
+      previewContext.moveTo(centerX - 70, centerY + 20);
+      previewContext.lineTo(centerX + 70, centerY + 20);
+      previewContext.stroke();
+      break;
+      
+    case 'earrings':
+      // Draw an ear silhouette
+      previewContext.beginPath();
+      previewContext.ellipse(centerX, centerY, 30, 60, 0, 0, Math.PI * 2);
+      previewContext.stroke();
+      break;
+      
+    case 'bracelets':
+      // Draw a wrist silhouette
+      previewContext.beginPath();
+      previewContext.ellipse(centerX, centerY, 50, 30, 0, 0, Math.PI * 2);
+      previewContext.stroke();
+      // Draw arm
+      previewContext.beginPath();
+      previewContext.moveTo(centerX - 100, centerY);
+      previewContext.lineTo(centerX + 100, centerY);
+      previewContext.stroke();
+      break;
+      
+    default:
+      // Draw a generic silhouette
+      previewContext.beginPath();
+      previewContext.arc(centerX, centerY, 80, 0, Math.PI * 2);
+      previewContext.stroke();
+  }
 }
 
 /**
  * Show a toast notification
+ * @param {string} message - The message to display
+ * @param {string} type - The type of toast (success, error, info, warning)
  */
 function showToast(message, type = 'info') {
-  // Create the toast element
+  // Create toast container if it doesn't exist
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed bottom-4 right-4 z-50';
+    document.body.appendChild(toastContainer);
+  }
+  
+  // Create toast
   const toast = document.createElement('div');
-  toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg z-50 ${type === 'success' ? 'bg-primary text-white' : 'bg-red-500 text-white'}`;
-  toast.textContent = message;
+  toast.className = `bg-white rounded-lg shadow-lg p-4 mb-3 flex items-center transition-all transform translate-y-0 opacity-100`;
   
-  // Add the toast to the body
-  document.body.appendChild(toast);
+  // Set icon based on type
+  let icon = 'info-circle';
+  let color = 'blue';
   
-  // Remove the toast after a delay
+  if (type === 'success') {
+    icon = 'check-circle';
+    color = 'green';
+  } else if (type === 'error') {
+    icon = 'exclamation-circle';
+    color = 'red';
+  } else if (type === 'warning') {
+    icon = 'exclamation-triangle';
+    color = 'yellow';
+  }
+  
+  toast.innerHTML = `
+    <i class="fas fa-${icon} text-${color}-500 mr-3"></i>
+    <span>${message}</span>
+  `;
+  
+  // Add to container
+  toastContainer.appendChild(toast);
+  
+  // Remove after 3 seconds
   setTimeout(() => {
-    toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+    toast.classList.add('opacity-0', 'translate-y-2');
     setTimeout(() => {
       toast.remove();
     }, 300);
   }, 3000);
 }
 
+/**
+ * Render the preview
+ */
+function renderPreview() {
+  if (!previewContext || !previewCanvas) return;
+  
+  // Clear the canvas
+  previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+  
+  // Draw the model image if available
+  if (modelImage && modelImage.complete) {
+    previewContext.drawImage(modelImage, 0, 0, previewCanvas.width, previewCanvas.height);
+  } else {
+    // If model image is not available, draw a placeholder
+    renderPlaceholderModel();
+    return; // Skip the rest of the rendering since we're using the placeholder
+  }
+  
+  // Draw the product image if available
+  if (productImage && productImage.complete) {
+    drawProductOnCanvas();
+  }
+  
+  // Request the next animation frame
+  if (previewActive) {
+    requestAnimationFrame(renderPreview);
+  }
+}
+
+/**
+ * Create a placeholder image data URL when no model images are available
+ */
+function createPlaceholderImageDataUrl() {
+  // Create a canvas to generate the data URL
+  const canvas = document.createElement('canvas');
+  canvas.width = previewConfig.canvasWidth;
+  canvas.height = previewConfig.canvasHeight;
+  const ctx = canvas.getContext('2d');
+  
+  // Fill with a light background
+  ctx.fillStyle = '#f6f1e6';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw a simple silhouette based on the product category
+  ctx.strokeStyle = '#a39a7e';
+  ctx.lineWidth = 3;
+  
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  
+  // Draw a generic silhouette for any category
+  if (currentProduct && currentProduct.category) {
+    switch(currentProduct.category) {
+      case 'rings':
+        // Hand silhouette
+        ctx.beginPath();
+        ctx.moveTo(centerX - 100, centerY + 100);
+        ctx.lineTo(centerX + 100, centerY + 100);
+        ctx.lineTo(centerX + 80, centerY - 100);
+        ctx.lineTo(centerX - 80, centerY - 100);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+        
+      case 'necklaces':
+        // Neck silhouette
+        ctx.beginPath();
+        ctx.arc(centerX, centerY - 50, 70, 0, Math.PI * 2);
+        ctx.moveTo(centerX - 100, centerY + 50);
+        ctx.lineTo(centerX + 100, centerY + 50);
+        ctx.stroke();
+        break;
+      
+      case 'earrings':
+        // Ear silhouette
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+        ctx.moveTo(centerX - 10, centerY);
+        ctx.lineTo(centerX - 40, centerY + 30);
+        ctx.stroke();
+        break;
+        
+      case 'bracelets':
+        // Wrist silhouette
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, 50, 30, 0, 0, Math.PI * 2);
+        ctx.moveTo(centerX - 100, centerY);
+        ctx.lineTo(centerX + 100, centerY);
+        ctx.stroke();
+        break;
+        
+      default:
+        // Generic jewelry display area
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 100, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+  } else {
+    // Generic jewelry display area
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 100, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  
+  // Add text
+  ctx.fillStyle = '#a39a7e';
+  ctx.font = '20px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Virtual Try-On', centerX, 50);
+  ctx.font = '16px Arial';
+  ctx.fillText('Model image not available', centerX, centerY - 120);
+  
+  // Convert to data URL and set as the model image source
+  const dataUrl = canvas.toDataURL('image/png');
+  if (modelImage) {
+    modelImage.src = dataUrl;
+  }
+  
+  return dataUrl;
+}
+
 // Initialize the virtual preview feature when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM loaded - initializing virtual preview');
+  console.log('DOM loaded, initializing virtual preview');
   initVirtualPreview();
   
-  // Add direct event listeners to any try-on buttons that might already exist
+  // Add try-on buttons to product cards
+  addPreviewButtonsToProducts();
+  
+  // Set up a periodic check for new products
+  setupProductObserver();
+  
+  // Set up direct event listeners
   setupDirectEventListeners();
+  
+  // Make sure openPreview is available globally
+  if (typeof window.openPreview !== 'function') {
+    window.openPreview = openPreview;
+    console.log('openPreview function made available globally');
+  }
 });
+
+// Export functions for use in other modules
+export { openPreview, initVirtualPreview };
 
 // Also listen for the custom event from display-all-products.js
 document.addEventListener('productsDisplayed', () => {
   console.log('Products displayed event received, initializing virtual preview');
   initVirtualPreview();
 });
+
+// Listen for dynamic content changes (for single-page applications)
+let lastCheckTime = Date.now();
+setInterval(() => {
+  // Don't check too frequently
+  if (Date.now() - lastCheckTime < 2000) return;
+  lastCheckTime = Date.now();
+  
+  // Look for new try-on buttons that might have been added
+  if (document.querySelectorAll('.virtual-try-on:not([data-event-attached="true"])').length > 0) {
+    console.log('Found new try-on buttons, setting up event listeners');
+    setupDirectEventListeners();
+  }
+}, 2000);
 
 /**
  * Set up direct event listeners for try-on buttons
@@ -942,7 +1424,7 @@ function setupDirectEventListeners() {
   
   // Handle the main try-on button on product.html
   const mainTryOnButton = document.getElementById('virtual-try-on-button');
-  if (mainTryOnButton) {
+  if (mainTryOnButton && mainTryOnButton.getAttribute('data-event-attached') !== 'true') {
     console.log('Found main try-on button, adding event listener');
     mainTryOnButton.addEventListener('click', (e) => {
       e.preventDefault();
@@ -951,10 +1433,11 @@ function setupDirectEventListeners() {
       console.log(`Main try-on button clicked for product: ${productId}`);
       openPreview(productId);
     });
+    mainTryOnButton.setAttribute('data-event-attached', 'true');
   }
   
   // Handle all buttons with Virtual Try-On aria-label
-  const allTryOnButtons = document.querySelectorAll('button[aria-label="Virtual Try-On"]');
+  const allTryOnButtons = document.querySelectorAll('.virtual-try-on, button[aria-label="Virtual try-on"]');
   console.log(`Found ${allTryOnButtons.length} try-on buttons`);
   
   allTryOnButtons.forEach(button => {
@@ -964,7 +1447,15 @@ function setupDirectEventListeners() {
         e.stopPropagation();
         const productId = button.getAttribute('data-product-id');
         console.log(`Try-on button clicked for product: ${productId}`);
-        openPreview(productId);
+        try {
+          openPreview(productId);
+        } catch (error) {
+          console.error('Error in openPreview:', error);
+          // Try using the global function as fallback
+          if (typeof window.openPreview === 'function') {
+            window.openPreview(productId);
+          }
+        }
       });
       button.setAttribute('data-event-attached', 'true');
     }

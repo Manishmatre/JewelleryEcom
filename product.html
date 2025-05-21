@@ -345,6 +345,13 @@
                   <i class="fas fa-eye"></i>
                   <span>Virtual Try-On</span>
                 </button>
+                
+                <!-- Wishlist Button -->
+                <button class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-3 px-6 rounded-md transition-all font-medium flex items-center justify-center toggle-wishlist" data-product-id="ring-001">
+                  <i class="fas fa-heart mr-2 wishlist-icon"></i>
+                  <span class="wishlist-text">Add to Wishlist</span>
+                </button>
+                
                 <button class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-3 px-6 rounded-md transition-all font-medium flex items-center justify-center">
                   <i class="fas fa-bolt mr-2"></i>
                   Buy Now
@@ -392,9 +399,9 @@
       <div class="border-b border-secondary-dark">
         <div class="flex flex-wrap -mb-px">
           <button class="inline-block py-4 px-6 text-center border-b-2 border-primary text-primary font-medium" id="tab-description">Description</button>
-          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary transition-all" id="tab-specifications">Specifications</button>
-          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary transition-all" id="tab-reviews">Reviews (42)</button>
-          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary transition-all" id="tab-shipping">Shipping & Returns</button>
+          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary font-medium" id="tab-shipping">Shipping & Returns</button>
+          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary font-medium" id="tab-specifications">Specifications</button>
+          <button class="inline-block py-4 px-6 text-center border-b-2 border-transparent text-text-light hover:text-primary hover:border-primary font-medium" id="tab-reviews">Reviews</button>
         </div>
       </div>
       
@@ -609,38 +616,140 @@
   <!-- Footer -->
   
   <!-- JavaScript -->
+  <script type="module" src="./Javascript/cart-handler.js"></script>
+  <script type="module" src="./Javascript/wishlist-handler.js"></script>
+  <script type="module" src="./Javascript/virtual-preview.js"></script>
+  <script type="module" src="./Javascript/try-on-handler.js"></script>
+  <script type="module" src="./Javascript/product-card-handler.js"></script>
+  <script type="module" src="./Javascript/product-detail-handler.js"></script>
   <script type="module" src="./Javascript/auth-state.js"></script>
+  <script type="module" src="./Javascript/product-detail.js"></script>
+  <script type="module" src="./Javascript/product-reviews.js"></script>
   <script type="module" src="./Javascript/header-manager.js"></script>
   <script src="./Javascript/script.js"></script>
-  <script type="module" src="./Javascript/product-detail.js"></script>
-  <script type="module" src="./Javascript/virtual-preview.js"></script>
   
-  <!-- Direct script for virtual try-on button -->
+  <!-- Virtual Try-On Initialization -->
   <script type="module">
+    import { openPreview } from './Javascript/virtual-preview.js';
+    
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('Setting up direct event listener for virtual try-on button');
+      // Initialize the virtual try-on button
       const tryOnButton = document.getElementById('virtual-try-on-button');
       if (tryOnButton) {
+        const productId = tryOnButton.getAttribute('data-product-id');
+        console.log('Found virtual try-on button for product:', productId);
+        
         tryOnButton.addEventListener('click', (e) => {
           e.preventDefault();
-          console.log('Virtual try-on button clicked directly');
-          const productId = tryOnButton.getAttribute('data-product-id');
-          // Import the openPreview function from virtual-preview.js
-          import('./Javascript/virtual-preview.js').then(module => {
-            if (typeof module.openPreview === 'function') {
-              module.openPreview(productId);
+          console.log('Virtual try-on button clicked for product:', productId);
+          
+          try {
+            // Make the openPreview function available globally
+            window.openPreview = openPreview;
+            
+            // Call the openPreview function
+            openPreview(productId);
+          } catch (error) {
+            console.error('Error opening virtual try-on:', error);
+            // Show error toast
+            if (typeof showToast === 'function') {
+              showToast('Error opening virtual try-on', 'error');
             } else {
-              console.error('openPreview function not found in virtual-preview.js');
+              alert('Error opening virtual try-on');
             }
-          }).catch(error => {
-            console.error('Error importing virtual-preview.js:', error);
-          });
+          }
         });
-        console.log('Event listener added to virtual try-on button');
       } else {
-        console.error('Virtual try-on button not found');
+        console.error('Virtual try-on button not found on page');
       }
     });
   </script>
+  <script type="module">
+    // Initialize wishlist functionality
+    import { isInWishlist, toggleWishlist } from './Javascript/wishlist-handler.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get all wishlist toggle buttons
+      const wishlistButtons = document.querySelectorAll('.toggle-wishlist');
+      
+      wishlistButtons.forEach(button => {
+        const productId = button.getAttribute('data-product-id');
+        const wishlistIcon = button.querySelector('.wishlist-icon');
+        const wishlistText = button.querySelector('.wishlist-text');
+        
+        // Update initial state
+        if (productId && isInWishlist(productId)) {
+          wishlistIcon.classList.add('text-red-500');
+          wishlistText.textContent = 'Remove from Wishlist';
+        }
+        
+        // Add click event
+        button.addEventListener('click', () => {
+          if (!productId) return;
+          
+          const added = toggleWishlist(productId);
+          
+          if (added) {
+            wishlistIcon.classList.add('text-red-500');
+            wishlistText.textContent = 'Remove from Wishlist';
+            showToast('Added to wishlist!', 'success');
+          } else {
+            wishlistIcon.classList.remove('text-red-500');
+            wishlistText.textContent = 'Add to Wishlist';
+            showToast('Removed from wishlist', 'info');
+          }
+        });
+      });
+    });
+    
+    // Toast notification function
+    function showToast(message, type = 'info') {
+      // Create toast container if it doesn't exist
+      let toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.className = 'fixed bottom-4 right-4 z-50';
+        document.body.appendChild(toastContainer);
+      }
+      
+      // Create toast
+      const toast = document.createElement('div');
+      toast.className = `bg-white rounded-lg shadow-lg p-4 mb-3 flex items-center transition-all transform translate-y-0 opacity-100`;
+      
+      // Set icon based on type
+      let icon = 'info-circle';
+      let color = 'blue';
+      
+      if (type === 'success') {
+        icon = 'check-circle';
+        color = 'green';
+      } else if (type === 'error') {
+        icon = 'exclamation-circle';
+        color = 'red';
+      } else if (type === 'warning') {
+        icon = 'exclamation-triangle';
+        color = 'yellow';
+      }
+      
+      toast.innerHTML = `
+        <i class="fas fa-${icon} text-${color}-500 mr-3"></i>
+        <span>${message}</span>
+      `;
+      
+      // Add to container
+      toastContainer.appendChild(toast);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
+  </script>
+  
+  <!-- Virtual try-on functionality is now handled by product-detail-handler.js -->
 </body>
 </html>

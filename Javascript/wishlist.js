@@ -5,6 +5,7 @@
 
 import { getWishlist as getWishlistItems, removeFromWishlist } from './wishlist-handler.js';
 import { getAllProducts } from './products-data-additional.js';
+import { addToCart } from './cart-handler.js';
 
 // DOM elements
 const loadingState = document.getElementById('loading-state');
@@ -19,12 +20,16 @@ function getCurrentUser() {
   return Promise.resolve({ id: 'user123', name: 'John Doe' });
 }
 
-// Mock function to add to cart (in a real app, this would add to cart in localStorage or backend)
-function addToCart(product) {
-  console.log('Adding to cart:', product);
-  return {
-    success: true
-  };
+// Function to add product to cart
+function addProductToCart(productId, quantity = 1) {
+  try {
+    // Use the imported addToCart function
+    addToCart(productId, quantity);
+    return { success: true };
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    return { success: false, error };
+  }
 }
 
 // Product template function
@@ -159,19 +164,13 @@ function handleRemoveFromWishlist(e) {
 function handleAddToCart(e) {
   const productId = e.currentTarget.dataset.productId;
   
-  // Get all products
-  const allProducts = getAllProducts();
-  
-  // Find product by ID
-  const product = allProducts.find(item => item.id === productId);
-  
-  if (!product) {
-    console.error('Product not found');
+  if (!productId) {
+    console.error('Product ID not found');
     return;
   }
   
-  // Add to cart (mock function for now)
-  const result = addToCart(product);
+  // Add to cart using our cart handler
+  const result = addProductToCart(productId);
   
   if (result.success) {
     // Show success message
@@ -189,7 +188,8 @@ function handleAddToCart(e) {
     // Show toast notification
     showToast('Product added to cart!', 'success');
   } else {
-    console.error('Error adding to cart');
+    // Show error message
+    showToast('Error adding to cart', 'error');
   }
 }
 
