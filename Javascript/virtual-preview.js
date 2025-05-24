@@ -744,6 +744,31 @@ function resetProductPosition() {
 }
 
 /**
+ * Get the appropriate model image path based on product category
+ * @param {string} category - The product category
+ * @returns {string} Path to the model image
+ */
+function getModelImageForCategory(category) {
+  // Normalize the category name
+  const normalizedCategory = category.toLowerCase();
+  
+  // Return the appropriate model image path based on category
+  if (normalizedCategory.includes('ring')) {
+    return 'images/models/hand-model.png';
+  } else if (normalizedCategory.includes('bracelet')) {
+    return 'images/models/wrist-model.png';
+  } else if (normalizedCategory.includes('necklace')) {
+    return 'images/models/neck-model.png';
+  } else if (normalizedCategory.includes('earring')) {
+    return 'images/models/ear-model.png';
+  }
+  
+  // Default to hand model if category is unknown
+  console.log('Unknown category:', category, 'defaulting to hand model');
+  return 'images/models/hand-model.png';
+}
+
+/**
  * Load the required images for the preview
  */
 function loadImages() {
@@ -766,22 +791,36 @@ function loadImages() {
       }
     }
     
-    // Load the model image based on the product category
-    const modelSrc = getModelImageForCategory(currentProduct.category);
-    console.log('Loading model image from:', modelSrc);
-    
-    // Create a new image for the model
-    modelImage = new Image();
-    modelImage.crossOrigin = 'anonymous';
-    modelImage.onload = function() {
-      console.log('Model image loaded successfully');
-      renderPreview();
-    };
-    modelImage.onerror = function() {
-      console.error('Error loading model image from:', modelSrc);
-      renderPlaceholderModel();
-    };
-    modelImage.src = modelSrc;
+    try {
+      // Try to load the model image based on the product category
+      const modelSrc = getModelImageForCategory(currentProduct.category);
+      console.log('Loading model image from:', modelSrc);
+      
+      // Create a new image for the model
+      modelImage = new Image();
+      modelImage.crossOrigin = 'anonymous';
+      modelImage.onload = function() {
+        console.log('Model image loaded successfully');
+        renderPreview();
+      };
+      modelImage.onerror = function() {
+        console.error('Error loading model image from:', modelSrc);
+        // Use a placeholder model image
+        renderPlaceholderModel(currentProduct.category);
+      };
+      modelImage.src = modelSrc;
+      
+      // Set a timeout to use placeholder if image takes too long to load
+      setTimeout(() => {
+        if (!modelImage.complete) {
+          console.log('Model image loading timeout, using placeholder');
+          renderPlaceholderModel(currentProduct.category);
+        }
+      }, 2000); // 2 second timeout
+    } catch (error) {
+      console.error('Error in model image loading:', error);
+      renderPlaceholderModel(currentProduct.category);
+    }
     
     // Load the product image
     if (currentProduct.image) {
@@ -1025,7 +1064,14 @@ function processProductImage() {
  * Draw the product on the canvas
  */
 function drawProductOnCanvas() {
-  if (!previewContext || !previewCanvas || !productImage || !productImage.complete) return;
+  if (!previewContext || !previewCanvas) return;
+  
+  // Check if we have a valid product image
+  const hasValidProductImage = productImage && productImage.complete && productImage.naturalWidth > 0;
+  if (!hasValidProductImage) {
+    console.log('No valid product image available for drawing');
+    return;
+  }
   
   // Set default position if not set
   if (!productPosition.x && !productPosition.y) {
@@ -1033,43 +1079,38 @@ function drawProductOnCanvas() {
     productPosition.y = previewCanvas.height / 2;
   }
   
-  // Calculate the position based on the current state
-  const productWidth = productImage.width * productPosition.scale;
-  const productHeight = productImage.height * productPosition.scale;
-  
-  // Save the current context state
-  previewContext.save();
-  
-  // Translate to the position where we want to draw the product
-  previewContext.translate(productPosition.x, productPosition.y);
-  
-  // Rotate around the center point
-  previewContext.rotate(productPosition.rotation * Math.PI / 180);
-  
-  // Apply blending mode based on category
-  if (currentProduct && (currentProduct.category === 'rings' || currentProduct.category === 'bracelets')) {
-    previewContext.globalCompositeOperation = 'multiply';
-  } else {
-    previewContext.globalCompositeOperation = 'source-over';
-  }
-  
-  // Draw the product image
-  previewContext.drawImage(productImage, -productWidth / 2, -productHeight / 2, productWidth, productHeight);
-  
-  // Add a subtle highlight effect for metallic jewelry
-  if (currentProduct.material === 'gold' || 
-      currentProduct.material === 'silver' || 
-      currentProduct.material === 'platinum' || 
-      currentProduct.material === 'white-gold' || 
-      currentProduct.material === 'rose-gold') {
+  try {
+    // Save the current context state
+    previewContext.save();
     
-    previewContext.globalCompositeOperation = 'lighter';
-    previewContext.globalAlpha = 0.2;
+    // Translate to the position where we want to draw the product
+    previewContext.translate(productPosition.x, productPosition.y);
+    
+    // Rotate around the center point
+    previewContext.rotate(productPosition.rotation * Math.PI / 180);
+    
+    // Scale the image
+    previewContext.scale(productPosition.scale, productPosition.scale);
+    
+    // Apply blending mode based on category
+    if (currentProduct && (currentProduct.category === 'rings' || currentProduct.category === 'bracelets')) {
+      previewContext.globalCompositeOperation = 'multiply';
+    } else {
+      previewContext.globalCompositeOperation = 'source-over';
+    }
+    
+    // Draw the product image centered
+    const productWidth = productImage.width;
+    const productHeight = productImage.height;
     previewContext.drawImage(productImage, -productWidth / 2, -productHeight / 2, productWidth, productHeight);
+    
+    // Restore the context state
+    previewContext.restore();
+  } catch (error) {
+    console.error('Error drawing product image:', error);
+    // Restore context in case of error
+    previewContext.restore();
   }
-  
-  // Restore the state
-  previewContext.restore();
   
   // Add a watermark
   previewContext.save();
@@ -1080,51 +1121,57 @@ function drawProductOnCanvas() {
   previewContext.restore();
 }
 
-/**
- * Close the preview
- */
-function closePreview() {
-  // Check if container exists
-  if (!previewContainer) {
-    return;
-  }
-  
-  // Hide the preview container
-  previewContainer.classList.add('hidden');
-  previewActive = false;
-  
-  // Reset variables
-  currentProduct = null;
-  modelImage = null;
-  productImage = null;
-  
-  // Reset product position
-  productPosition = {
-    x: 0,
-    y: 0,
-    scale: 1,
-    rotation: 0
-  };
-}
+// Second closePreview function removed to fix duplicate declaration error
 
 /**
  * Render a placeholder model when images fail to load
+ * @param {string} category - The product category
  */
-function renderPlaceholderModel() {
+function renderPlaceholderModel(category = 'ring') {
   if (!previewContext) return;
+  
+  console.log('Using placeholder model for category:', category);
   
   // Clear the canvas
   previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
   
-  // Draw a colored rectangle as a placeholder
-  previewContext.fillStyle = '#f6f1e6';
+  // Background colors for different categories
+  const bgColors = {
+    ring: '#f9e9d9',
+    bracelet: '#e9f9d9',
+    necklace: '#d9e9f9',
+    earring: '#f9d9e9'
+  };
+  
+  // Normalize category
+  const normalizedCategory = category.toLowerCase();
+  let categoryType = 'ring'; // default
+  
+  if (normalizedCategory.includes('ring')) {
+    categoryType = 'ring';
+  } else if (normalizedCategory.includes('bracelet')) {
+    categoryType = 'bracelet';
+  } else if (normalizedCategory.includes('necklace')) {
+    categoryType = 'necklace';
+  } else if (normalizedCategory.includes('earring')) {
+    categoryType = 'earring';
+  }
+  
+  // Fill background with category-specific color
+  previewContext.fillStyle = bgColors[categoryType] || '#f6f1e6';
   previewContext.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
   
+  // Draw shape based on category
+  drawCategorySilhouette(categoryType);
+  
   // Add text instructions
-  previewContext.fillStyle = '#a39a7e';
-  previewContext.font = '18px Arial';
+  previewContext.fillStyle = '#8a7a65';
+  previewContext.font = '16px Arial';
   previewContext.textAlign = 'center';
-  previewContext.fillText('Model image not available', previewCanvas.width / 2, previewCanvas.height / 2 - 20);
+  previewContext.fillText('Virtual Try-On: ' + categoryType.charAt(0).toUpperCase() + categoryType.slice(1), 
+    previewCanvas.width / 2, previewCanvas.height - 20);
+  
+  // Don't call renderPreview here to avoid infinite recursion
   previewContext.fillText('Try moving your product here', previewCanvas.width / 2, previewCanvas.height / 2 + 20);
   
   // Draw a silhouette based on product category
@@ -1143,60 +1190,74 @@ function renderPlaceholderModel() {
  * @param {string} category - The product category
  */
 function drawCategorySilhouette(category) {
-  const centerX = previewCanvas.width / 2;
-  const centerY = previewCanvas.height / 2;
+  if (!previewContext) return;
   
-  previewContext.strokeStyle = '#a39a7e';
+  const width = previewCanvas.width;
+  const height = previewCanvas.height;
+  
+  previewContext.strokeStyle = '#8a7a65';
   previewContext.lineWidth = 2;
   
   switch(category) {
-    case 'rings':
-      // Draw a hand silhouette
+    case 'ring':
+      // Draw a simple hand shape
       previewContext.beginPath();
-      previewContext.ellipse(centerX, centerY + 50, 60, 100, 0, 0, Math.PI * 2);
-      previewContext.stroke();
-      // Draw finger
-      previewContext.beginPath();
-      previewContext.ellipse(centerX, centerY - 30, 20, 80, 0, 0, Math.PI * 2);
-      previewContext.stroke();
-      break;
-      
-    case 'necklaces':
-      // Draw a neck silhouette
-      previewContext.beginPath();
-      previewContext.ellipse(centerX, centerY - 50, 70, 40, 0, 0, Math.PI * 2);
-      previewContext.stroke();
-      // Draw shoulders
-      previewContext.beginPath();
-      previewContext.moveTo(centerX - 70, centerY + 20);
-      previewContext.lineTo(centerX + 70, centerY + 20);
+      previewContext.moveTo(width * 0.3, height * 0.8);
+      previewContext.lineTo(width * 0.3, height * 0.5);
+      previewContext.lineTo(width * 0.4, height * 0.3);
+      previewContext.lineTo(width * 0.5, height * 0.3);
+      previewContext.lineTo(width * 0.6, height * 0.5);
+      previewContext.lineTo(width * 0.7, height * 0.5);
+      previewContext.lineTo(width * 0.7, height * 0.8);
+      previewContext.closePath();
       previewContext.stroke();
       break;
       
-    case 'earrings':
-      // Draw an ear silhouette
+    case 'bracelet':
+      // Draw a simple wrist shape
       previewContext.beginPath();
-      previewContext.ellipse(centerX, centerY, 30, 60, 0, 0, Math.PI * 2);
+      previewContext.ellipse(width * 0.5, height * 0.5, width * 0.3, height * 0.15, 0, 0, Math.PI * 2);
       previewContext.stroke();
       break;
       
-    case 'bracelets':
-      // Draw a wrist silhouette
+    case 'necklace':
+      // Draw a simple neck/chest shape
       previewContext.beginPath();
-      previewContext.ellipse(centerX, centerY, 50, 30, 0, 0, Math.PI * 2);
+      previewContext.moveTo(width * 0.3, height * 0.2);
+      previewContext.bezierCurveTo(
+        width * 0.4, height * 0.1,
+        width * 0.6, height * 0.1,
+        width * 0.7, height * 0.2
+      );
+      previewContext.lineTo(width * 0.7, height * 0.6);
+      previewContext.lineTo(width * 0.3, height * 0.6);
+      previewContext.closePath();
       previewContext.stroke();
-      // Draw arm
+      break;
+      
+    case 'earring':
+      // Draw a simple ear shape
       previewContext.beginPath();
-      previewContext.moveTo(centerX - 100, centerY);
-      previewContext.lineTo(centerX + 100, centerY);
+      previewContext.moveTo(width * 0.5, height * 0.3);
+      previewContext.bezierCurveTo(
+        width * 0.7, height * 0.3,
+        width * 0.7, height * 0.7,
+        width * 0.5, height * 0.7
+      );
+      previewContext.bezierCurveTo(
+        width * 0.6, height * 0.5,
+        width * 0.6, height * 0.5,
+        width * 0.5, height * 0.3
+      );
       previewContext.stroke();
       break;
       
     default:
-      // Draw a generic silhouette
+      // Default fallback shape
       previewContext.beginPath();
-      previewContext.arc(centerX, centerY, 80, 0, Math.PI * 2);
+      previewContext.rect(width * 0.2, height * 0.2, width * 0.6, height * 0.6);
       previewContext.stroke();
+      break;
   }
 }
 
@@ -1260,12 +1321,30 @@ function renderPreview() {
   // Clear the canvas
   previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
   
-  // Draw the model image if available
-  if (modelImage && modelImage.complete) {
-    previewContext.drawImage(modelImage, 0, 0, previewCanvas.width, previewCanvas.height);
+  // Check if we have a valid model image
+  const hasValidModelImage = modelImage && modelImage.complete && modelImage.naturalWidth > 0;
+  
+  // Draw the model image if available and valid
+  if (hasValidModelImage) {
+    try {
+      previewContext.drawImage(modelImage, 0, 0, previewCanvas.width, previewCanvas.height);
+    } catch (error) {
+      console.error('Error drawing model image:', error);
+      // If there's an error drawing the model image, use the placeholder
+      if (currentProduct && currentProduct.category) {
+        renderPlaceholderModel(currentProduct.category);
+      } else {
+        renderPlaceholderModel();
+      }
+      return; // Skip the rest of the rendering
+    }
   } else {
-    // If model image is not available, draw a placeholder
-    renderPlaceholderModel();
+    // If model image is not available or valid, draw a placeholder
+    if (currentProduct && currentProduct.category) {
+      renderPlaceholderModel(currentProduct.category);
+    } else {
+      renderPlaceholderModel();
+    }
     return; // Skip the rest of the rendering since we're using the placeholder
   }
   

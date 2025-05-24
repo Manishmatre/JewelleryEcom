@@ -1,0 +1,31 @@
+PLACEHOLDER IMAGES INSTRUCTIONS
+
+For the virtual try-on feature to work properly, you need to add the following transparent PNG images to this directory:
+
+1. hand-model.png - A hand model image for ring try-on
+   - Should be a top-down view of a hand with fingers visible
+   - Transparent background
+   - Recommended size: 800x800 pixels
+
+2. wrist-model.png - A wrist model image for bracelet try-on
+   - Should show a wrist/forearm from top view
+   - Transparent background
+   - Recommended size: 800x800 pixels
+
+3. neck-model.png - A neck/chest model for necklace try-on
+   - Should show neck and upper chest area
+   - Transparent background
+   - Recommended size: 800x800 pixels
+
+4. ear-model.png - An ear model for earring try-on
+   - Should show a side view of an ear
+   - Transparent background
+   - Recommended size: 800x800 pixels
+
+You can obtain these images by:
+1. Using stock photo websites like Shutterstock, Adobe Stock, or Freepik
+2. Creating them with the help of a graphic designer
+3. Using AI image generation tools with transparent background support
+4. Taking photos against a green screen and removing the background
+
+For testing purposes, you can use simple outline drawings of these body parts with transparent backgrounds.
