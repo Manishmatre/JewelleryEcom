@@ -1521,22 +1521,45 @@ function setupDirectEventListeners() {
   
   allTryOnButtons.forEach(button => {
     if (button.getAttribute('data-event-attached') !== 'true') {
-      button.addEventListener('click', (e) => {
+      // Ensure the button has a high z-index
+      button.style.zIndex = '30';
+      button.style.position = 'relative';
+      
+      // Add a more robust click handler
+      button.addEventListener('click', function(e) {
+        console.log('Virtual try-on button clicked');
         e.preventDefault();
         e.stopPropagation();
-        const productId = button.getAttribute('data-product-id');
+        e.stopImmediatePropagation();
+        
+        const productId = this.getAttribute('data-product-id');
         console.log(`Try-on button clicked for product: ${productId}`);
-        try {
-          openPreview(productId);
-        } catch (error) {
-          console.error('Error in openPreview:', error);
-          // Try using the global function as fallback
-          if (typeof window.openPreview === 'function') {
-            window.openPreview(productId);
+        
+        // Small delay to ensure event doesn't propagate
+        setTimeout(() => {
+          try {
+            openPreview(productId);
+          } catch (error) {
+            console.error('Error in openPreview:', error);
+            // Try using the global function as fallback
+            if (typeof window.openPreview === 'function') {
+              window.openPreview(productId);
+            }
           }
-        }
+        }, 10);
+        
+        return false;
       });
+      
       button.setAttribute('data-event-attached', 'true');
+    }
+  });
+  
+  // Also add direct onclick attributes to buttons for redundancy
+  document.querySelectorAll('.virtual-try-on:not([onclick]), button[aria-label="Virtual try-on"]:not([onclick])').forEach(button => {
+    const productId = button.getAttribute('data-product-id');
+    if (productId) {
+      button.setAttribute('onclick', `event.preventDefault(); event.stopPropagation(); openPreview('${productId}'); return false;`);
     }
   });
 }
